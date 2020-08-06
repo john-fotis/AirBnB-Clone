@@ -24,8 +24,17 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	//developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	runtimeOnly 'mysql:mysql-connector-java'
+
+	compile group: 'org.springframework.data', name: 'spring-data-rest-core', version: '3.2.7.RELEASE'
+	compile 'io.jsonwebtoken:jjwt:0.9.1'
+	compile 'javax.xml.bind:jaxb-api:2.3.0'
+	compile group: 'org.springframework.security', name: 'spring-security-core', version: '5.3.1.RELEASE'
+
+
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
