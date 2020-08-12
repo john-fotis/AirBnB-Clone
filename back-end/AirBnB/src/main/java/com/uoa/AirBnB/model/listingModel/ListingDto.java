@@ -1,30 +1,27 @@
 package com.uoa.AirBnB.model.listingModel;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.uoa.AirBnB.model.bookingModel.Booking;
-import com.uoa.AirBnB.model.reviewModel.Review;
-import com.uoa.AirBnB.model.userModel.User;
+import com.uoa.AirBnB.model.bookingModel.BookingDto;
+import com.uoa.AirBnB.model.reviewModel.ReviewDto;
+import com.uoa.AirBnB.model.userModel.UserDto;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 import java.util.List;
 
+@XmlRootElement
 @Getter
 @Setter
-@Entity
+@NoArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Listing {
+public class ListingDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "listing_id", nullable = false)
     private long id;
     private String title;
 
-    // -- Space --
-    @Enumerated(EnumType.STRING)
     private RoomType type;
     private int numOfBeds;
     private int numOfWc;
@@ -34,25 +31,21 @@ public class Listing {
 
     private String description;
 
-    // -- Rules --
     private boolean smoking;
     private boolean animals;
     private boolean parties;
     private int minRentDays;
     private int maxGuests;
 
-    // -- Location --
     private double latitude;
     private double longitude;
     private String address;
     private String neighborhood;
     private String transportation;
 
-    // -- Cost --
     private double minCost;
     private double costPerExtraGuest;
 
-    // -- Facilities --
     private boolean wifi;
     private boolean ac;
     private boolean heating;
@@ -61,33 +54,13 @@ public class Listing {
     private boolean parking;
     private boolean elevator;
 
-    // -- Availability Days --
     private Date startDate;
     private Date endDate;
 
-    // -- Reviews --
     private int numOfReviews;
     private double averageRating;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name ="user_id", nullable = false)
-    private User host;
-
-    @OneToMany(mappedBy = "listing", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    private List<Review> reviews;
-
-    @OneToMany(mappedBy = "listing", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    private List<Booking> bookings;
-
-
-    // photos, messages
-
-
-
-
-
-    public Listing() {
-
-    }
-
+    private UserDto host;
+    private List<ReviewDto> reviews;
+    private List<BookingDto> bookings;
 }

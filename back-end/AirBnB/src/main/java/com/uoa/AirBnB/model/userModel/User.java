@@ -1,6 +1,8 @@
 package com.uoa.AirBnB.model.userModel;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.uoa.AirBnB.model.listingModel.Listing;
+import com.uoa.AirBnB.model.reviewModel.Review;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -11,6 +13,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -46,14 +49,24 @@ public class User {
 
     // photo
 
+    @CreationTimestamp
+    private Date userSince;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(	name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    @CreationTimestamp
-    private Date userSince;
+    @OneToMany(mappedBy = "host" ,fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<Listing> myListings;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<Review> reviews;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<Review> bookings;
+
 
 
 
