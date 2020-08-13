@@ -2,6 +2,7 @@ package com.uoa.AirBnB.service;
 
 import com.uoa.AirBnB.model.userModel.User;
 import com.uoa.AirBnB.model.userModel.UserDto;
+import com.uoa.AirBnB.model.userModel.UserPostDto;
 
 import java.util.List;
 
@@ -12,5 +13,9 @@ public interface UserService {
 
     List<UserDto> findAll();
 
+    UserDto save(UserPostDto userPostDto);
+
     void deleteById(Long id);
+
+    UserPostDto findFullDtoById(Long id);
 }

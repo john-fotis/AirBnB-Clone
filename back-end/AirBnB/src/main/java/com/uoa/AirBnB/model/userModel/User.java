@@ -1,6 +1,7 @@
 package com.uoa.AirBnB.model.userModel;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.uoa.AirBnB.model.bookingModel.Booking;
 import com.uoa.AirBnB.model.listingModel.Listing;
 import com.uoa.AirBnB.model.reviewModel.Review;
 import lombok.Getter;
@@ -65,7 +66,7 @@ public class User {
     private List<Review> reviews;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    private List<Review> bookings;
+    private List<Booking> bookings;
 
 
 

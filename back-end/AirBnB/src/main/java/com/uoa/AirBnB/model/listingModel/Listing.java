@@ -79,7 +79,6 @@ public class Listing {
     @OneToMany(mappedBy = "listing", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Booking> bookings;
 
-
     // photos, messages
 
 

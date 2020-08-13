@@ -1,8 +1,10 @@
 package com.uoa.AirBnB.service;
 
 import com.uoa.AirBnB.converter.UserConverter;
+import com.uoa.AirBnB.converter.UserPostConverter;
 import com.uoa.AirBnB.model.userModel.User;
 import com.uoa.AirBnB.model.userModel.UserDto;
+import com.uoa.AirBnB.model.userModel.UserPostDto;
 import com.uoa.AirBnB.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,8 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService{
 
     UserConverter userConverter = new UserConverter();
+    UserPostConverter userPostConverter = new UserPostConverter();
+
 
     @Autowired
     UserRepository userRepository;
@@ -43,7 +47,20 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public UserDto save(UserPostDto userPostDto) {
+        User user = userPostConverter.convert(userPostDto);
+        user = userRepository.save(user);
+
+        return userConverter.convertToDto(user);
+    }
+
+    @Override
     public void deleteById(Long id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public UserPostDto findFullDtoById(Long id) {
+        return UserPostConverter.convertToDto(userRepository.findById(id).get());
     }
 }

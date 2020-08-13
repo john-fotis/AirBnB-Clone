@@ -83,43 +83,43 @@ public class ListingConverter {
 
         Listing listing = new Listing();
 
-        listing.setId(listing.getId());
-        listing.setTitle(listing.getTitle());
+        listing.setId(listingDto.getId());
+        listing.setTitle(listingDto.getTitle());
 
-        listing.setType(listing.getType());
-        listing.setNumOfBeds(listing.getNumOfBeds());
-        listing.setNumOfWc(listing.getNumOfWc());
-        listing.setNumOfRooms(listing.getNumOfRooms());
-        listing.setLivingRoom(listing.isLivingRoom());
-        listing.setSquareFootage(listing.getSquareFootage());
+        listing.setType(listingDto.getType());
+        listing.setNumOfBeds(listingDto.getNumOfBeds());
+        listing.setNumOfWc(listingDto.getNumOfWc());
+        listing.setNumOfRooms(listingDto.getNumOfRooms());
+        listing.setLivingRoom(listingDto.isLivingRoom());
+        listing.setSquareFootage(listingDto.getSquareFootage());
 
-        listing.setDescription(listing.getDescription());
+        listing.setDescription(listingDto.getDescription());
 
-        listing.setSmoking(listing.isSmoking());
-        listing.setAnimals(listing.isAnimals());
-        listing.setParties(listing.isParties());
-        listing.setMinRentDays(listing.getMinRentDays());
-        listing.setMaxGuests(listing.getMaxGuests());
+        listing.setSmoking(listingDto.isSmoking());
+        listing.setAnimals(listingDto.isAnimals());
+        listing.setParties(listingDto.isParties());
+        listing.setMinRentDays(listingDto.getMinRentDays());
+        listing.setMaxGuests(listingDto.getMaxGuests());
 
-        listing.setLatitude(listing.getLatitude());
-        listing.setLongitude(listing.getLongitude());
-        listing.setAddress(listing.getAddress());
-        listing.setNeighborhood(listing.getNeighborhood());
-        listing.setTransportation(listing.getTransportation());
+        listing.setLatitude(listingDto.getLatitude());
+        listing.setLongitude(listingDto.getLongitude());
+        listing.setAddress(listingDto.getAddress());
+        listing.setNeighborhood(listingDto.getNeighborhood());
+        listing.setTransportation(listingDto.getTransportation());
 
-        listing.setMinCost(listing.getMinCost());
-        listing.setCostPerExtraGuest(listing.getCostPerExtraGuest());
+        listing.setMinCost(listingDto.getMinCost());
+        listing.setCostPerExtraGuest(listingDto.getCostPerExtraGuest());
 
-        listing.setWifi(listing.isWifi());
-        listing.setAc(listing.isAc());
-        listing.setHeating(listing.isHeating());
-        listing.setKitchen(listing.isKitchen());
-        listing.setTv(listing.isTv());
-        listing.setParking(listing.isParking());
-        listing.setElevator(listing.isElevator());
+        listing.setWifi(listingDto.isWifi());
+        listing.setAc(listingDto.isAc());
+        listing.setHeating(listingDto.isHeating());
+        listing.setKitchen(listingDto.isKitchen());
+        listing.setTv(listingDto.isTv());
+        listing.setParking(listingDto.isParking());
+        listing.setElevator(listingDto.isElevator());
 
-        listing.setStartDate(listing.getStartDate());
-        listing.setEndDate(listing.getEndDate());
+        listing.setStartDate(listingDto.getStartDate());
+        listing.setEndDate(listingDto.getEndDate());
 
         listing.setHost(userServiceStatic.findById(listingDto.getHost().getId()));
 
