@@ -1,0 +1,10 @@
+{
+	"username": "petros",
+	"password": "12345678",
+	"firstName": "mpampis",
+	"lastName": "kirkitsis",
+	"roles":[{"id": 1}],
+	"authorityId": 1,
+	"email": "petbaudhucb@gmail.com",
+	"number": "6987395487"
+}

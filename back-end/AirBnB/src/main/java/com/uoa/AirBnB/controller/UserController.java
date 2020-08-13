@@ -8,6 +8,7 @@ import com.uoa.AirBnB.util.Helpers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +20,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
     @GetMapping("/users")
@@ -33,27 +36,25 @@ public class UserController {
 
     @PostMapping("/users")
     public ResponseEntity<String> createUser(@RequestBody UserPostDto userPostDto) throws JsonProcessingException {
-        //String password=userPostDto.getPassword();
-        //String encodedPassword=passwordEncoder.encode(password);
+        String password=userPostDto.getPassword();
+        String encodedPassword=passwordEncoder.encode(password);
         //System.out.println(encodedPassword);
-        //userPostDto.setPassword(encodedPassword);
+        userPostDto.setPassword(encodedPassword);
         return ResponseEntity.ok().body(Helpers.convertToJson(userService.save(userPostDto)));
     }
 
     @PutMapping("/users/{id}")
     public ResponseEntity<String> updateUser(@RequestBody @Nullable UserPostDto userPostDto, @PathVariable("id") Long id) throws JsonProcessingException {
         if (userPostDto != null) {
-            //String password = userPostDto.getPassword();
-            //String encodedPassword = passwordEncoder.encode(password);
+            String password = userPostDto.getPassword();
+            String encodedPassword = passwordEncoder.encode(password);
             //System.out.println(encodedPassword);
-            //userPostDto.setPassword(encodedPassword);
+            userPostDto.setPassword(encodedPassword);
             return ResponseEntity.ok().body(Helpers.convertToJson(userService.save(userPostDto)));
         }
         else
             return ResponseEntity.badRequest().body("{\"Status\": \"User not found\"}");
     }
-
-    /* Post ,Put */
 
     @DeleteMapping("/users/{id}")
     public ResponseEntity<String> deleteUserById(@PathVariable("id") Long id) {
