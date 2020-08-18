@@ -1,6 +1,6 @@
 INSERT INTO airbnb.roles(name) VALUES('ROLE_ADMIN');
 INSERT INTO airbnb.roles(name) VALUES('ROLE_HOST');
-INSERT INTO airbnb.roles(name) VALUES('ROLE_ADMIN');
+INSERT INTO airbnb.roles(name) VALUES('ROLE_GUEST');
 
 INSERT INTO `airbnb`.`user`
 (
@@ -27,7 +27,7 @@ INSERT INTO `airbnb`.`user_roles`
 `role_id`)
 VALUES
 (1,
-3);
+1);
 
 INSERT INTO `airbnb`.`listing`
 (
