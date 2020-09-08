@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import { ReactiveBase, DataSearch, NumberBox, DateRange, RangeSlider, SingleRange, MultiList} from "@appbaseio/reactivesearch";
 import './ListingsFind.css'
-import NavBar from '../../Navbar/Navbar';
 import { ReactiveGoogleMap } from "@appbaseio/reactivemaps";
 // import Search from '../../Search/Search';
 // import OpenStreetMap from '../../components/Map/OpenStreetMap'

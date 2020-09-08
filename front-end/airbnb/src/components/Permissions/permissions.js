@@ -11,11 +11,11 @@ export const Role = {
 export const Permissions = {
   incident: {
     close: [ROLE_HOST],
-    delete: [ROLE_HOST, ROLE_ADMIN],
+    deleteUser: [ROLE_GUEST,ROLE_HOST, ROLE_ADMIN],
     view: [ROLE_ADMIN, ROLE_HOST],
     edit: [ROLE_ADMIN, ROLE_HOST],
     accept: [ROLE_GUEST],
-    addReport: [ROLE_GUEST],
+    addListing: [ROLE_GUEST],
   },
 };
 

@@ -10,25 +10,39 @@ class AuthService {
               password
           });
       if (response.data.accessToken) {
-          localStorage.setItem("token", JSON.stringify(response.data));
+          localStorage.setItem("user", JSON.stringify(response.data));
       }
       return response.data;
   }
 
   logout() {
-    localStorage.removeItem("token");
+    localStorage.removeItem("user");
   }
 
-  register(username, email, password) {
+  register(username, email, password, firstName, lastName, host, tenant, photo) {
+    var roles = '';
+
+    if (host & !tenant){
+      roles = '{"id":2}'
+    } else if (!host & tenant){
+      roles = '{"id":3}'
+    } else {
+      roles = '{"id":2}, {"id":3}'
+    }
+
     return axios.post(API + '/register', {
       username,
       email,
-      password
+      password,
+      firstName,
+      lastName,
+      roles,
+      photo
     });
   }
 
   getCurrentUser() {
-    return JSON.parse(localStorage.getItem('token'));;
+    return JSON.parse(localStorage.getItem('user'));;
   }
 }
 
