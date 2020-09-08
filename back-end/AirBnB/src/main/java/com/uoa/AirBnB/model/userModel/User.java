@@ -2,6 +2,7 @@ package com.uoa.AirBnB.model.userModel;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.uoa.AirBnB.model.bookingModel.Booking;
+import com.uoa.AirBnB.model.imageModel.Image;
 import com.uoa.AirBnB.model.listingModel.Listing;
 import com.uoa.AirBnB.model.reviewModel.Review;
 import lombok.Getter;
@@ -48,7 +49,8 @@ public class User {
 
     private String number;
 
-    // photo
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private Image profileImage;
 
     @CreationTimestamp
     private Date userSince;
@@ -67,8 +69,6 @@ public class User {
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Booking> bookings;
-
-
 
 
     public User() {

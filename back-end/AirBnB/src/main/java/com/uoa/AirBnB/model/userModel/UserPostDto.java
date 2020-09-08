@@ -1,6 +1,7 @@
 package com.uoa.AirBnB.model.userModel;
 
 import com.uoa.AirBnB.model.bookingModel.BookingDto;
+import com.uoa.AirBnB.model.imageModel.ImageDto;
 import com.uoa.AirBnB.model.listingModel.ListingDto;
 import com.uoa.AirBnB.model.reviewModel.ReviewDto;
 import lombok.Getter;
@@ -35,6 +36,8 @@ public class UserPostDto {
     private String number;
 
     private Date userSince;
+
+    private ImageDto imageDto;
 
     private List<ListingDto> myListings;
     private List<ReviewDto> reviews;

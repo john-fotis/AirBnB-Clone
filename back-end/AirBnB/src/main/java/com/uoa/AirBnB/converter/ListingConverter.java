@@ -2,6 +2,8 @@ package com.uoa.AirBnB.converter;
 
 import com.uoa.AirBnB.model.bookingModel.Booking;
 import com.uoa.AirBnB.model.bookingModel.BookingDto;
+import com.uoa.AirBnB.model.imageModel.Image;
+import com.uoa.AirBnB.model.imageModel.ImageDto;
 import com.uoa.AirBnB.model.listingModel.Listing;
 import com.uoa.AirBnB.model.listingModel.ListingDto;
 import com.uoa.AirBnB.model.reviewModel.Review;
@@ -72,9 +74,11 @@ public class ListingConverter {
 
         List<ReviewDto> reviewDtoList = listing.getReviews().stream().map(ReviewConverter::convertToDto).collect(Collectors.toList());
         List<BookingDto> bookingDtoList = listing.getBookings().stream().map(BookingConverter::convertToDto).collect(Collectors.toList());
+        List<ImageDto> imageDtoList = listing.getImages().stream().map(ImageConverter::convertToDto).collect(Collectors.toList());
 
         listingDto.setReviews(reviewDtoList);
         listingDto.setBookings(bookingDtoList);
+        listingDto.setImages(imageDtoList);
 
         return listingDto;
     }
@@ -135,6 +139,13 @@ public class ListingConverter {
         else {
             List<Booking> bookingList = listingDto.getBookings().stream().map(BookingConverter::convert).collect(Collectors.toList());
             listing.setBookings(bookingList);
+        }
+
+        if(listingDto.getImages() == null)
+            listing.setImages(new ArrayList<Image>());
+        else {
+            List<Image> imageList = listingDto.getImages().stream().map(ImageConverter::convert).collect(Collectors.toList());
+            listing.setImages(imageList);
         }
 
         return listing;
