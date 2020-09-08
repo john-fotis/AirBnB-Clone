@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import ListingsFind from '../../components/Listings/ListingsFind/ListingsFind';
+
 import UserService from "../../_services/user.service";
 
-class Home extends Component {
+class HostBoard extends Component {
   constructor(props) {
     super(props);
 
@@ -12,7 +12,7 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    UserService.getListings().then(
+    UserService.getHostBoard().then(
       response => {
         this.setState({
           content: response.data
@@ -21,7 +21,9 @@ class Home extends Component {
       error => {
         this.setState({
           content:
-            (error.response && error.response.data) ||
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
             error.message ||
             error.toString()
         });
@@ -32,11 +34,12 @@ class Home extends Component {
   render() {
     return (
       <div className="container">
-        <header>Welcome to Travel Advisor</header>
-        <ListingsFind />
+        <header className="jumbotron">
+          <h3>{this.state.content}</h3>
+        </header>
       </div>
     );
   }
 }
 
-export default Home;
+export default HostBoard;

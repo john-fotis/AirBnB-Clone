@@ -1,37 +1,35 @@
-import { BehaviorSubject } from 'rxjs';
+import axios from "axios";
 
-import { API } from '../config/config.utils';
-import { handleResponse } from '../_helpers/handle-response';
+const API = "http://localhost:8080/air-bnb/api";
 
-const currentUserSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('currentUser')));
+class AuthService {
+  async login(username, password) {
+    const response = await axios
+          .post(API + '/login', {
+              username,
+              password
+          });
+      if (response.data.accessToken) {
+          localStorage.setItem("token", JSON.stringify(response.data));
+      }
+      return response.data;
+  }
 
-export const authenticationService = {
-    login,
-    logout,
-    currentUser: currentUserSubject.asObservable(),
-    get currentUserValue () { return currentUserSubject.value }
-};
+  logout() {
+    localStorage.removeItem("token");
+  }
 
-function login(username, password) {
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
-    };
+  register(username, email, password) {
+    return axios.post(API + '/register', {
+      username,
+      email,
+      password
+    });
+  }
 
-    return fetch(`${API.apiUrl}/login`, requestOptions)
-        .then(handleResponse)
-        .then(user => {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('currentUser', JSON.stringify(user));
-            currentUserSubject.next(user);
-
-            return user;
-        });
+  getCurrentUser() {
+    return JSON.parse(localStorage.getItem('token'));;
+  }
 }
 
-function logout() {
-    // remove user from local storage to log user out
-    localStorage.removeItem('currentUser');
-    currentUserSubject.next(null);
-}
+export default new AuthService();

@@ -1,0 +1,17 @@
+header {
+  width: 100%;
+  text-align: center;
+}
+
+.container {
+  margin: 15% auto;
+  text-align: center;
+}
+
+li {
+  margin: 0 auto;;
+}
+
+p {
+  width: 100%;
+}

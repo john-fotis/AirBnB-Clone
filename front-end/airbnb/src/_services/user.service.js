@@ -1,18 +1,28 @@
-import { API } from '../config/config.utils';
-import { authHeader } from '../_helpers/auth-header';
-import { handleResponse } from '../_helpers/handle-response';
+import axios from 'axios';
+import authHeader from '../_helpers/auth-header';
 
-export const userService = {
-    getAll,
-    getById
-};
+const API = 'http://localhost:8080/air-bnb/api';
 
-function getAll() {
-    const requestOptions = { method: 'GET', headers: authHeader() };
-    return fetch(`${API.apiUrl}/users`, requestOptions).then(handleResponse);
+class UserService {
+  getListings() {
+    return axios.get(API + '/listings');
+  }
+
+  getHostBoard() {
+    return axios.get(API + '/users', { headers: authHeader() });
+  }
+
+  getGuestBoard() {
+    return axios.get(API + '/guests', { headers: authHeader() });
+  }
+
+  getUserById(id){
+    return axios.get(API + '/admin/' + {id}, { headers: authHeader() });
+  }
+
+  getAdminBoard() {
+    return axios.get(API + '/admin', { headers: authHeader() });
+  }
 }
 
-function getById(id) {
-    const requestOptions = { method: 'GET', headers: authHeader() };
-    return fetch(`${API.apiUrl}/users/${id}`, requestOptions).then(handleResponse);
-}
+export default new UserService();

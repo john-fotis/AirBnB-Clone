@@ -41,7 +41,6 @@ class ListingsFind extends Component {
             }
           }}
         >
-        <NavBar />
         <div className="filters-search-container">
           <div className="filter-container">
             <div className="dropdown">
