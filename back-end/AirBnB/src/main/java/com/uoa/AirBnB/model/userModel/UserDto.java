@@ -1,6 +1,7 @@
 package com.uoa.AirBnB.model.userModel;
 
 import com.sun.istack.NotNull;
+import com.uoa.AirBnB.model.imageModel.ImageDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,4 +23,6 @@ public class UserDto {
 
     private String email;
     private String number;
+
+    private ImageDto image;
 }

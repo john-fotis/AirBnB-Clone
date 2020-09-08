@@ -14,10 +14,10 @@ import java.util.Date;
 public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-    @Value("${controlroom.app.jwtSecret}")
+    @Value("${airbnb.app.jwtSecret}")
     private String jwtSecret;
 
-    @Value("${controlroom.app.jwtExpirationMs}")
+    @Value("${airbnb.app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
     public String generateJwtToken(Authentication authentication) {
