@@ -40,6 +40,14 @@ public class ListingServiceImpl implements ListingService {
     }
 
     @Override
+    public List<ListingDto> findByHost(Long id) {
+        return listingRepository.findAllByHostId(id)
+                .stream()
+                .map(ListingConverter::convertToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public Listing findById(Long id) {
         Listing listing;
         listing = listingRepository.findById(id).get();

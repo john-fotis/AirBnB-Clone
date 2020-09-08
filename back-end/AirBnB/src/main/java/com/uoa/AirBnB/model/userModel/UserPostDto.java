@@ -37,7 +37,7 @@ public class UserPostDto {
 
     private Date userSince;
 
-    private ImageDto imageDto;
+    private ImageDto image;
 
     private List<ListingDto> myListings;
     private List<ReviewDto> reviews;

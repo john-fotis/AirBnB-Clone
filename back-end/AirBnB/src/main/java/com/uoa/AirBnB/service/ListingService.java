@@ -9,6 +9,7 @@ public interface ListingService {
 
     ListingDto findDtoById(Long id) throws Exception;
     List<ListingDto> findAll();
+    List<ListingDto> findByHost(Long id);
 
     Listing findById(Long id);
     ListingDto save(ListingDto listingDto) throws Exception;

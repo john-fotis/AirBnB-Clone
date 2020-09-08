@@ -11,6 +11,7 @@ import javax.persistence.*;
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Message {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "message_id", nullable = false)
@@ -18,7 +19,13 @@ public class Message {
 
     private String text;
 
+    //private boolean read;
+
     //private Listing listing;
 
     //private User host;
+
+    public Message(){
+
+    }
 }

@@ -33,7 +33,7 @@ public class UserPostConverter {
         userPostDto.setUserSince(user.getUserSince());
 
         if(user.getProfileImage()!=null)
-            userPostDto.setImageDto(ImageConverter.convertToDto(user.getProfileImage()));
+            userPostDto.setImage(ImageConverter.convertToDto(user.getProfileImage()));
 
         List<ListingDto> myListingDtoList = user.getMyListings().stream().map(ListingConverter::convertToDto).collect(Collectors.toList());
         userPostDto.setMyListings(myListingDtoList);
@@ -62,8 +62,8 @@ public class UserPostConverter {
         user.setNumber(userPostDto.getNumber());
         user.setUserSince(userPostDto.getUserSince());
 
-        if(userPostDto.getImageDto()!=null)
-            user.setProfileImage(ImageConverter.convert(userPostDto.getImageDto()));
+        if(userPostDto.getImage()!=null)
+            user.setProfileImage(ImageConverter.convert(userPostDto.getImage()));
 
         if(userPostDto.getMyListings()==null)
             user.setMyListings(new ArrayList<Listing>());

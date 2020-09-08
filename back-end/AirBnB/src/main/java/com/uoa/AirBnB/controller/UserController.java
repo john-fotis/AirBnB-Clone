@@ -1,18 +1,6 @@
 package com.uoa.AirBnB.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.uoa.AirBnB.model.userModel.UserDto;
-import com.uoa.AirBnB.model.userModel.UserPostDto;
-import com.uoa.AirBnB.service.UserService;
-import com.uoa.AirBnB.util.Helpers;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.lang.Nullable;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
+/*
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/api/admin")
@@ -67,4 +55,4 @@ public class UserController {
     public ResponseEntity<UserPostDto> findFullUserById(@PathVariable("id") Long id){
         return ResponseEntity.ok().body(userService.findFullDtoById(id));
     }
-}
+}*/
