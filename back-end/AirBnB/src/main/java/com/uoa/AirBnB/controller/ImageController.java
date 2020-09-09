@@ -20,7 +20,7 @@ public class ImageController {
     ImageService imageService;
 
     @PostMapping("/upload")
-    public ResponseEntity<String> uploadImage(@RequestParam("imageFile") MultipartFile file) throws IOException {
+    public ResponseEntity<String> uploadImage(@RequestParam("formData") MultipartFile file) throws IOException {
         ImageDto img = new ImageDto(file.getOriginalFilename(), file.getContentType(), file.getBytes());
         img = imageService.uploadImage(img);
         return ResponseEntity.ok().body(Helpers.convertToJson(img));
