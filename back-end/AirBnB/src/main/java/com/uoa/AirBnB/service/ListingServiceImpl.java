@@ -58,6 +58,8 @@ public class ListingServiceImpl implements ListingService {
     public ListingDto save(ListingDto listingDto) throws Exception {
         Listing listing = ListingConverter.convert(listingDto);
         listing = listingRepository.save(listing);
+
+        System.out.println("Listing added or updated");
         return listingConverter.convertToDto(listing);
     }
 

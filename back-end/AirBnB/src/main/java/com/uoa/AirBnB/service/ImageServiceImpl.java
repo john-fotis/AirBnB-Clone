@@ -20,6 +20,8 @@ public class ImageServiceImpl implements ImageService {
         Image image = ImageConverter.convert(imageDto);
         image = imageRepository.save(image);
 
+        System.out.println("Image added or updated");
+
         return ImageConverter.convertToDto(image);
     }
 

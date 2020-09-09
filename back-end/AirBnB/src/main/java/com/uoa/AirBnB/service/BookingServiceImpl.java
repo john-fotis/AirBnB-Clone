@@ -44,6 +44,8 @@ public class BookingServiceImpl implements BookingService{
 
         booking = bookingRepository.save(booking);
 
+        System.out.println("Booking added or updated");
+
         return BookingConverter.convertToDto(booking);
     }
 

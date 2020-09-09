@@ -61,6 +61,8 @@ public class ReviewServiceImpl implements ReviewService {
 
         review = reviewRepository.save(review);
 
+        System.out.println("Review added or updated");
+
         return ReviewConverter.convertToDto(review);
     }
 

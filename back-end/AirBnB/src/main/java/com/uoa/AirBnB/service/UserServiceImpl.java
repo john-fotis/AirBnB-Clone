@@ -51,6 +51,8 @@ public class UserServiceImpl implements UserService{
         User user = userPostConverter.convert(userPostDto);
         user = userRepository.save(user);
 
+        System.out.println("User added or updated");
+
         return userConverter.convertToDto(user);
     }
 
