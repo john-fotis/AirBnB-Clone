@@ -1,7 +1,9 @@
 package com.uoa.AirBnB.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.uoa.AirBnB.converter.UserConverter;
 import com.uoa.AirBnB.model.listingModel.ListingDto;
+import com.uoa.AirBnB.model.userModel.User;
 import com.uoa.AirBnB.model.userModel.UserDetailsImpl;
 import com.uoa.AirBnB.model.userModel.UserPostDto;
 import com.uoa.AirBnB.payload.request.LoginRequest;
@@ -11,6 +13,7 @@ import com.uoa.AirBnB.service.UserService;
 import com.uoa.AirBnB.util.Helpers;
 import com.uoa.AirBnB.util.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,13 +23,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/api")
-public class AnonymousController {
+public class UniversalController {
     @Autowired
     AuthenticationManager authenticationManager;
     @Autowired
@@ -78,5 +82,16 @@ public class AnonymousController {
     @GetMapping("/listings/{id}")
     public ResponseEntity<String> returnListingById(@PathVariable("id") Long id) throws Exception {
         return ResponseEntity.ok().body(Helpers.convertToJson(listingService.findDtoById(id)));
+    }
+
+    @GetMapping("/profile")
+    public ResponseEntity<String> returnProfile(Principal principal) throws JsonProcessingException {
+
+        if(principal!=null) {
+            User user = userService.findByUsername(principal.getName());
+            return ResponseEntity.ok().body(Helpers.convertToJson(UserConverter.convertToDto(user)));
+        }
+        else
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"Status\": \"Not a user\"}");
     }
 }

@@ -39,6 +39,22 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
+    public List<ReviewDto> findByHost(Long id) {
+        return reviewRepository.findAllByListingHostId(id)
+                .stream()
+                .map(ReviewConverter::convertToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ReviewDto> findByGuest(Long id) {
+        return reviewRepository.findAllByUserId(id)
+                .stream()
+                .map(ReviewConverter::convertToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public ReviewDto save(ReviewDto reviewDto) {
 
         Review review = ReviewConverter.convert(reviewDto);

@@ -1,11 +1,11 @@
 package com.uoa.AirBnB.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.sun.istack.Nullable;
-import com.uoa.AirBnB.converter.UserConverter;
 import com.uoa.AirBnB.model.listingModel.ListingDto;
+import com.uoa.AirBnB.model.reviewModel.ReviewDto;
 import com.uoa.AirBnB.model.userModel.User;
 import com.uoa.AirBnB.service.ListingService;
+import com.uoa.AirBnB.service.ReviewService;
 import com.uoa.AirBnB.service.UserService;
 import com.uoa.AirBnB.util.Helpers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +26,8 @@ public class HostController {
     private UserService userService;
     @Autowired
     ListingService listingService;
-
-    @GetMapping("/profile")
-    public ResponseEntity<String> returnProfile(Principal principal) throws JsonProcessingException {
-        User user = userService.findByUsername(principal.getName());
-
-        return ResponseEntity.ok().body(Helpers.convertToJson(UserConverter.convertToDto(user)));
-    }
+    @Autowired
+    ReviewService reviewService;
 
     // ----------------- Listings -----------------------
 
@@ -65,5 +60,12 @@ public class HostController {
     public ResponseEntity<String> deleteListingById(@PathVariable("id") Long id){
         listingService.deleteById(id);
         return ResponseEntity.ok().body("{\"Status\": \"Successful Deletion\"}");
+    }
+
+    // -- Reviews --
+    @GetMapping("/reviews")
+    public ResponseEntity<List<ReviewDto>> returnReviews(Principal principal){
+        User user = userService.findByUsername(principal.getName());
+        return ResponseEntity.ok().body(reviewService.findByHost(user.getId()));
     }
 }

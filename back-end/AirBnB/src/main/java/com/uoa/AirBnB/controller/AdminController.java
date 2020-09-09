@@ -1,12 +1,11 @@
 package com.uoa.AirBnB.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.uoa.AirBnB.converter.UserConverter;
-import com.uoa.AirBnB.model.listingModel.ListingDto;
-import com.uoa.AirBnB.model.userModel.User;
+import com.uoa.AirBnB.model.reviewModel.ReviewDto;
 import com.uoa.AirBnB.model.userModel.UserDto;
 import com.uoa.AirBnB.model.userModel.UserPostDto;
 import com.uoa.AirBnB.service.ListingService;
+import com.uoa.AirBnB.service.ReviewService;
 import com.uoa.AirBnB.service.UserService;
 import com.uoa.AirBnB.util.Helpers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -30,13 +28,8 @@ public class AdminController {
     private PasswordEncoder passwordEncoder;
     @Autowired
     ListingService listingService;
-
-    @GetMapping("/profile")
-    public ResponseEntity<String> returnProfile(Principal principal) throws JsonProcessingException {
-        User user = userService.findByUsername(principal.getName());
-
-        return ResponseEntity.ok().body(Helpers.convertToJson(UserConverter.convertToDto(user)));
-    }
+    @Autowired
+    ReviewService reviewService;
 
     // ----------------- Users -----------------------
 
@@ -75,35 +68,34 @@ public class AdminController {
         return ResponseEntity.ok().body(userService.findFullDtoById(id));
     }
 
-    // ----------------- Listings -----------------------
+    // --------------------------- Reviews ----------------------------
 
-    @GetMapping("/listings")
-    public ResponseEntity<List<ListingDto>> returnAllListings(){
-        return ResponseEntity.ok().body(listingService.findAll());
+    @GetMapping("/reviews")
+    public ResponseEntity<List<ReviewDto>> returnAllReviews(){
+        return ResponseEntity.ok().body(reviewService.findAll());
     }
 
-    @GetMapping("/listings/{id}")
-    public ResponseEntity<String> returnListingById(@PathVariable("id") Long id) throws Exception {
-        return ResponseEntity.ok().body(Helpers.convertToJson(listingService.findDtoById(id)));
+    @GetMapping("/reviews/{id}")
+    public ResponseEntity<String> returnReviewById(@PathVariable("id") Long id) throws Exception {
+        return ResponseEntity.ok().body(Helpers.convertToJson(reviewService.findById(id)));
     }
 
-    @PostMapping("/listings")
-    public ResponseEntity<String> createListing(@RequestBody ListingDto listingDto) throws Exception {
-        System.out.println(listingDto);
-        return ResponseEntity.ok().body(Helpers.convertToJson(listingService.save(listingDto)));
+    @PostMapping("/reviews")
+    public ResponseEntity<String> createReview(@RequestBody ReviewDto reviewDto) throws JsonProcessingException {
+        return ResponseEntity.ok().body(Helpers.convertToJson(reviewService.save(reviewDto)));
     }
 
-    @PutMapping("/listings/{id}")
-    public ResponseEntity<String> updateListing(@PathVariable("id") Long id, @RequestBody @com.sun.istack.Nullable ListingDto listingDto) throws Exception {
-        if(listingDto!=null)
-            return ResponseEntity.ok().body(Helpers.convertToJson(listingService.save(listingDto)));
+    @PutMapping("/reviews/{id}")
+    public ResponseEntity<String> updateReview(@PathVariable("id") Long id, @RequestBody @com.sun.istack.Nullable ReviewDto reviewDto) throws JsonProcessingException {
+        if(reviewDto!=null)
+            return ResponseEntity.ok().body(Helpers.convertToJson(reviewService.save(reviewDto)));
         else
-            return ResponseEntity.ok().body("{\"Status\": \"Listing not found\"}");
+            return ResponseEntity.badRequest().body("{\"Status\": \"Review not found\"}");
     }
 
-    @DeleteMapping("/listings/{id}")
-    public ResponseEntity<String> deleteListingById(@PathVariable("id") Long id){
-        listingService.deleteById(id);
+    @DeleteMapping("/reviews/{id}")
+    public ResponseEntity<String> deleteReviewById(@PathVariable("id") Long id){
+        reviewService.deleteById(id);
         return ResponseEntity.ok().body("{\"Status\": \"Successful Deletion\"}");
     }
 }

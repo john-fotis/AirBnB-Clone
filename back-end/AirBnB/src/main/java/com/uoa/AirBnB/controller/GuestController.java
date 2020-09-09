@@ -1,10 +1,11 @@
 package com.uoa.AirBnB.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.uoa.AirBnB.converter.UserConverter;
 import com.uoa.AirBnB.model.listingModel.ListingDto;
+import com.uoa.AirBnB.model.reviewModel.ReviewDto;
 import com.uoa.AirBnB.model.userModel.User;
 import com.uoa.AirBnB.service.ListingService;
+import com.uoa.AirBnB.service.ReviewService;
 import com.uoa.AirBnB.service.UserService;
 import com.uoa.AirBnB.util.Helpers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +26,8 @@ public class GuestController {
     private UserService userService;
     @Autowired
     ListingService listingService;
-
-    @GetMapping("/profile")
-    public ResponseEntity<String> returnProfile(Principal principal) throws JsonProcessingException {
-        User user = userService.findByUsername(principal.getName());
-
-        return ResponseEntity.ok().body(Helpers.convertToJson(UserConverter.convertToDto(user)));
-    }
+    @Autowired
+    ReviewService reviewService;
 
     @GetMapping("/listings")
     public ResponseEntity<List<ListingDto>> returnAllListings(Principal principal){
@@ -42,5 +38,31 @@ public class GuestController {
     @GetMapping("/listings/{id}")
     public ResponseEntity<String> returnListingById(@PathVariable("id") Long id) throws Exception {
         return ResponseEntity.ok().body(Helpers.convertToJson(listingService.findDtoById(id)));
+    }
+
+    // -- Reviews --
+    @GetMapping("/reviews")
+    public ResponseEntity<List<ReviewDto>> returnReviews(Principal principal){
+        User user = userService.findByUsername(principal.getName());
+        return ResponseEntity.ok().body(reviewService.findByGuest(user.getId()));
+    }
+
+    @PostMapping("/reviews")
+    public ResponseEntity<String> createReview(@RequestBody ReviewDto reviewDto) throws JsonProcessingException {
+        return ResponseEntity.ok().body(Helpers.convertToJson(reviewService.save(reviewDto)));
+    }
+
+    @PutMapping("/reviews/{id}")
+    public ResponseEntity<String> updateReview(@PathVariable("id") Long id, @RequestBody @com.sun.istack.Nullable ReviewDto reviewDto) throws JsonProcessingException {
+        if(reviewDto!=null)
+            return ResponseEntity.ok().body(Helpers.convertToJson(reviewService.save(reviewDto)));
+        else
+            return ResponseEntity.badRequest().body("{\"Status\": \"Review not found\"}");
+    }
+
+    @DeleteMapping("/reviews/{id}")
+    public ResponseEntity<String> deleteReviewById(@PathVariable("id") Long id){
+        reviewService.deleteById(id);
+        return ResponseEntity.ok().body("{\"Status\": \"Successful Deletion\"}");
     }
 }
