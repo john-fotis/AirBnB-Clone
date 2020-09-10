@@ -45,8 +45,11 @@ public class Listing {
     // -- Location --
     private double latitude;
     private double longitude;
-    private String address;
+    private String country;
+    private String city;
     private String neighborhood;
+    private String address;
+    private String postalCode;
     private String transportation;
 
     // -- Cost --

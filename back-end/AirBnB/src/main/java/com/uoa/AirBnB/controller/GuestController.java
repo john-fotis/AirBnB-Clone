@@ -2,6 +2,7 @@ package com.uoa.AirBnB.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.uoa.AirBnB.model.listingModel.ListingDto;
+import com.uoa.AirBnB.model.listingModel.ListingParameters;
 import com.uoa.AirBnB.model.reviewModel.ReviewDto;
 import com.uoa.AirBnB.model.userModel.User;
 import com.uoa.AirBnB.service.ListingService;
@@ -30,10 +31,14 @@ public class GuestController {
     ReviewService reviewService;
 
     @GetMapping("/listings")
-    public ResponseEntity<List<ListingDto>> returnAllListings(Principal principal){
+    public ResponseEntity<List<ListingDto>> returnWithParameters(@RequestBody ListingParameters listingParameters, Principal principal){
+        User user = userService.findByUsername(principal.getName());
+        return ResponseEntity.ok().body(listingService.findWithParameters(listingParameters)); //Change to Algorithm
+    }
+    /*public ResponseEntity<List<ListingDto>> returnAllListings(Principal principal){
         User user = userService.findByUsername(principal.getName());
         return ResponseEntity.ok().body(listingService.findAll()); // Change to Algorithm
-    }
+    }*/
 
     @GetMapping("/listings/{id}")
     public ResponseEntity<String> returnListingById(@PathVariable("id") Long id) throws Exception {

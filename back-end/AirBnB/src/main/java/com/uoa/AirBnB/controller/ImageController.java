@@ -8,9 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -21,12 +18,14 @@ public class ImageController {
     @Autowired
     ImageService imageService;
 
+/*
     @PostMapping("/upload")
     public ResponseEntity<String> uploadImage(@RequestParam("imageFile") MultipartFile file) throws IOException {
         ImageDto img = new ImageDto(file.getOriginalFilename(), file.getContentType(), file.getBytes());
         img = imageService.uploadImage(img);
         return ResponseEntity.ok().body(Helpers.convertToJson(img));
     }
+*/
 
     @GetMapping("/{imageName}")
     public ResponseEntity<String> getImage(@PathVariable("imageName") String imageName) throws Exception {
