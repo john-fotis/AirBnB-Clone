@@ -68,7 +68,7 @@ class App extends Component {
                 {showGuestBoard && (
                   <li className="nav-item">
                     <Link to={"/users/" + currentUser.id} className="nav-link">
-                      Host Board
+                      Guest Board
                     </Link>
                   </li>
                 )}
@@ -81,10 +81,10 @@ class App extends Component {
                   </li>
                 )}
 
-                {currentUser && (
+                {(
                   <li className="nav-item">
-                    <Link to={"/user"} className="nav-link">
-                      User
+                    <Link to={"/host/listings"} className="nav-link">
+                      Create Listing
                     </Link>
                   </li>
                 )}
@@ -93,7 +93,7 @@ class App extends Component {
               {currentUser ? (
                 <div className="navbar-nav ml-auto">
                   <li className="nav-item">
-                    <Link to={"/profile"} className="nav-link">
+                    <Link to={"/admin/profile"} className="nav-link">
                       {currentUser.username}
                     </Link>
                   </li>
@@ -126,7 +126,6 @@ class App extends Component {
           </div>
         </Router>
       </AuthContext.Provider>
-      
     );
   }
 }

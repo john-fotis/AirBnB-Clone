@@ -17,17 +17,18 @@ class AuthService {
 
   logout() {
     localStorage.removeItem("user");
+    axios.post(API + '/logout')
   }
 
-  register(username, email, password, firstName, lastName, host, tenant, photo) {
-    var roles = '';
+  register(username, email, password, firstName, lastName, host, tenant, number) {
+    var roles = [];
 
     if (host & !tenant){
-      roles = '{"id":2}'
+      roles = [{"id": 2}]
     } else if (!host & tenant){
-      roles = '{"id":3}'
+      roles = [{"id": 3}]
     } else {
-      roles = '{"id":2}, {"id":3}'
+      roles = [{"id":2}, {"id":3}]
     }
 
     return axios.post(API + '/register', {
@@ -37,7 +38,7 @@ class AuthService {
       firstName,
       lastName,
       roles,
-      photo
+      number
     });
   }
 
