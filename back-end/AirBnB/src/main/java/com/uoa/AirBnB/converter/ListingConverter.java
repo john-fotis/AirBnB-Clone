@@ -52,8 +52,11 @@ public class ListingConverter {
 
         listingDto.setLatitude(listing.getLatitude());
         listingDto.setLongitude(listing.getLongitude());
-        listingDto.setAddress(listing.getAddress());
+        listingDto.setCountry(listing.getCountry());
+        listingDto.setCity(listing.getCity());
         listingDto.setNeighborhood(listing.getNeighborhood());
+        listingDto.setAddress(listing.getAddress());
+        listingDto.setPostalCode(listing.getPostalCode());
         listingDto.setTransportation(listing.getTransportation());
 
         listingDto.setMinCost(listing.getMinCost());
@@ -107,8 +110,11 @@ public class ListingConverter {
 
         listing.setLatitude(listingDto.getLatitude());
         listing.setLongitude(listingDto.getLongitude());
-        listing.setAddress(listingDto.getAddress());
+        listing.setCountry(listingDto.getCountry());
+        listing.setCity(listingDto.getCity());
         listing.setNeighborhood(listingDto.getNeighborhood());
+        listing.setAddress(listingDto.getAddress());
+        listing.setPostalCode(listingDto.getPostalCode());
         listing.setTransportation(listingDto.getTransportation());
 
         listing.setMinCost(listingDto.getMinCost());

@@ -40,8 +40,11 @@ public class ListingDto {
 
     private double latitude;
     private double longitude;
-    private String address;
+    private String country;
+    private String city;
     private String neighborhood;
+    private String address;
+    private String postalCode;
     private String transportation;
 
     private double minCost;
