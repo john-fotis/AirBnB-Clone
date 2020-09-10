@@ -6,6 +6,7 @@ import com.uoa.AirBnB.service.ImageService;
 import com.uoa.AirBnB.util.Helpers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,6 +15,7 @@ import java.io.IOException;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/images")
+@PreAuthorize("hasRole('GUEST') or hasRole('ADMIN') or hasRole('HOST')")
 public class ImageController {
 
     @Autowired
