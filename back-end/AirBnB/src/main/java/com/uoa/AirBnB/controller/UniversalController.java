@@ -82,9 +82,12 @@ public class UniversalController {
     }
 
     @GetMapping("/listings")
-    public ResponseEntity<List<ListingDto>> returnAllListings(){
-        return ResponseEntity.ok().body(listingService.findAll());
+    public ResponseEntity<List<ListingDto>> returnWithParameters(@RequestBody ListingParameters listingParameters){
+        return ResponseEntity.ok().body(listingService.findWithParameters(listingParameters));
     }
+    /*public ResponseEntity<List<ListingDto>> returnAllListings(){
+        return ResponseEntity.ok().body(listingService.findAll());
+    }*/
 
     @GetMapping("/listings/{id}")
     public ResponseEntity<String> returnListingById(@PathVariable("id") Long id) throws Exception {
@@ -110,11 +113,4 @@ public class UniversalController {
         return ResponseEntity.ok().body(Helpers.convertToJson(img));
     }
 
-
-    // -- Testing --
-
-    @GetMapping("/test")
-    public ResponseEntity<List<ListingDto>> returnWithParameters(@RequestBody ListingParameters listingParameters){
-        return ResponseEntity.ok().body(listingService.findWithParameters(listingParameters));
-    }
 }

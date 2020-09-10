@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface ListingRepository extends JpaRepository<Listing, Long> {
     List<Listing> findAllByHostId(Long id);
-    List<Listing> findAllByCountryAndCityAndStartDateBeforeAndEndDateAfterAndMaxGuestsIsGreaterThanEqual(String country, String city, Date startDate, Date endDate, int guests);
+    List<Listing> findAllByCountryAndCityAndStartDateBeforeAndEndDateAfterAndMaxGuestsIsGreaterThanEqualOrderByMinCost(String country, String city, Date startDate, Date endDate, int guests);
 }
