@@ -5,6 +5,7 @@ import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 import './Register.css';
 import AuthService from "../../_services/authentication.service";
+import UserService from '../../_services/user.service';
 import { Checkbox } from "@material-ui/core";
 
 const required = value => {
@@ -61,7 +62,7 @@ const vnumber = value => {
   if (value.length !== 10){
     return (
       <div className="alert alert-danger" role="alert">
-        Invalid number. {console.log(value)}
+        Invalid number.
       </div>
     );
   }
@@ -82,8 +83,8 @@ class Register extends Component {
       lastName: "",
       host: false,
       tenant: false,
-      number: null,
-      selectedFile: [],
+      number: "",
+      selectedFile: null,
       successful: false,
       message: ""
     };
@@ -113,6 +114,11 @@ class Register extends Component {
       successful: false
     });
 
+    let formData = new FormData();
+    let userId = null;
+
+    formData.append('imageFile', this.state.selectedFile, this.state.selectedFile.name);
+
     this.form.validateAll();
 
     if (this.checkBtn.context._errors.length === 0) {
@@ -124,13 +130,25 @@ class Register extends Component {
         this.state.lastName,
         this.state.host,
         this.state.tenant,
-        this.state.selectedFile[0]
+        this.state.number
       ).then(
         response => {
           this.setState({
             message: response.data.message,
             successful: true
           });
+          userId = response.data.id;
+          AuthService.login(this.state.username, this.state.password).then(
+            () => {
+              this.props.history.push("/admin/profile");
+              window.location.reload();
+            }
+          )
+          UserService.postPhoto(formData).then(
+            response => {
+              UserService.linkUserPhoto(response.data, userId)
+            }
+          )
         },
         error => {
           const resMessage =
@@ -147,8 +165,6 @@ class Register extends Component {
         }
       );
     }
-
-    console.log(this.state)
   }
 
   render() {
