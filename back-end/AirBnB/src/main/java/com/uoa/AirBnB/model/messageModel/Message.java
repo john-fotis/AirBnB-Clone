@@ -1,10 +1,14 @@
 package com.uoa.AirBnB.model.messageModel;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.uoa.AirBnB.model.listingModel.Listing;
+import com.uoa.AirBnB.model.userModel.User;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -19,11 +23,18 @@ public class Message {
 
     private String text;
 
-    //private boolean read;
+    @CreationTimestamp
+    private Date sendDate;
 
-    //private Listing listing;
+    private boolean seen;
 
-    //private User host;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name ="listing_id", nullable = false)
+    private Listing listing;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name ="user_id", nullable = false)
+    private User guest;
 
     public Message(){
 

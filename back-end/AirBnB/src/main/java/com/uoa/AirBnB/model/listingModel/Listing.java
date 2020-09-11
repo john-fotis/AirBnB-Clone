@@ -3,6 +3,7 @@ package com.uoa.AirBnB.model.listingModel;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.uoa.AirBnB.model.bookingModel.Booking;
 import com.uoa.AirBnB.model.imageModel.Image;
+import com.uoa.AirBnB.model.messageModel.Message;
 import com.uoa.AirBnB.model.reviewModel.Review;
 import com.uoa.AirBnB.model.userModel.User;
 import lombok.Getter;
@@ -86,11 +87,8 @@ public class Listing {
     @OneToMany(mappedBy = "listing" ,fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Image> images;
 
-    // photos, messages
-
-
-
-
+    @OneToMany(mappedBy = "listing" ,fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<Message> messages;
 
     public Listing() {
 

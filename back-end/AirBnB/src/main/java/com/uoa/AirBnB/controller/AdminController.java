@@ -1,10 +1,12 @@
 package com.uoa.AirBnB.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.uoa.AirBnB.model.messageModel.MessageDto;
 import com.uoa.AirBnB.model.reviewModel.ReviewDto;
 import com.uoa.AirBnB.model.userModel.UserDto;
 import com.uoa.AirBnB.model.userModel.UserPostDto;
 import com.uoa.AirBnB.service.ListingService;
+import com.uoa.AirBnB.service.MessageService;
 import com.uoa.AirBnB.service.ReviewService;
 import com.uoa.AirBnB.service.UserService;
 import com.uoa.AirBnB.util.Helpers;
@@ -30,6 +32,8 @@ public class AdminController {
     ListingService listingService;
     @Autowired
     ReviewService reviewService;
+    @Autowired
+    MessageService messageService;
 
     // ----------------- Users -----------------------
 
@@ -86,7 +90,7 @@ public class AdminController {
     }
 
     @PutMapping("/reviews/{id}")
-    public ResponseEntity<String> updateReview(@PathVariable("id") Long id, @RequestBody @com.sun.istack.Nullable ReviewDto reviewDto) throws JsonProcessingException {
+    public ResponseEntity<String> updateReview(@PathVariable("id") Long id, @RequestBody @Nullable ReviewDto reviewDto) throws JsonProcessingException {
         if(reviewDto!=null)
             return ResponseEntity.ok().body(Helpers.convertToJson(reviewService.save(reviewDto)));
         else
@@ -96,6 +100,37 @@ public class AdminController {
     @DeleteMapping("/reviews/{id}")
     public ResponseEntity<String> deleteReviewById(@PathVariable("id") Long id){
         reviewService.deleteById(id);
+        return ResponseEntity.ok().body("{\"Status\": \"Successful Deletion\"}");
+    }
+
+    // --------------------------- Messages ----------------------------
+
+    @GetMapping("/messages")
+    public ResponseEntity<List<MessageDto>> returnAllMessages(){
+        return ResponseEntity.ok().body(messageService.findAll());
+    }
+
+    @GetMapping("/messages/{id}")
+    public ResponseEntity<String> returnMessageById(@PathVariable("id") Long id) throws Exception {
+        return ResponseEntity.ok().body(Helpers.convertToJson(messageService.findById(id)));
+    }
+
+    @PostMapping("/messages")
+    public ResponseEntity<String> createMessage(@RequestBody MessageDto messageDto) throws JsonProcessingException {
+        return ResponseEntity.ok().body(Helpers.convertToJson(messageService.save(messageDto)));
+    }
+
+    @PutMapping("/messages/{id}")
+    public ResponseEntity<String> updateMessage(@PathVariable("id") Long id, @RequestBody @Nullable MessageDto messageDto) throws JsonProcessingException {
+        if(messageDto!=null)
+            return ResponseEntity.ok().body(Helpers.convertToJson(messageService.save(messageDto)));
+        else
+            return ResponseEntity.badRequest().body("{\"Status\": \"Message not found\"}");
+    }
+
+    @DeleteMapping("/messages/{id}")
+    public ResponseEntity<String> deleteMessageById(@PathVariable("id") Long id){
+        messageService.deleteById(id);
         return ResponseEntity.ok().body("{\"Status\": \"Successful Deletion\"}");
     }
 }

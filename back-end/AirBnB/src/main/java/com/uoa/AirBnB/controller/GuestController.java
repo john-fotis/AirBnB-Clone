@@ -3,9 +3,11 @@ package com.uoa.AirBnB.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.uoa.AirBnB.model.listingModel.ListingDto;
 import com.uoa.AirBnB.model.listingModel.ListingParameters;
+import com.uoa.AirBnB.model.messageModel.MessageDto;
 import com.uoa.AirBnB.model.reviewModel.ReviewDto;
 import com.uoa.AirBnB.model.userModel.User;
 import com.uoa.AirBnB.service.ListingService;
+import com.uoa.AirBnB.service.MessageService;
 import com.uoa.AirBnB.service.ReviewService;
 import com.uoa.AirBnB.service.UserService;
 import com.uoa.AirBnB.util.Helpers;
@@ -29,6 +31,8 @@ public class GuestController {
     ListingService listingService;
     @Autowired
     ReviewService reviewService;
+    @Autowired
+    MessageService messageService;
 
     @GetMapping("/listings")
     public ResponseEntity<List<ListingDto>> returnWithParameters(@RequestBody ListingParameters listingParameters, Principal principal){
@@ -68,6 +72,24 @@ public class GuestController {
     @DeleteMapping("/reviews/{id}")
     public ResponseEntity<String> deleteReviewById(@PathVariable("id") Long id){
         reviewService.deleteById(id);
+        return ResponseEntity.ok().body("{\"Status\": \"Successful Deletion\"}");
+    }
+
+    // -- Messages --
+    @GetMapping("/messages")
+    public ResponseEntity<List<MessageDto>> returnMessages(Principal principal){
+        User user = userService.findByUsername(principal.getName());
+        return ResponseEntity.ok().body(messageService.findByGuest(user.getId()));
+    }
+
+    @PostMapping("/messages")
+    public ResponseEntity<String> createMessage(@RequestBody MessageDto messageDto) throws JsonProcessingException {
+        return ResponseEntity.ok().body(Helpers.convertToJson(messageService.save(messageDto)));
+    }
+
+    @DeleteMapping("/messages/{id}")
+    public ResponseEntity<String> deleteMessageById(@PathVariable("id") Long id){
+        messageService.deleteById(id);
         return ResponseEntity.ok().body("{\"Status\": \"Successful Deletion\"}");
     }
 }

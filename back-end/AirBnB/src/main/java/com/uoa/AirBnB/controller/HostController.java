@@ -1,10 +1,13 @@
 package com.uoa.AirBnB.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.sun.istack.Nullable;
 import com.uoa.AirBnB.model.listingModel.ListingDto;
+import com.uoa.AirBnB.model.messageModel.MessageDto;
 import com.uoa.AirBnB.model.reviewModel.ReviewDto;
 import com.uoa.AirBnB.model.userModel.User;
 import com.uoa.AirBnB.service.ListingService;
+import com.uoa.AirBnB.service.MessageService;
 import com.uoa.AirBnB.service.ReviewService;
 import com.uoa.AirBnB.service.UserService;
 import com.uoa.AirBnB.util.Helpers;
@@ -28,6 +31,8 @@ public class HostController {
     ListingService listingService;
     @Autowired
     ReviewService reviewService;
+    @Autowired
+    MessageService messageService;
 
     // ----------------- Listings -----------------------
 
@@ -67,5 +72,22 @@ public class HostController {
     public ResponseEntity<List<ReviewDto>> returnReviews(Principal principal){
         User user = userService.findByUsername(principal.getName());
         return ResponseEntity.ok().body(reviewService.findByHost(user.getId()));
+    }
+
+    // -- Messages --
+    @GetMapping("/listings/{id}/messages")
+    public ResponseEntity<List<MessageDto>> returnMessages(@PathVariable("id") Long id){
+        return ResponseEntity.ok().body(messageService.findByListing(id));
+    }
+
+    @PostMapping("/messages")
+    public ResponseEntity<String> createMessage(@RequestBody MessageDto messageDto) throws JsonProcessingException {
+        return ResponseEntity.ok().body(Helpers.convertToJson(messageService.save(messageDto)));
+    }
+
+    @DeleteMapping("/messages/{id}")
+    public ResponseEntity<String> deleteMessageById(@PathVariable("id") Long id){
+        messageService.deleteById(id);
+        return ResponseEntity.ok().body("{\"Status\": \"Successful Deletion\"}");
     }
 }
