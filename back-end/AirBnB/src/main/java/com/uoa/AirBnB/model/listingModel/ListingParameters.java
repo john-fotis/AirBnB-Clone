@@ -8,7 +8,7 @@ import java.util.Date;
 public class ListingParameters {
     private Date startDate;
     private Date endDate;
-    private Integer guests;
+    private int guests;
     private String country;
     private String city;
 

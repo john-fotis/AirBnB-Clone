@@ -10,6 +10,7 @@ import com.uoa.AirBnB.model.userModel.UserDetailsImpl;
 import com.uoa.AirBnB.model.userModel.UserPostDto;
 import com.uoa.AirBnB.payload.request.LoginRequest;
 import com.uoa.AirBnB.payload.response.JwtResponse;
+import com.uoa.AirBnB.repository.BookingRepository;
 import com.uoa.AirBnB.service.ImageService;
 import com.uoa.AirBnB.service.ListingService;
 import com.uoa.AirBnB.service.UserService;
@@ -48,6 +49,8 @@ public class UniversalController {
     ListingService listingService;
     @Autowired
     ImageService imageService;
+    @Autowired
+    BookingRepository bookingRepository;
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
@@ -85,9 +88,6 @@ public class UniversalController {
     public ResponseEntity<List<ListingDto>> returnWithParameters(@RequestBody ListingParameters listingParameters){
         return ResponseEntity.ok().body(listingService.findWithParameters(listingParameters));
     }
-    /*public ResponseEntity<List<ListingDto>> returnAllListings(){
-        return ResponseEntity.ok().body(listingService.findAll());
-    }*/
 
     @GetMapping("/listings/{id}")
     public ResponseEntity<String> returnListingById(@PathVariable("id") Long id) throws Exception {

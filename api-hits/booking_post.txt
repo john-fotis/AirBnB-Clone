@@ -1,4 +1,5 @@
 {
-    "listingId": 5,
-    "userId": 1
+    "startDate": "2020-09-12",
+    "endDate": "2020-09-14",
+    "listingId": 3
 }

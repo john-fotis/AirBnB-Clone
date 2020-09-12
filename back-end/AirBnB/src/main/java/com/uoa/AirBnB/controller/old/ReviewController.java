@@ -1,4 +1,4 @@
-package com.uoa.AirBnB.controller;
+package com.uoa.AirBnB.controller.old;
 
 /*
 @RestController

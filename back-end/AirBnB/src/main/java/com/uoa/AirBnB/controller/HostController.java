@@ -2,14 +2,12 @@ package com.uoa.AirBnB.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.sun.istack.Nullable;
+import com.uoa.AirBnB.model.bookingModel.BookingDto;
 import com.uoa.AirBnB.model.listingModel.ListingDto;
 import com.uoa.AirBnB.model.messageModel.MessageDto;
 import com.uoa.AirBnB.model.reviewModel.ReviewDto;
 import com.uoa.AirBnB.model.userModel.User;
-import com.uoa.AirBnB.service.ListingService;
-import com.uoa.AirBnB.service.MessageService;
-import com.uoa.AirBnB.service.ReviewService;
-import com.uoa.AirBnB.service.UserService;
+import com.uoa.AirBnB.service.*;
 import com.uoa.AirBnB.util.Helpers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +31,8 @@ public class HostController {
     ReviewService reviewService;
     @Autowired
     MessageService messageService;
+    @Autowired
+    BookingService bookingService;
 
     // ----------------- Listings -----------------------
 
@@ -89,5 +89,11 @@ public class HostController {
     public ResponseEntity<String> deleteMessageById(@PathVariable("id") Long id){
         messageService.deleteById(id);
         return ResponseEntity.ok().body("{\"Status\": \"Successful Deletion\"}");
+    }
+
+    // -- Bookings --
+    @GetMapping("/listings/{id}/bookings")
+    public ResponseEntity<List<BookingDto>> returnListingBookings(@PathVariable("id") Long id){
+        return ResponseEntity.ok().body(bookingService.returnListingBookings(id));
     }
 }

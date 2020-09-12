@@ -1,7 +1,6 @@
 package com.uoa.AirBnB.model.listingModel;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.uoa.AirBnB.model.bookingModel.BookingDto;
 import com.uoa.AirBnB.model.imageModel.ImageDto;
 import com.uoa.AirBnB.model.reviewModel.ReviewDto;
 import com.uoa.AirBnB.model.userModel.UserDto;
@@ -66,6 +65,6 @@ public class ListingDto {
 
     private UserDto host;
     private List<ReviewDto> reviews;
-    private List<BookingDto> bookings;
+    //private List<BookingDto> bookings;
     private List<ImageDto> images;
 }

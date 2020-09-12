@@ -4,14 +4,12 @@ import com.uoa.AirBnB.converter.ListingConverter;
 import com.uoa.AirBnB.model.listingModel.Listing;
 import com.uoa.AirBnB.model.listingModel.ListingDto;
 import com.uoa.AirBnB.model.listingModel.ListingParameters;
+import com.uoa.AirBnB.repository.BookingRepository;
 import com.uoa.AirBnB.repository.ListingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,6 +19,8 @@ public class ListingServiceImpl implements ListingService {
 
     @Autowired
     private ListingRepository listingRepository;
+    @Autowired
+    private BookingRepository bookingRepository;
 
     @Override
     public ListingDto findDtoById(Long id) throws Exception {
@@ -52,12 +52,28 @@ public class ListingServiceImpl implements ListingService {
 
     @Override
     public List<Listing> findWithParametersBasic(String country, String city, Date startDate, Date endDate, int guests) {
-        return listingRepository.findAllByCountryAndCityAndStartDateBeforeAndEndDateAfterAndMaxGuestsIsGreaterThanEqualOrderByMinCost(country, city, startDate, endDate, guests);
+        List<Listing> listingList= listingRepository.findAllByCountryAndCityAndStartDateBeforeAndEndDateAfterAndMaxGuestsIsGreaterThanEqualOrderByMinCost(country, city, startDate, endDate, guests);
+
+        listingList = listingList.stream().map(listing -> {
+            if(listing.getBookings().isEmpty() || bookingRepository.findAllByListingIdAndDateAfterAndAndDateBefore(listing.getId(), startDate, endDate).isEmpty())
+                return listing;
+            else
+                return null;
+        }).collect(Collectors.toList());
+
+        while(listingList.remove(null));
+        if(listingList.isEmpty() || listingList==null)
+            return Collections.emptyList();
+
+        return listingList;
     }
 
     @Override
     public List<ListingDto> findWithParameters(ListingParameters listingParameters) {
         List<Listing> listingList=findWithParametersBasic(listingParameters.getCountry(), listingParameters.getCity(), listingParameters.getStartDate(), listingParameters.getEndDate(), listingParameters.getGuests());
+
+        if(listingList.isEmpty())
+            return Collections.emptyList();
 
         if(listingParameters.getType()!=null){
             listingList = listingList.stream().map(listing -> {

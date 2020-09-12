@@ -1,16 +1,6 @@
-package com.uoa.AirBnB.controller;
+package com.uoa.AirBnB.controller.old;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.sun.istack.Nullable;
-import com.uoa.AirBnB.model.bookingModel.BookingDto;
-import com.uoa.AirBnB.service.BookingService;
-import com.uoa.AirBnB.util.Helpers;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
+/*
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/api/bookings")
@@ -18,6 +8,8 @@ public class BookingController {
 
     @Autowired
     BookingService bookingService;
+    @Autowired
+    UserService userService;
 
     @GetMapping
     public ResponseEntity<List<BookingDto>> returnAllBookings(){
@@ -30,8 +22,11 @@ public class BookingController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createBooking(@RequestBody BookingDto bookingDto) throws JsonProcessingException {
-        return ResponseEntity.ok().body(Helpers.convertToJson(bookingService.save(bookingDto)));
+    public ResponseEntity<String> createBooking(@RequestBody BookingPost bookingPost, Principal principal){
+        User user = userService.findByUsername(principal.getName());
+        bookingPost.setUserId(user.getId());
+        bookingService.newBooking(bookingPost);
+        return ResponseEntity.ok().body("{}");
     }
 
     @PutMapping("/{id}")
@@ -47,4 +42,4 @@ public class BookingController {
         bookingService.deleteById(id);
         return ResponseEntity.ok().body("{\"Status\": \"Successful Deletion\"}");
     }
-}
+}*/

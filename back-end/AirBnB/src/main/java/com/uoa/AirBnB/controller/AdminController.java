@@ -1,14 +1,12 @@
 package com.uoa.AirBnB.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.uoa.AirBnB.model.bookingModel.BookingDto;
 import com.uoa.AirBnB.model.messageModel.MessageDto;
 import com.uoa.AirBnB.model.reviewModel.ReviewDto;
 import com.uoa.AirBnB.model.userModel.UserDto;
 import com.uoa.AirBnB.model.userModel.UserPostDto;
-import com.uoa.AirBnB.service.ListingService;
-import com.uoa.AirBnB.service.MessageService;
-import com.uoa.AirBnB.service.ReviewService;
-import com.uoa.AirBnB.service.UserService;
+import com.uoa.AirBnB.service.*;
 import com.uoa.AirBnB.util.Helpers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +32,8 @@ public class AdminController {
     ReviewService reviewService;
     @Autowired
     MessageService messageService;
+    @Autowired
+    BookingService bookingService;
 
     // ----------------- Users -----------------------
 
@@ -131,6 +131,31 @@ public class AdminController {
     @DeleteMapping("/messages/{id}")
     public ResponseEntity<String> deleteMessageById(@PathVariable("id") Long id){
         messageService.deleteById(id);
+        return ResponseEntity.ok().body("{\"Status\": \"Successful Deletion\"}");
+    }
+
+    // --------------------------- Bookings ----------------------------
+    @GetMapping("/bookings")
+    public ResponseEntity<List<BookingDto>> returnAllBookings(){
+        return ResponseEntity.ok().body(bookingService.findAll());
+    }
+
+    @GetMapping("/bookings/{id}")
+    public ResponseEntity<String> returnBookingById(@PathVariable("id") Long id) throws Exception {
+        return ResponseEntity.ok().body(Helpers.convertToJson(bookingService.findById(id)));
+    }
+
+    @PutMapping("/bookings/{id}")
+    public ResponseEntity<String> updateBooking(@PathVariable("id") Long id, @RequestBody @com.sun.istack.Nullable BookingDto bookingDto) throws JsonProcessingException {
+        if(bookingDto!=null)
+            return ResponseEntity.ok().body(Helpers.convertToJson(bookingService.save(bookingDto)));
+        else
+            return ResponseEntity.badRequest().body("{\"Status\": \"Booking not found\"}");
+    }
+
+    @DeleteMapping("/bookings/{id}")
+    public ResponseEntity<String> deleteBookingById(@PathVariable("id") Long id){
+        bookingService.deleteById(id);
         return ResponseEntity.ok().body("{\"Status\": \"Successful Deletion\"}");
     }
 }
