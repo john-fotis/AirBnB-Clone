@@ -1,0 +1,17 @@
+{
+    "startDate": "2020-10-17",
+    "endDate": "2020-12-19",
+	"maxGuests": 3,
+	"country": "Greece",
+	"city": "Halandri",
+	
+    "type": "PRIVATE_ROOM",
+	"maxCost": 50.52,
+    "wifi": true,
+    "ac": true,
+    "heating": true,
+    "kitchen": true,
+    "tv": true,
+    "parking": true,
+    "elevator": true
+}

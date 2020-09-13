@@ -2,6 +2,7 @@ package com.uoa.AirBnB.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.uoa.AirBnB.model.bookingModel.BookingDto;
+import com.uoa.AirBnB.model.listingModel.ListingDto;
 import com.uoa.AirBnB.model.messageModel.MessageDto;
 import com.uoa.AirBnB.model.reviewModel.ReviewDto;
 import com.uoa.AirBnB.model.userModel.UserDto;
@@ -71,6 +72,12 @@ public class AdminController {
     public ResponseEntity<UserPostDto> findFullUserById(@PathVariable("id") Long id){
         return ResponseEntity.ok().body(userService.findFullDtoById(id));
     }
+    // --------------------------- Listings ----------------------------
+    @GetMapping("/listings")
+    public ResponseEntity<List<ListingDto>> returnAllListings() {
+        return ResponseEntity.ok().body(listingService.findAll());
+    }
+
 
     // --------------------------- Reviews ----------------------------
 

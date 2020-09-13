@@ -35,7 +35,7 @@ public class GuestController {
     @Autowired
     BookingService bookingService;
 
-    @GetMapping("/listings")
+    @PutMapping("/listings")
     public ResponseEntity<List<ListingDto>> returnWithParameters(@RequestBody ListingParameters listingParameters, Principal principal){
         User user = userService.findByUsername(principal.getName());
         return ResponseEntity.ok().body(listingService.findWithParameters(listingParameters)); //Change to Algorithm

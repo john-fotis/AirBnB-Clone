@@ -84,7 +84,7 @@ public class UniversalController {
         return ResponseEntity.ok().body(Helpers.convertToJson(userService.save(userPostDto)));
     }
 
-    @GetMapping("/listings")
+    @PutMapping("/listings")
     public ResponseEntity<List<ListingDto>> returnWithParameters(@RequestBody ListingParameters listingParameters){
         return ResponseEntity.ok().body(listingService.findWithParameters(listingParameters));
     }

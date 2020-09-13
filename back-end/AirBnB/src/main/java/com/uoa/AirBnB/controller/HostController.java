@@ -37,7 +37,7 @@ public class HostController {
     // ----------------- Listings -----------------------
 
     @GetMapping("/listings")
-    public ResponseEntity<List<ListingDto>> returnAllListings(Principal principal){
+    public ResponseEntity<List<ListingDto>> returnMyListings(Principal principal){
         User user = userService.findByUsername(principal.getName());
         return ResponseEntity.ok().body(listingService.findByHost(user.getId()));
     }
