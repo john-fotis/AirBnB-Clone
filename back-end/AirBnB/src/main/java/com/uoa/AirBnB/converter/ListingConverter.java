@@ -71,6 +71,9 @@ public class ListingConverter {
         listingDto.setStartDate(listing.getStartDate());
         listingDto.setEndDate(listing.getEndDate());
 
+        listingDto.setAverageRating(listing.getAverageRating());
+        listingDto.setNumOfReviews(listing.getNumOfReviews());
+
         listingDto.setHost(UserConverter.convertToDto(listing.getHost()));
 
         List<ReviewDto> reviewDtoList = listing.getReviews().stream().map(ReviewConverter::convertToDto).collect(Collectors.toList());
@@ -128,6 +131,10 @@ public class ListingConverter {
 
         listing.setStartDate(listingDto.getStartDate());
         listing.setEndDate(listingDto.getEndDate());
+
+        listing.setAverageRating(listingDto.getAverageRating());
+        listing.setNumOfReviews(listingDto.getNumOfReviews());
+
 
         listing.setHost(userServiceStatic.findById(listingDto.getHost().getId()));
 
