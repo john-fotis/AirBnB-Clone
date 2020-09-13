@@ -5,6 +5,7 @@ import com.uoa.AirBnB.model.bookingModel.BookingDto;
 import com.uoa.AirBnB.model.listingModel.ListingDto;
 import com.uoa.AirBnB.model.messageModel.MessageDto;
 import com.uoa.AirBnB.model.reviewModel.ReviewDto;
+import com.uoa.AirBnB.model.superModel.ReturnEverything;
 import com.uoa.AirBnB.model.userModel.UserDto;
 import com.uoa.AirBnB.model.userModel.UserPostDto;
 import com.uoa.AirBnB.service.*;
@@ -35,6 +36,8 @@ public class AdminController {
     MessageService messageService;
     @Autowired
     BookingService bookingService;
+    @Autowired
+    SuperService superService;
 
     // ----------------- Users -----------------------
 
@@ -165,4 +168,11 @@ public class AdminController {
         bookingService.deleteById(id);
         return ResponseEntity.ok().body("{\"Status\": \"Successful Deletion\"}");
     }
+
+    // --------------------------- Super!!! ----------------------------
+    @GetMapping("/extractEverything")
+    public ResponseEntity<ReturnEverything> returnEverythingToTheAdmin(){
+        return ResponseEntity.ok().body(superService.returnEverything());
+    }
+
 }
