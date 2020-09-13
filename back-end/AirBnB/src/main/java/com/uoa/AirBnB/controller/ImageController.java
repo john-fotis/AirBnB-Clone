@@ -45,7 +45,4 @@ public class ImageController {
 
         return ResponseEntity.ok().body("{\"Status\": \"Successful Deletion\"}");
     }
-
-
-
 }

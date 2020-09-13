@@ -31,6 +31,7 @@ public class BookingConverter {
         bookingDto.setDate(booking.getDate());
 
         bookingDto.setListingId(booking.getListing().getId());
+        bookingDto.setListingTitle(booking.getListing().getTitle());
         bookingDto.setUserId(booking.getUser().getId());
 
         return bookingDto;

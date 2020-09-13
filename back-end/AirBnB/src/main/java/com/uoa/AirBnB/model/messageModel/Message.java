@@ -37,6 +37,5 @@ public class Message {
     private User guest;
 
     public Message(){
-
     }
 }

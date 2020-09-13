@@ -34,7 +34,9 @@ public class ReviewConverter {
         reviewDto.setRating(review.getRating());
 
         reviewDto.setListingId(review.getListing().getId());
+        reviewDto.setListingTitle(review.getListing().getTitle());
         reviewDto.setUserId(review.getUser().getId());
+        reviewDto.setUserName(review.getUser().getUsername());
 
         return reviewDto;
     }

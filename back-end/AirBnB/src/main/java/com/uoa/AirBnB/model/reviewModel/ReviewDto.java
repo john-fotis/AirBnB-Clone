@@ -12,5 +12,7 @@ public class ReviewDto {
     private int rating;
 
     private long listingId;
+    private String listingTitle;
     private long userId;
+    private String userName;
 }

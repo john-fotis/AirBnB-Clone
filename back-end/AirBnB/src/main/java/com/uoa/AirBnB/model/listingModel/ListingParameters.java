@@ -22,7 +22,4 @@ public class ListingParameters {
     private Boolean parking;
     private Boolean elevator;
 
-    //private String neighborhood;
-
-
 }

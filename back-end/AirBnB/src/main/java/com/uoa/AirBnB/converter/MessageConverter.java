@@ -33,7 +33,9 @@ public class MessageConverter {
         messageDto.setSendDate(message.getSendDate());
 
         messageDto.setListingId(message.getListing().getId());
+        messageDto.setListingTitle(message.getListing().getTitle());
         messageDto.setGuestId(message.getGuest().getId());
+        messageDto.setGuestName(message.getGuest().getUsername());
 
         return messageDto;
     }

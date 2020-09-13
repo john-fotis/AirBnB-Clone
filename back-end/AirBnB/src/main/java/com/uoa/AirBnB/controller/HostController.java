@@ -34,7 +34,7 @@ public class HostController {
     @Autowired
     BookingService bookingService;
 
-    // ----------------- Listings -----------------------
+    // -- Listings --
 
     @GetMapping("/listings")
     public ResponseEntity<List<ListingDto>> returnMyListings(Principal principal){

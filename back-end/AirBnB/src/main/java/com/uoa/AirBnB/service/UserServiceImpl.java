@@ -14,10 +14,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService{
-
     UserConverter userConverter = new UserConverter();
     UserPostConverter userPostConverter = new UserPostConverter();
-
 
     @Autowired
     UserRepository userRepository;

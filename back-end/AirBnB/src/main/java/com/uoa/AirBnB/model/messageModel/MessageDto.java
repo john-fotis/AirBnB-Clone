@@ -13,5 +13,7 @@ public class MessageDto {
     private boolean seen;
 
     private long listingId;
+    private String listingTitle;
     private long guestId;
+    private String guestName;
 }

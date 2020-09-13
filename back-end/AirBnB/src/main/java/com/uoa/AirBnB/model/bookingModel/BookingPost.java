@@ -12,5 +12,4 @@ public class BookingPost {
     private Date endDate;
     private long listingId;
     private long userId;
-
 }

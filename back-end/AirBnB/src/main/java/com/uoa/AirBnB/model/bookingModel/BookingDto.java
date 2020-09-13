@@ -10,5 +10,6 @@ public class BookingDto {
     private Date date;
 
     private long listingId;
+    private String listingTitle;
     private long userId;
 }

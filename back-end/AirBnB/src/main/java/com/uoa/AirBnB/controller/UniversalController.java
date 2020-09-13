@@ -10,7 +10,6 @@ import com.uoa.AirBnB.model.userModel.UserDetailsImpl;
 import com.uoa.AirBnB.model.userModel.UserPostDto;
 import com.uoa.AirBnB.payload.request.LoginRequest;
 import com.uoa.AirBnB.payload.response.JwtResponse;
-import com.uoa.AirBnB.repository.BookingRepository;
 import com.uoa.AirBnB.service.ImageService;
 import com.uoa.AirBnB.service.ListingService;
 import com.uoa.AirBnB.service.UserService;
@@ -42,15 +41,15 @@ public class UniversalController {
     @Autowired
     JwtUtils jwtUtils;
     @Autowired
-    private UserService userService;
-    @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private UserService userService;
     @Autowired
     ListingService listingService;
     @Autowired
     ImageService imageService;
-    @Autowired
-    BookingRepository bookingRepository;
+
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
@@ -112,5 +111,4 @@ public class UniversalController {
         img = imageService.uploadImage(img);
         return ResponseEntity.ok().body(Helpers.convertToJson(img));
     }
-
 }

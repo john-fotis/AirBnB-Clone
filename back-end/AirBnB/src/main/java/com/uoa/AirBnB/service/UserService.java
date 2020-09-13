@@ -10,12 +10,9 @@ public interface UserService {
     User findByUsername(String username);
     User findById(Long id);
     UserDto findDtoById(Long id);
-
     List<UserDto> findAll();
 
     UserDto save(UserPostDto userPostDto);
-
     void deleteById(Long id);
-
     UserPostDto findFullDtoById(Long id);
 }

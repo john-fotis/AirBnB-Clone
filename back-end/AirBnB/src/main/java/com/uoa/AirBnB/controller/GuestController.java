@@ -40,10 +40,6 @@ public class GuestController {
         User user = userService.findByUsername(principal.getName());
         return ResponseEntity.ok().body(listingService.findWithParameters(listingParameters)); //Change to Algorithm
     }
-    /*public ResponseEntity<List<ListingDto>> returnAllListings(Principal principal){
-        User user = userService.findByUsername(principal.getName());
-        return ResponseEntity.ok().body(listingService.findAll()); // Change to Algorithm
-    }*/
 
     @GetMapping("/listings/{id}")
     public ResponseEntity<String> returnListingById(@PathVariable("id") Long id) throws Exception {
