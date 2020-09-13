@@ -1,0 +1,203 @@
+html{
+  font-size: 0.9rem;
+  box-sizing: border-box;
+}
+
+body{
+  font: 1.6rem Helvetica;
+  height: 100vh;
+  margin: 0;
+}
+
+.grid-container{
+  display: grid;
+  grid-template-areas: 
+  "header"
+  "main"
+  "footer";
+  grid-template-columns: 1fr;
+  grid-template-rows: 5rem 1fr 5rem;
+  height: 100%;
+}
+
+.header{
+  grid-area: header;
+  background-color: #203040;
+  padding: 0%;
+}
+
+.brand a{
+  color: #fff;
+  font-size: 3rem;
+  font-weight: bold;
+  text-decoration: none;
+  margin: 0%;
+  padding-right: 0%;
+}
+
+.navbar {
+  width: 100%;
+  height: 100%;
+  flex-flow: row;
+  display: flex;
+  justify-content: stretch;
+  position: relative;
+}
+
+li{
+  list-style: none;
+}
+
+.navbar-links a{
+  color:#fff;
+  text-decoration: none;
+  padding: 1rem;
+}
+
+.navbar-boards{
+  display: flex;
+  padding: 0%;
+}
+
+.navbar-boards a{
+  color: #fff;
+  text-decoration: none;
+}
+
+.navbar-links{
+  display: flex;
+  padding-left: 10%;
+  position: absolute;
+  right: 5px;
+}
+
+.navbar-links:hover{
+  color:#ff8000;
+}
+
+.main{
+  grid-area: main;
+}
+
+.footer{
+  grid-area: footer;
+  background-color: #203040;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+a{
+  text-decoration: none;
+}
+
+a:hover{
+  color:#ff8000
+}
+
+/* Home Screen */
+.products {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.products li {
+  list-style-type: none;
+  padding: 0;
+  flex: 0 1 34rem;
+  margin: 1rem;
+  height: 50rem;
+  border-bottom: .1rem #c0c0c0 solid;
+}
+
+.product{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.product-name{
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.product-brand{
+  font-size: 1.2rem;
+  color:#808080;
+}
+
+.product-price{
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.product-image{
+  max-width: 34rem;
+  max-height: 34rem;
+}
+
+.product-rating{
+  margin-bottom: 1rem;
+}
+
+
+/* Sidebar */
+.brand button {
+  font-size: 3rem;
+  padding: .5rem;
+  background: none;
+  border: none;
+  color:#fff;
+  cursor: pointer;
+}
+
+.sidebar{
+  position: fixed;
+  transform: translateX(-30rem);
+  width: 30rem;
+  background-color: #f0f0f0;
+  height: 100%;
+}
+
+.sidebar.open{
+  transform: translateX(0);
+}
+
+.sidebar-close-button{
+  border-radius: 50%;
+  border: .1rem #000 solid;
+  width: 3rem;
+  height: 3rem;
+  padding: .5rem;
+  font-size: 2rem;
+  padding-top: 0;
+  cursor: pointer;
+  position: absolute;
+  right: .5rem;
+  top: 1.5rem
+}
+
+/* Dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+  margin-top: -5%;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  margin-left: 20%;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+  z-index: 999;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
