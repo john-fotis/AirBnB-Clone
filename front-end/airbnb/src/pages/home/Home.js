@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import ListingsFind from '../../components/Listings/ListingsFind/ListingsFind';
 import UserService from "../../_services/user.service";
+// import {PropertyListingsProvider} from '../../context/PropertyListingsProvider';
+import Hero from '../../components/Listings/Hero/Hero';
 
 class Home extends Component {
   constructor(props) {
@@ -31,10 +32,83 @@ class Home extends Component {
 
   render() {
     return (
-      <div className="container">
-        <header>Welcome to Travel Advisor</header>
-        <ListingsFind />
-      </div>
+      <React.Fragment>
+        <Hero />
+        <div className="container">
+          {/* <PropertyListingsProvider /> */}
+          <div className="content">
+            <ul className="products">
+              <li>
+                <div className="product">
+                  <img className="product-image" src="./images/d1.jpg" alt="product" />
+                  <div className="product-name">
+                    <a href="product.html">Slim Shirt</a>
+                  </div>
+                  <div className="product-brand">Nike</div>
+                  <div className="product-price">$60</div>
+                  <div className="product-rating">4.5 Stars (10 Reviews)</div>
+                </div>
+              </li>
+              <li>
+                <div className="product">
+                  <img className="product-image" src="/images/d1.jpg" alt="product" />
+                  <div className="product-name">
+                    <a href="product.html">Slim Shirt</a>
+                  </div>
+                  <div className="product-brand">Nike</div>
+                  <div className="product-price">$60</div>
+                  <div className="product-rating">4.5 Stars (10 Reviews)</div>
+                </div>
+              </li>
+              <li>
+                <div className="product">
+                  <img className="product-image" src="/images/d1.jpg" alt="product" />
+                  <div className="product-name">
+                    <a href="product.html">Slim Shirt</a>
+                  </div>
+                  <div className="product-brand">Nike</div>
+                  <div className="product-price">$60</div>
+                  <div className="product-rating">4.5 Stars (10 Reviews)</div>
+                </div>
+              </li>
+              <li>
+                <div className="product">
+                  <img className="product-image" src="/images/d1.jpg" alt="product" />
+                  <div className="product-name">
+                    <a href="product.html">Slim Shirt</a>
+                  </div>
+                  <div className="product-brand">Nike</div>
+                  <div className="product-price">$60</div>
+                  <div className="product-rating">4.5 Stars (10 Reviews)</div>
+                </div>
+              </li>
+              <li>
+                <div className="product">
+                  <img className="product-image" src="/images/d1.jpg" alt="product" />
+                  <div className="product-name">
+                    <a href="product.html">Slim Shirt</a>
+                  </div>
+                  <div className="product-brand">Nike</div>
+                  <div className="product-price">$60</div>
+                  <div className="product-rating">4.5 Stars (10 Reviews)</div>
+                </div>
+              </li>
+              <li>
+                <div className="product">
+                  <img className="product-image" src="images/d1.jpg" alt="product" />
+                  <div className="product-name">
+                    <a href="product.html">Slim Shirt</a>
+                  </div>
+                  <div className="product-brand">Nike</div>
+                  <div className="product-price">$60</div>
+                  <div className="product-rating">4.5 Stars (10 Reviews)</div>
+                </div>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+      </React.Fragment>
     );
   }
 }

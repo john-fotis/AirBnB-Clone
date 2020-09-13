@@ -30,14 +30,15 @@ body, html, .App, #root, .form-wrapper {
 }
 
 .form-inner {
-  /* min-width: 500px; */
+  min-width: 550px;
   max-width: 72%;
-  margin: 15% auto;
+  margin: 5% auto;
   background: #ffffff;
   box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
   padding: 45px 10px;
   border-radius: 15px;
   transition: all .3s;
+  position: relative;
 }
 
 .form-wrapper .form-field:focus {

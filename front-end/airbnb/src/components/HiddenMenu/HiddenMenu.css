@@ -2,11 +2,10 @@
   background: transparent;
   width: 70px;
   height: 52px;
-  margin-top: 56px;
+  margin-top: 5%;
   border: none;
   cursor: pointer;
   flex-direction: column;
-  padding: 0;
   box-sizing: border-box;
   justify-content: space-around;
 }

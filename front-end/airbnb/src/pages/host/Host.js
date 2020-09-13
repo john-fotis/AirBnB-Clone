@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 
 import UserService from "../../_services/user.service";
+// import Listing from '../../components/Listings/Listing/Listing'
+import CreateListing from "../../components/Listings/Create/ListingCreate";
 
 class HostBoard extends Component {
   constructor(props) {
@@ -34,9 +36,11 @@ class HostBoard extends Component {
   render() {
     return (
       <div className="container">
-        <header className="jumbotron">
-          <h3>{this.state.content}</h3>
-        </header>
+        {/* <header className="jumbotron">
+          <h3>Hello</h3>
+          <Listing />
+        </header> */}
+        <CreateListing />
       </div>
     );
   }
