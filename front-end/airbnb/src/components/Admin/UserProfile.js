@@ -1,78 +1,55 @@
-import React from 'react';
+import React, {Component} from 'react';
+import UserService from '../../_services/user.service'
 
-import { Button } from '@material-ui/core';
-import { useMutation } from 'react-query';
-import styled from 'styled-components/macro';
-
-import useQuerySuccess from '../../hooks/useQuerySuccess';
-import { deleteUser } from '../../services/services';
-import { Avatar, InformationItem } from '../../shared';
-import { refetchQueries } from '../../utils';
-import ConfirmationDialog from '../Dialogs/ConfirmationDialog';
-import { feedItemStyles } from '../FeedItem/FeedItem.style';
-import { AvatarContainer } from '../Incident/Incident.style';
-
-export const UserContainer = styled.div`
-  padding: 5rem 2rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 300px));
-  grid-gap: 50px;
-`;
-
-function UserProfile({ user }) {
-  const classes = feedItemStyles();
-  const [mutate, { status }] = useMutation(deleteUser);
-  const isLoading = status === 'loading';
-  const [isOpen, setIsOpen] = React.useState(false);
-
-  async function handleDelete() {
-    await mutate(user);
+class UserProfile extends Component {
+  state = {
+    user: {},
+    message: ''
   }
 
-  function openModal() {
-    setIsOpen(true);
-  }
-  function handleSuccess() {
-    refetchQueries('users');
+  componentDidMount(){
+    const {userId} = this.props.location.state;
+    console.log(userId)
+    UserService.getUserById(userId)
+    .then(response=>{
+      this.setState({
+        user: response
+      });
+      console.log(this.state.user)
+    })
+    .catch(
+      error => {
+        const resMessage =
+          (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+          error.message ||
+          error.toString();
+
+        this.setState({
+          successful: false,
+          message: resMessage
+        });
+      }
+    )
   }
 
-  function closeModal() {
-    setIsOpen(false);
+  render(){
+    return (
+      <div className="user-view-admin" style={{width: '100%', padding: '5%', marginTop: '10%', backgroundColor: '#ff9'}}>
+        <ul style = {{display: 'flex', flexDirection: 'column'}}>
+          <li><img src={this.state.image} alt='img' /></li>
+          <li><h2>Username: {this.state.user.username} </h2></li>
+          <li><h4><strong>ID: {this.state.user.id}</strong></h4></li>
+          <li><h4>Rest data:</h4></li>
+          <li>First name: {this.state.user.firstName}</li>
+          <li>Last name: {this.state.user.lastName} </li>
+          <li>E-mail: {this.state.user.email} </li>
+          <li>Phone number: {this.state.user.number}</li>
+        </ul>
+      </div>
+    )
   }
-
-  useQuerySuccess(status, handleSuccess);
-  const { authority, firstName, lastName, username } = user;
-  return (
-    <>
-      <ConfirmationDialog
-        callback={handleDelete}
-        isOpen={isOpen}
-        close={closeModal}
-        message='Είσαι σίγουρος ότι θες να διαγράψεις τον χρήστη;'
-      />
-      <ul style={{ paddingBottom: 70 }} className={classes.root}>
-        <AvatarContainer>
-          <Avatar id={authority.id} />
-        </AvatarContainer>
-        <InformationItem label='Όνομα' value={firstName} />
-        <InformationItem label='Επώνυμο' value={lastName} />
-        <InformationItem label='Ονομα Χρήστη' value={username} />
-        <InformationItem label='Υπηρεσία' value={authority.name} />
-        <div style={{ position: 'absolute', bottom: 20, right: 20 }}>
-          <Button
-            disabled={isLoading}
-            onClick={openModal}
-            size='small'
-            style={{ marginTop: '10px' }}
-            variant='contained'
-            color='primary'
-          >
-            Διαγραφη
-          </Button>
-        </div>
-      </ul>
-    </>
-  );
 }
 
 export default UserProfile;
