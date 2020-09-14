@@ -32,6 +32,7 @@ body{
   font-weight: bold;
   text-decoration: none;
   margin: 0%;
+  display: fixed;
   padding-right: 0%;
 }
 
@@ -42,6 +43,7 @@ body{
   display: flex;
   justify-content: stretch;
   position: relative;
+  z-index: 1000;
 }
 
 li{
@@ -95,91 +97,6 @@ a:hover{
   color:#ff8000
 }
 
-/* Home Screen */
-.products {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.products li {
-  list-style-type: none;
-  padding: 0;
-  flex: 0 1 34rem;
-  margin: 1rem;
-  height: 50rem;
-  border-bottom: .1rem #c0c0c0 solid;
-}
-
-.product{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-}
-
-.product-name{
-  font-size: 2rem;
-  font-weight: bold;
-}
-
-.product-brand{
-  font-size: 1.2rem;
-  color:#808080;
-}
-
-.product-price{
-  font-size: 2rem;
-  font-weight: bold;
-}
-
-.product-image{
-  max-width: 34rem;
-  max-height: 34rem;
-}
-
-.product-rating{
-  margin-bottom: 1rem;
-}
-
-
-/* Sidebar */
-.brand button {
-  font-size: 3rem;
-  padding: .5rem;
-  background: none;
-  border: none;
-  color:#fff;
-  cursor: pointer;
-}
-
-.sidebar{
-  position: fixed;
-  transform: translateX(-30rem);
-  width: 30rem;
-  background-color: #f0f0f0;
-  height: 100%;
-}
-
-.sidebar.open{
-  transform: translateX(0);
-}
-
-.sidebar-close-button{
-  border-radius: 50%;
-  border: .1rem #000 solid;
-  width: 3rem;
-  height: 3rem;
-  padding: .5rem;
-  font-size: 2rem;
-  padding-top: 0;
-  cursor: pointer;
-  position: absolute;
-  right: .5rem;
-  top: 1.5rem
-}
-
 /* Dropdown content */
 .dropdown {
   position: relative;
@@ -199,5 +116,22 @@ a:hover{
 }
 
 .dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content-search {
+  display: none;
+  position: absolute;
+  margin-left: 20%;
+  margin-top: 20px;
+  background-color: #f9f9f9;
+  min-width: 510px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+  z-index: 999;
+  top: 40px;
+}
+
+.dropdown:hover .dropdown-content-search{
   display: block;
 }

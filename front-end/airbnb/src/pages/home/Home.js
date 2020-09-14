@@ -1,114 +1,332 @@
 import React, { Component } from "react";
-import UserService from "../../_services/user.service";
-// import {PropertyListingsProvider} from '../../context/PropertyListingsProvider';
-import Hero from '../../components/Listings/Hero/Hero';
+import './Home.css';
+import Form from "react-validation/build/form";
+import Input from "react-validation/build/input";
+import CheckButton from "react-validation/build/button";
+import UserService from '../../_services/user.service';
+import { Checkbox } from "@material-ui/core";
+import NumericInput from 'react-numeric-input';
+import {DatePicker} from '../../_services/date-picker'
+import 'react-datepicker/dist/react-datepicker.css';
+import {history} from '../../_helpers/history';
+
+const required = value => {
+  if (!value) {
+    return (
+      <div className="alert alert-danger" role="alert">
+        Required!
+      </div>
+    );
+  }
+};
 
 class Home extends Component {
   constructor(props) {
-    super(props);
+    super();
 
     this.state = {
-      content: ""
+      numOfBeds: 1,
+      numOfWc: 1,
+      numofRooms: 1,
+      smoking: false,
+      animals: false,
+      parties: false,
+      maxGuests: 0,
+      latitude: 0.0,
+      longitude: 0.0,
+      country: "",
+      city: "",
+      neighborhood: "",
+      wifi: false,
+      ac: false,
+      heating: false,
+      kitchen: false,
+      tv: false,
+      parking: false,
+      elevator: false,
+      startDate: new Date(),
+      endDate: new Date(),
+      successful: false,
+      message: ""
     };
   }
 
-  componentDidMount() {
-    UserService.getListings().then(
-      response => {
-        this.setState({
-          content: response.data
-        });
-      },
-      error => {
-        this.setState({
-          content:
-            (error.response && error.response.data) ||
+  onDateChange (e) {
+    this.setState({
+      [this.state.startDate]: e.target.value
+    });
+  }
+
+  handleChange = e => {
+    const target = e.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value
+    });
+  }
+
+  handleSubmit = e => {
+    e.preventDefault();
+
+    this.setState({
+      message: "",
+      successful: false
+    });
+
+    if (this.checkBtn.context._errors.length === 0) {
+      UserService.searchListings(
+        this.state.numOfBeds,
+        this.state.numOfWc,
+        this.state.numofRooms,
+        this.state.smoking,
+        this.state.animals,
+        this.state.parties,
+        this.state.maxGuests,
+        this.state.latitude,
+        this.state.longitude,
+        this.state.country,
+        this.state.city,
+        this.state.neighborhood,
+        this.state.wifi,
+        this.state.ac,
+        this.state.heating,
+        this.state.kitchen,
+        this.state.tv,
+        this.state.parking,
+        this.state.elevator,
+        this.state.startDate,
+        this.state.endDate,
+      )
+      .then(
+        response => {
+          if (response.status === 200) {
+            this.setState({
+              message: response.data.message,
+              successful: true
+            });
+            console.log(response)
+            history.push('/');
+            window.location.reload();
+          }
+        }
+      )
+      .catch(
+        error => {
+          const resMessage =
+            (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
             error.message ||
-            error.toString()
-        });
-      }
-    );
+            error.toString();
+
+          this.setState({
+            successful: false,
+            message: resMessage
+            }
+          );
+        }
+      );
+    }
+
+    this.form.validateAll();
   }
 
   render() {
     return (
-      <React.Fragment>
-        <Hero />
-        <div className="container">
-          {/* <PropertyListingsProvider /> */}
-          <div className="content">
-            <ul className="products">
-              <li>
-                <div className="product">
-                  <img className="product-image" src="./images/d1.jpg" alt="product" />
-                  <div className="product-name">
-                    <a href="product.html">Slim Shirt</a>
-                  </div>
-                  <div className="product-brand">Nike</div>
-                  <div className="product-price">$60</div>
-                  <div className="product-rating">4.5 Stars (10 Reviews)</div>
-                </div>
-              </li>
-              <li>
-                <div className="product">
-                  <img className="product-image" src="/images/d1.jpg" alt="product" />
-                  <div className="product-name">
-                    <a href="product.html">Slim Shirt</a>
-                  </div>
-                  <div className="product-brand">Nike</div>
-                  <div className="product-price">$60</div>
-                  <div className="product-rating">4.5 Stars (10 Reviews)</div>
-                </div>
-              </li>
-              <li>
-                <div className="product">
-                  <img className="product-image" src="/images/d1.jpg" alt="product" />
-                  <div className="product-name">
-                    <a href="product.html">Slim Shirt</a>
-                  </div>
-                  <div className="product-brand">Nike</div>
-                  <div className="product-price">$60</div>
-                  <div className="product-rating">4.5 Stars (10 Reviews)</div>
-                </div>
-              </li>
-              <li>
-                <div className="product">
-                  <img className="product-image" src="/images/d1.jpg" alt="product" />
-                  <div className="product-name">
-                    <a href="product.html">Slim Shirt</a>
-                  </div>
-                  <div className="product-brand">Nike</div>
-                  <div className="product-price">$60</div>
-                  <div className="product-rating">4.5 Stars (10 Reviews)</div>
-                </div>
-              </li>
-              <li>
-                <div className="product">
-                  <img className="product-image" src="/images/d1.jpg" alt="product" />
-                  <div className="product-name">
-                    <a href="product.html">Slim Shirt</a>
-                  </div>
-                  <div className="product-brand">Nike</div>
-                  <div className="product-price">$60</div>
-                  <div className="product-rating">4.5 Stars (10 Reviews)</div>
-                </div>
-              </li>
-              <li>
-                <div className="product">
-                  <img className="product-image" src="images/d1.jpg" alt="product" />
-                  <div className="product-name">
-                    <a href="product.html">Slim Shirt</a>
-                  </div>
-                  <div className="product-brand">Nike</div>
-                  <div className="product-price">$60</div>
-                  <div className="product-rating">4.5 Stars (10 Reviews)</div>
-                </div>
-              </li>
+      <div>
+        <div className="home-main-container">
+          <header><h1><strong>Planning your trip made easy!</strong></h1></header>
+          <Form 
+            autocomplete = 'off'
+            className = "form-wrapper"
+            onSubmit={this.handleSubmit}
+            ref={c => {
+              this.form = c;
+            }}>
+            <div 
+            className = 'form-inner'
+            style = {{marginTop: '5%', minWidth: '900px'}}>
+              <h3>I'm looking for...</h3>
+              {!this.state.successful && (
+                <table style={{width: '400px', marginLeft: '2%'}}>
+                  <tbody>
+                    <tr>
+                        {/* Country */}
+                        <div className="form-field">
+                          <label htmlFor="text">* Country</label>
+                          <Input
+                            type="text"
+                            className="form-control"
+                            name="country"
+                            placeholder="Greece..."
+                            value={this.state.country}
+                            onChange={this.handleChange}
+                            validations={[required]}
+                          />
+                        </div>
+                          {/* City */} 
+                          <div className="form-field">
+                          <label htmlFor="text">* City</label>
+                          <Input
+                            type="text"
+                            className="form-control"
+                            name="city"
+                            placeholder="Santorini..."
+                            value={this.state.city}
+                            onChange={this.handleChange}
+                            validations={[required]}
+                          />
+                        </div>
+                    </tr>
+                    
 
-            </ul>
-          </div>
+                    <tr>
+                        {/* Number of people */}
+                        <div className="form-field">
+                          <label htmlFor="text" style = {{marginRight: '16px'}}>
+                            People
+                          </label>
+                          <NumericInput min={0} max={10} value={this.state.numOfBeds}
+                          className=""/>
+                        </div>
+                    </tr>
+
+                    <tr> 
+                      {/* When */}
+                      <br />
+                      <div className="dropdown">
+                        <DatePicker handleChange = {this.handleChange}></DatePicker>
+                      </div>
+                    </tr>
+                    <tr>
+                      {/* Extras */}
+                      <br />
+                      <div className="dropdown">
+                        <label style={{marginTop: '50%', marginBottom: '0%'}}>Extras:</label>
+                        <div className="dropdown-content-search">
+                          <div className = "extras" style={{width: '100%', margin: '0%'}}>
+                            <br />
+                            <div className = "listing-details">
+                              <Checkbox
+                                name = "livingRoom"
+                                label = "Living Room"
+                                onChange = {this.handleChange}
+                              />
+                              <p>Living Room</p>
+                              <Checkbox
+                                name = "kitchen"
+                                label = "kitchen"
+                                onChange = {this.handleChange}
+                              />
+                              <p>Kitchen</p>
+                              <Checkbox
+                                name = "parking"
+                                label = "parking"
+                                onChange = {this.handleChange}
+                              />
+                              <p>Parking</p>
+                              <Checkbox
+                                name = "elevator"
+                                label = "elevator"
+                                onChange = {this.handleChange}
+                              />
+                              <p>Elevator</p>
+                              <Checkbox
+                                name = "smoking"
+                                label = "smoking"
+                                onChange = {this.handleChange}
+                              />
+                              <p>Smoking</p>
+                            </div>            
+
+                            <div className = "listing-details">
+                              <Checkbox
+                                name = "tv"
+                                label = "tv"
+                                onChange = {this.handleChange}
+                              />
+                              <p>TV</p>
+                              <Checkbox
+                                name = "ac"
+                                label = "ac"
+                                onChange = {this.handleChange}
+                              />
+                              <p>AC</p>
+                              <Checkbox
+                                name = "heating"
+                                label = "heating"
+                                onChange = {this.handleChange}
+                              />
+                              <p>Heating</p>
+                              <Checkbox
+                                name = "wifi"
+                                label = "wifi"
+                                onChange = {this.handleChange}
+                              />
+                              <p>Wifi</p>
+                              <Checkbox
+                                name = "parties"
+                                label = "parties"
+                                onChange = {this.handleChange}
+                              />
+                              <p>Parties</p>
+                              <Checkbox
+                                name = "animals"
+                                label = "animals"
+                                onChange = {this.handleChange}
+                              />
+                              <p>Animals</p>
+                            </div>            
+                          </div>
+                        </div>
+                      </div>
+                    </tr>
+                  </tbody>
+                </table>
+              )}
+              
+              {this.state.message && (
+                <div className="form-field">
+                  <div
+                    className={
+                      this.state.successful
+                        ? "alert alert-success"
+                        : "alert alert-danger"
+                    }
+                    role="alert"
+                  >
+                    {this.state.message}
+                  </div>
+                </div>
+              )}
+              <CheckButton
+                style={{ display: "none" }}
+                ref={c => {
+                  this.checkBtn = c;
+                }}
+              />
+              <div style={{width: '50%'}}>
+                <button 
+                  style = {{marginTop: '42px', marginLeft: 'auto', marginRight: 'auto', width: '25%'}} 
+                  type = "submit" 
+                  className="submit-button btn btn-primary btn-block"
+                  onClick = {this.handleSubmit}>
+                    Search
+                </button>
+              </div>
+
+              <p style={{width: '30%', marginTop: '4%',
+                marginBottom: '0', fontSize: 'small',
+                fontStyle: 'italic'}}
+              >
+                Fields with * are required!
+              </p>
+            </div>
+          </Form>
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }
