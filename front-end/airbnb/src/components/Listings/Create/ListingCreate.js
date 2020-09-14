@@ -8,6 +8,8 @@ import { Checkbox } from "@material-ui/core";
 import NumericInput from 'react-numeric-input';
 import {DatePicker} from '../../../_services/date-picker'
 import 'react-datepicker/dist/react-datepicker.css';
+import AuthService from '../../../_services/authentication.service';
+import {history} from '../../../_helpers/history';
 
 const required = value => {
   if (!value) {
@@ -20,8 +22,8 @@ const required = value => {
 };
 
 class CreateListing extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onDateChange = this.onDateChange.bind(this);
@@ -62,7 +64,7 @@ class CreateListing extends Component {
       numOfReviews: 0,
       averageRating: 0.0,
       host: {
-        id: JSON.parse(localStorage.getItem('user'))
+        id: AuthService.getCurrentUser().id
       },
 
       selectedFile: null,
@@ -94,10 +96,6 @@ class CreateListing extends Component {
     this.setState({
       [name]: value
     });
-
-    
-    console.log(e.target.value)
-    console.log(target)
   }
 
   handleSubmit = e => {
@@ -107,8 +105,6 @@ class CreateListing extends Component {
       message: "",
       successful: false
     });
-    console.log(this.state.startDate)
-    console.log(this.state.endDate)
 
     if (this.checkBtn.context._errors.length === 0) {
       UserService.createListing(
@@ -131,7 +127,7 @@ class CreateListing extends Component {
         this.state.city,
         this.state.neighborhood,
         this.state.address,
-        this.state.postalCode,
+        this.state.postalCode.toString(),
         this.state.transportation,
         this.state.minCost,
         this.state.costPerExtraGuest,
@@ -148,20 +144,22 @@ class CreateListing extends Component {
       )
       .then(
         response => {
-          this.setState({
-            message: response.data.message,
-            successful: true
-          });
-          this.props.history.push("/admin/profile");
-          window.location.reload();   
+          if (response.status === 200) {
+            this.setState({
+              message: response.data.message,
+              successful: true
+            });
+            history.push('/');
+            window.location.reload();
+          }
         }
       )
       .catch(
         error => {
           const resMessage =
             (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
+            error.response.data &&
+            error.response.data.message) ||
             error.message ||
             error.toString();
 
@@ -174,10 +172,8 @@ class CreateListing extends Component {
       );
     }
 
-
     this.form.validateAll();
     console.log(this.state)
-    console.log(this.state.startDate)
   }
 
   render() { 
@@ -335,9 +331,9 @@ class CreateListing extends Component {
                           Shared Room
                         </option>
                         <option
-                        name="fullAppartment"
-                        value='FULL_APPARTMENT'>
-                          Full Appartment
+                        name="fullApartment"
+                        value='FULL_APARTMENT'>
+                          Full Apartment
                         </option>
                       </select>
 
