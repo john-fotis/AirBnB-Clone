@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { useAuth } from "../context/auth";
+import AuthService from '../_services/authentication.service';
 
 function PrivateRoute({ component: Component, ...rest }) {
     const isAuthenticated = useAuth();
@@ -9,10 +10,13 @@ function PrivateRoute({ component: Component, ...rest }) {
         <Route
             {...rest}
             render={props =>
-            isAuthenticated ? (
+            (isAuthenticated && AuthService.getCurrentUser().roles.includes("ROLE_ADMIN")) ? (
                 <Component {...props} />
             ) : (
-                <Redirect to="/login" />
+                <div>
+                    <Redirect to="/login" />
+                    {alert('Unauthorized')}
+                </div>
             )
             }
         />
