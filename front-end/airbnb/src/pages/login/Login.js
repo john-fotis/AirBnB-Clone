@@ -5,6 +5,7 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import './Login.css';
 import AuthService from "../../_services/authentication.service";
+import {history} from '../../_helpers/history';
 const required = value => {
   if (!value) {
     return (
@@ -48,7 +49,7 @@ class Login extends Component {
         if (this.checkBtn.context._errors.length === 0) {
             AuthService.login(this.state.username, this.state.password).then(
                 () => {
-                this.props.history.push("/admin/profile");
+                history.push("/admin/profile");
                 window.location.reload();
                 },
             ).catch(error => {
