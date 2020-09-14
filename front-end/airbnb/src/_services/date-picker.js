@@ -15,7 +15,6 @@ export const DatePicker = (props) => {
 
   const startDateHandler = (day) => {
     setFrom(day)
-    // props.handleChange(props.startDate)
   }
 
   const endDateHandler = (day) => {
@@ -37,11 +36,11 @@ export const DatePicker = (props) => {
       <p>
         {!from && !to && (
           <span className="link">
-            Select start date
+            *From:
           </span>)}
         {from && !to && (
           <span className="link">
-            Select end date
+            *To:
           </span>)}
         {from &&
           to &&

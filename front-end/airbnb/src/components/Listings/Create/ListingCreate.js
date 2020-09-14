@@ -41,7 +41,7 @@ class CreateListing extends Component {
       animals: false,
       parties: false,
       minRentDays: 1,
-      maxGuests: 0,
+      maxGuests: 1,
       latitude: 0.0,
       longitude: 0.0,
       country: "",
@@ -457,7 +457,7 @@ class CreateListing extends Component {
                       <div className = "listing-details">
                         <Checkbox
                           name = "livingRoom"
-                          label = "LivingRoom"
+                          label = "Living Room"
                           onChange = {this.handleChange}
                         />
                         <p>Living Room</p>
@@ -564,6 +564,12 @@ class CreateListing extends Component {
               onClick = {this.handleSubmit}>
                 Submit
             </button>
+            <p style={{width: '30%', marginTop: '4%',
+              marginBottom: '0', fontSize: 'small',
+              fontStyle: 'italic'}}
+            >
+              Fields with * are required!
+            </p>
           </div>
         </Form>
       </div>
