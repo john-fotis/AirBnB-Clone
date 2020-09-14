@@ -7,6 +7,7 @@ import './Register.css';
 import AuthService from "../../_services/authentication.service";
 import UserService from '../../_services/user.service';
 import { Checkbox } from "@material-ui/core";
+import {history} from '../../_helpers/history';
 
 const required = value => {
   if (!value) {
@@ -140,7 +141,7 @@ class Register extends Component {
           userId = response.data.id;
           AuthService.login(this.state.username, this.state.password).then(
             () => {
-              this.props.history.push("/admin/profile");
+              history.push("/admin/profile");
               window.location.reload();
             }
           )
@@ -149,12 +150,13 @@ class Register extends Component {
               UserService.linkUserPhoto(response.data, userId)
             }
           )
-        },
+        }
+      ).catch(
         error => {
           const resMessage =
             (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
+            error.response.data &&
+            error.response.data.message) ||
             error.message ||
             error.toString();
 
@@ -163,7 +165,7 @@ class Register extends Component {
             message: resMessage
           });
         }
-      );
+      )
     }
   }
 
