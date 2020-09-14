@@ -11,10 +11,10 @@ function Hero({ children }) {
   })
 
   return (
-    <div className={classes}>
+    <div className={classes} style = {{height: '300px', position: 'relative'}}>
       <div className="hero-body text-center text-light">
         <h1> Top Booking Choice</h1>
-        <p className="mb-0">Planning your trip made easy!</p>
+        <p className="mb-0" style={{position: 'absolute', bottom: '10px'}}>Planning your trip made easy!</p>
       </div>
     </div>
   )
