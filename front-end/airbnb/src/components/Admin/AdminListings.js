@@ -4,7 +4,7 @@ import ListingsList from './ListingsList';
 
 class AdminListings extends Component {
   constructor(props) {
-    super(props);
+    super();
 
     this.state = {
       content: [],
@@ -21,7 +21,6 @@ class AdminListings extends Component {
           content: response.data,
           loading: false
         });
-        console.log(response.data)
       }
     )
     .catch(

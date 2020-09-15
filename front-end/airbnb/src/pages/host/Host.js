@@ -22,7 +22,6 @@ class HostBoard extends Component {
           content: response.data,
           loading: false
         });
-        console.log(response.data)
       }
     )
     .catch(

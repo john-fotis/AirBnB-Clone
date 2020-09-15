@@ -101,6 +101,11 @@ class App extends Component {
                         Listings
                       </Link>
                     </li>
+                    <li className="nav-item">
+                      <Link to={"/admin/reviews"} className="nav-link">
+                        Reviews
+                      </Link>
+                    </li>
                   </div>
                 )}
 

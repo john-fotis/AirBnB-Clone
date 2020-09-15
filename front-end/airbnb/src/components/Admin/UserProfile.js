@@ -9,13 +9,11 @@ class UserProfile extends Component {
 
   componentDidMount(){
     const {userId} = this.props.location.state;
-    console.log(userId)
     UserService.getUserById(userId)
     .then(response=>{
       this.setState({
         user: response
       });
-      console.log(this.state.user)
     })
     .catch(
       error => {

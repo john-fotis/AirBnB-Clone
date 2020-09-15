@@ -5,13 +5,29 @@ import AuthService from './authentication.service';
 const API = 'http://localhost:8080/air-bnb/api';
 
 class UserService {
+
   async getAdminListings() {
     const result = await axios.get(API + '/admin/listings', {headers: authHeader() });
     return result;
   }
 
+  async getAdminUsers() {
+    const result = await axios.get(API + '/admin/users', {headers: authHeader() });
+    return result;
+  }
+
+  async getAdminReviews() {
+    const result = await axios.get(API + '/admin/reviews', {headers: authHeader() });
+    return result;
+  }
+
   async getCurrentListing (listingId) {
     const result = await axios.get(API + '/listings/' + listingId, {headers: authHeader() });
+    return result;
+  }
+
+  async getCurrentReview (reviewId) {
+    const result = await axios.get(API + '/reviews/' + reviewId, {headers: authHeader() });
     return result;
   }
 
@@ -30,13 +46,10 @@ class UserService {
     return result.data;
   }
 
-  getAdminBoard() {
-    return axios.get(API + '/admin', { headers: authHeader() });
-  }
-
-  async getAdminUsers() {
-    const result = await axios.get(API + '/admin/users', {headers: authHeader() });
-    return result;
+  async getReviewById(id){
+    const result = await axios.get(API + `/admin/reviews/${id}`, { headers: authHeader() });
+    console.log(id)
+    return result.data;
   }
 
   postPhoto(imageFile) {

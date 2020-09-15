@@ -9,7 +9,6 @@ class ListingDetails extends Component {
 
   componentDidMount(){
     const {listingId} = this.props.location.state;
-    console.log(listingId)
     UserService.getCurrentListing(listingId)
     .then(response=>{
       this.setState({

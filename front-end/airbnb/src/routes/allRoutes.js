@@ -16,6 +16,8 @@ import AdminUsers from '../components/Admin/AdminUsers';
 import UserProfile from '../components/Admin/UserProfile';
 import AdminListings from '../components/Admin/AdminListings';
 import ListingDetails from '../components/Admin/ListingDetails';
+import AdminReviews from '../components/Admin/AdminReviews';
+import ReviewOverview from '../components/Admin/ReviewOverview';
 
 // Host paths
 import HostBoard from '../pages/host/Host';
@@ -26,6 +28,7 @@ import CreateListing from '../components/Listings/Create/CreateListing';
 import GuestBoard from '../pages/guest/Guest'
 
 
+
 export default function Routes () {
   return (
     <Switch>
@@ -33,6 +36,8 @@ export default function Routes () {
       <AdminRoute exact path="/admin/users/:userId" component= {UserProfile}/>
       <AdminRoute exact path="/admin/listings" component={AdminListings} />
       <AdminRoute exact path="/admin/listings/:listingId" component= {ListingDetails}/> 
+      <AdminRoute exact path="/admin/reviews" component={AdminReviews} />
+      <AdminRoute exact path="/admin/reviews/:reviewId" component={ReviewOverview} />
 
       <PrivateRoute exact path="/profile" component={Profile} />
       <Route exact path="/login" component={Login} />
