@@ -5,7 +5,7 @@ import AuthService from './authentication.service';
 const API = 'http://localhost:8080/air-bnb/api';
 
 class UserService {
-  async getListings() {
+  async getAdminListings() {
     const result = await axios.get(API + '/admin/listings', {headers: authHeader() });
     return result;
   }
@@ -15,13 +15,14 @@ class UserService {
     return result;
   }
 
-  getHostBoard() {
-    return axios.get(API + '/host/listings', { headers: authHeader() });
+  async getHostBoard() {
+    const result = await axios.get(API + '/host/listings', { headers: authHeader() });
+    return result;
   }
 
   async getGuestBoard() {
-    const result = await axios.get(API + '/guests', { headers: authHeader() });
-    return result.data;
+    const result = await axios.get(API + '/guest/reviews', { headers: authHeader() });
+    return result;
   }
 
   async getUserById(id){
@@ -33,7 +34,7 @@ class UserService {
     return axios.get(API + '/admin', { headers: authHeader() });
   }
 
-  async getUsers() {
+  async getAdminUsers() {
     const result = await axios.get(API + '/admin/users', {headers: authHeader() });
     return result;
   }

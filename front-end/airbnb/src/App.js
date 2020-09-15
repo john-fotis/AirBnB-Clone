@@ -67,12 +67,12 @@ class App extends Component {
                 {showHostBoard && (
                   <div className="navbar-boards">
                     <li className="nav-item">
-                      <Link to={"/users/" + currentUser.id} className="nav-link">
+                      <Link to={"/host/listings"} className="nav-link">
                         Host Board
                       </Link>
                     </li>
                       <li className="nav-item">
-                      <Link to={"/host/listings"} className="nav-link">
+                      <Link to={"/host/create-listing"} className="nav-link">
                         Create Listing
                       </Link>
                     </li>
@@ -82,7 +82,7 @@ class App extends Component {
                 {showGuestBoard && (
                   <div className="navbar-boards">
                     <li className="nav-item">
-                      <Link to={"/users/" + currentUser.id} className="nav-link">
+                      <Link to={"/guest/reviews"} className="nav-link">
                         Guest Board
                       </Link>
                     </li>

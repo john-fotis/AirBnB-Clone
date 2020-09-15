@@ -1,25 +1,31 @@
 import React, { Component } from "react";
+import HostListingsList from "./HostListingsList";
 
 import UserService from "../../_services/user.service";
-// import Listing from '../../components/Listings/Listing/Listing'
-import CreateListing from "../../components/Listings/Create/ListingCreate";
 
 class HostBoard extends Component {
   constructor(props) {
-    super(props);
+    super();
 
     this.state = {
-      content: ""
+      content: [],
+      loading: false
     };
   }
 
   componentDidMount() {
-    UserService.getHostBoard().then(
+    this.setState({loading: true})
+    UserService.getHostBoard()
+    .then(
       response => {
         this.setState({
-          content: response.data
+          content: response.data,
+          loading: false
         });
-      },
+        console.log(response.data)
+      }
+    )
+    .catch(
       error => {
         this.setState({
           content:
@@ -35,13 +41,12 @@ class HostBoard extends Component {
 
   render() {
     return (
-      <div className="container">
-        {/* <header className="jumbotron">
-          <h3>Hello</h3>
-          <Listing />
-        </header> */}
-        <CreateListing />
-      </div>
+      <React.Fragment>
+        <main className="container" style={{width: '100%', padding: '5%', marginTop: '10%', backgroundColor: '#ff9'}}>
+          <h2>My listings</h2>
+          <HostListingsList listings={this.state.content} loading={this.state.loading}/>
+        </main>
+      </React.Fragment>
     );
   }
 }

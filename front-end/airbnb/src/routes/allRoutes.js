@@ -1,38 +1,49 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+
+// Path types
+import AdminRoute from './AdminRoute';
+import PrivateRoute from './PrivateRoute';
+
+// Universal paths
 import Login from '../pages/login/Login';
 import Register from '../pages/register/Register';
 import Home from '../pages/home/Home';
-import AdminUsers from '../components/Admin/AdminUsers';
-import AdminListings from '../components/Admin/AdminListings';
-import HostBoard from '../pages/host/Host';
-import PrivateRoute from './PrivateRoute';
-import AdminRoute from './AdminRoute';
 import Profile from '../pages/profile/Profile';
-import GuestBoard from '../pages/guest/Guest'
-import Listing from '../components/Listings/Listing/Listing';
-import ListingsFind from '../components/Listings/ListingsFind/ListingsFind'
-import UsersList from '../components/Admin/UsersList' 
+
+// Admin paths
+import AdminUsers from '../components/Admin/AdminUsers';
 import UserProfile from '../components/Admin/UserProfile';
+import AdminListings from '../components/Admin/AdminListings';
 import ListingDetails from '../components/Admin/ListingDetails';
-import userService from '../_services/user.service';
+
+// Host paths
+import HostBoard from '../pages/host/Host';
+import CreateListing from '../components/Listings/Create/CreateListing';
+
+
+// Guest paths
+import GuestBoard from '../pages/guest/Guest'
+
 
 export default function Routes () {
   return (
     <Switch>
-      <AdminRoute exact path="/admin" component={UsersList} />     
-      <Route exact path="/login" component={Login} />
-      <Route exact path="/register" component={Register} />
-      <Route exact path={["/", "/home"]} component={Home} />
-      <PrivateRoute exact path="/admin/profile" component={Profile} />
-      <Route path="/host" component={HostBoard} />
-      <Route path="/guest" component={GuestBoard} />
-      <Route path="/host/listings" component = {Listing} />
       <AdminRoute exact path="/admin/users" component={AdminUsers} />
       <AdminRoute exact path="/admin/users/:userId" component= {UserProfile}/>
       <AdminRoute exact path="/admin/listings" component={AdminListings} />
-      <AdminRoute exact path="/admin/listings/:listingId" component= {ListingDetails}/>
+      <AdminRoute exact path="/admin/listings/:listingId" component= {ListingDetails}/> 
+
+      <PrivateRoute exact path="/admin/profile" component={Profile} />
+      <Route exact path="/login" component={Login} />
+      <Route exact path="/register" component={Register} />
+      <Route exact path={["/", "/home"]} component={Home} />
+
+      <Route exact path="/host/listings" component={HostBoard} />
+      <Route exact path="/host/create-listing" component = {CreateListing} />
+
+      <Route exact path="/guest/reviews" component={GuestBoard} />
+
     </Switch>
   )
 }
