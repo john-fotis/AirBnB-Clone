@@ -82,6 +82,10 @@ public class ListingServiceImpl implements ListingService {
                 else
                     return null;
             }).collect(Collectors.toList());
+
+            while(listingList.remove(null));
+            if(listingList.isEmpty())
+                return Collections.emptyList();
         }
         if(listingParameters.getMaxCost()!=null){
             listingList = listingList.stream().map(listing -> {
@@ -90,6 +94,10 @@ public class ListingServiceImpl implements ListingService {
                 else
                     return null;
             }).collect(Collectors.toList());
+
+            while(listingList.remove(null));
+            if(listingList.isEmpty())
+                return Collections.emptyList();
         }
         if(listingParameters.getWifi()!=null){
             listingList = listingList.stream().map(listing -> {
@@ -98,6 +106,10 @@ public class ListingServiceImpl implements ListingService {
                 else
                     return null;
             }).collect(Collectors.toList());
+
+            while(listingList.remove(null));
+            if(listingList.isEmpty())
+                return Collections.emptyList();
         }
         if(listingParameters.getAc()!=null){
             listingList = listingList.stream().map(listing -> {
@@ -106,6 +118,10 @@ public class ListingServiceImpl implements ListingService {
                 else
                     return null;
             }).collect(Collectors.toList());
+
+            while(listingList.remove(null));
+            if(listingList.isEmpty())
+                return Collections.emptyList();
         }
         if(listingParameters.getHeating()!=null){
             listingList = listingList.stream().map(listing -> {
@@ -114,6 +130,10 @@ public class ListingServiceImpl implements ListingService {
                 else
                     return null;
             }).collect(Collectors.toList());
+
+            while(listingList.remove(null));
+            if(listingList.isEmpty())
+                return Collections.emptyList();
         }
         if(listingParameters.getKitchen()!=null){
             listingList = listingList.stream().map(listing -> {
@@ -122,6 +142,10 @@ public class ListingServiceImpl implements ListingService {
                 else
                     return null;
             }).collect(Collectors.toList());
+
+            while(listingList.remove(null));
+            if(listingList.isEmpty())
+                return Collections.emptyList();
         }
         if(listingParameters.getTv()!=null){
             listingList = listingList.stream().map(listing -> {
@@ -130,6 +154,10 @@ public class ListingServiceImpl implements ListingService {
                 else
                     return null;
             }).collect(Collectors.toList());
+
+            while(listingList.remove(null));
+            if(listingList.isEmpty())
+                return Collections.emptyList();
         }
         if(listingParameters.getParking()!=null){
             listingList = listingList.stream().map(listing -> {
@@ -138,6 +166,10 @@ public class ListingServiceImpl implements ListingService {
                 else
                     return null;
             }).collect(Collectors.toList());
+
+            while(listingList.remove(null));
+            if(listingList.isEmpty())
+                return Collections.emptyList();
         }
         if(listingParameters.getElevator()!=null){
             listingList = listingList.stream().map(listing -> {
@@ -146,6 +178,10 @@ public class ListingServiceImpl implements ListingService {
                 else
                     return null;
             }).collect(Collectors.toList());
+
+            while(listingList.remove(null));
+            if(listingList.isEmpty())
+                return Collections.emptyList();
         }
 
 

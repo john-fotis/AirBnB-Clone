@@ -1,12 +1,12 @@
 {
     "startDate": "2020-10-17",
     "endDate": "2020-12-19",
-	"maxGuests": 3,
+	"guests": 3,
 	"country": "Greece",
-	"city": "Halandri",
+	"city": "Santorini",
 	
-    "type": "PRIVATE_ROOM",
-	"maxCost": 50.52,
+    "type": "FULL_APARTMENT",
+	"maxCost": 120.52,
     "wifi": true,
     "ac": true,
     "heating": true,
