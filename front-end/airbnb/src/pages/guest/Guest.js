@@ -1,23 +1,30 @@
 import React, { Component } from "react";
+import GuestReviewsList from "./GuestReviewsList";
 
 import UserService from "../../_services/user.service";
 
 class GuestBoard extends Component {
   constructor(props) {
-    super(props);
+    super();
 
     this.state = {
-      content: ""
+      content: [],
+      loading: false
     };
   }
 
   componentDidMount() {
-    UserService.grtGuestBoard().then(
+    this.setState({loading: true})
+    UserService.getGuestBoard()
+    .then(
       response => {
         this.setState({
-          content: response.data
+          content: response.data,
+          loading: false
         });
-      },
+      }
+    )
+    .catch(
       error => {
         this.setState({
           content:
@@ -33,11 +40,12 @@ class GuestBoard extends Component {
 
   render() {
     return (
-      <div className="container">
-        <header className="jumbotron">
-          <h3>{this.state.content}</h3>
-        </header>
-      </div>
+      <React.Fragment>
+        <main className="container" style={{width: '100%', padding: '5%', marginTop: '10%', backgroundColor: '#ff9'}}>
+          <h2>My reviews</h2>
+          <GuestReviewsList reviews={this.state.content} loading={this.state.loading}/>
+        </main>
+      </React.Fragment>
     );
   }
 }

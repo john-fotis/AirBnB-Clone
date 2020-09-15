@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 
-const ListingsFind = ({listings, loading}) => {
+const ListingsList = ({listings, loading}) => {
     if(loading){
       return <h2>Loading...</h2>
     }
@@ -25,4 +25,4 @@ const ListingsFind = ({listings, loading}) => {
     </ul>
   }
 
-export default ListingsFind;
+export default ListingsList;

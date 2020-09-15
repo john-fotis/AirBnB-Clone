@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-import './ListingCreate.css';
+import './CreateListing.css';
 import UserService from '../../../_services/user.service';
 import { Checkbox } from "@material-ui/core";
 import NumericInput from 'react-numeric-input';
 import {DatePicker} from '../../../_services/date-picker'
 import 'react-datepicker/dist/react-datepicker.css';
+import AuthService from '../../../_services/authentication.service';
+import {history} from '../../../_helpers/history';
 
 const required = value => {
   if (!value) {
@@ -20,7 +22,7 @@ const required = value => {
 };
 
 class CreateListing extends Component {
-  constructor() {
+  constructor(props) {
     super();
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -39,7 +41,7 @@ class CreateListing extends Component {
       animals: false,
       parties: false,
       minRentDays: 1,
-      maxGuests: 0,
+      maxGuests: 1,
       latitude: 0.0,
       longitude: 0.0,
       country: "",
@@ -62,7 +64,7 @@ class CreateListing extends Component {
       numOfReviews: 0,
       averageRating: 0.0,
       host: {
-        id: JSON.parse(localStorage.getItem('user'))
+        id: AuthService.getCurrentUser().id
       },
 
       selectedFile: null,
@@ -94,10 +96,6 @@ class CreateListing extends Component {
     this.setState({
       [name]: value
     });
-
-    
-    console.log(e.target.value)
-    console.log(target)
   }
 
   handleSubmit = e => {
@@ -107,8 +105,8 @@ class CreateListing extends Component {
       message: "",
       successful: false
     });
-    console.log(this.state.startDate)
-    console.log(this.state.endDate)
+
+    this.form.validateAll();
 
     if (this.checkBtn.context._errors.length === 0) {
       UserService.createListing(
@@ -131,7 +129,7 @@ class CreateListing extends Component {
         this.state.city,
         this.state.neighborhood,
         this.state.address,
-        this.state.postalCode,
+        this.state.postalCode.toString(),
         this.state.transportation,
         this.state.minCost,
         this.state.costPerExtraGuest,
@@ -148,20 +146,22 @@ class CreateListing extends Component {
       )
       .then(
         response => {
-          this.setState({
-            message: response.data.message,
-            successful: true
-          });
-          this.props.history.push("/admin/profile");
-          window.location.reload();   
+          if (response.status === 200) {
+            this.setState({
+              message: response.data.message,
+              successful: true
+            });
+            history.push('/');
+            window.location.reload();
+          }
         }
       )
       .catch(
         error => {
           const resMessage =
             (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
+            error.response.data &&
+            error.response.data.message) ||
             error.message ||
             error.toString();
 
@@ -173,11 +173,6 @@ class CreateListing extends Component {
         }
       );
     }
-
-
-    this.form.validateAll();
-    console.log(this.state)
-    console.log(this.state.startDate)
   }
 
   render() { 
@@ -192,7 +187,7 @@ class CreateListing extends Component {
           }}>
           <div 
           className = 'form-inner'
-          style = {{marginTop: '-15%', minWidth: '900px'}}>
+          style = {{marginTop: '-5%', minWidth: '900px'}}>
             <h3>Create your listing!</h3>
             {!this.state.successful && (
               <table>
@@ -200,7 +195,7 @@ class CreateListing extends Component {
                   <tr>
                     <td> {/* Title */} 
                         <div className="form-field">
-                        <label htmlFor="title">Title</label>
+                        <label htmlFor="title">*Title</label>
                         <Input
                           type="text"
                           className="form-control"
@@ -213,7 +208,7 @@ class CreateListing extends Component {
                     </td>
                     <td> {/* Country */}
                       <div className="form-field">
-                        <label htmlFor="text">Country</label>
+                        <label htmlFor="text">*Country</label>
                         <Input
                           type="text"
                           className="form-control"
@@ -226,7 +221,7 @@ class CreateListing extends Component {
                     </td>
                     <td> {/* City */} 
                         <div className="form-field">
-                        <label htmlFor="text">City</label>
+                        <label htmlFor="text">*City</label>
                         <Input
                           type="text"
                           className="form-control"
@@ -242,9 +237,7 @@ class CreateListing extends Component {
                   <tr>
                     <td> {/* Neighborhood */}
                       <div className="form-field">
-                        <label htmlFor="text">
-                          Neighborhood
-                        </label>
+                        <label htmlFor="text">*Neighborhood</label>
                         <Input
                           type="text"
                           className="form-control"
@@ -257,7 +250,7 @@ class CreateListing extends Component {
                     </td> 
                     <td> {/* Address */} 
                       <div className="form-field">
-                        <label htmlFor="text">Address</label>
+                        <label htmlFor="text">*Address</label>
                         <Input
                           type="text"
                           className="form-control"
@@ -271,7 +264,7 @@ class CreateListing extends Component {
                     <td> {/* Postal Code */}
                       <div className="form-field">
                         <label htmlFor="number">
-                          Postal Code
+                          *Postal Code
                         </label>
                         <Input
                           type="number"
@@ -335,9 +328,9 @@ class CreateListing extends Component {
                           Shared Room
                         </option>
                         <option
-                        name="fullAppartment"
-                        value='FULL_APPARTMENT'>
-                          Full Appartment
+                        name="fullApartment"
+                        value='FULL_APARTMENT'>
+                          Full Apartment
                         </option>
                       </select>
 
@@ -345,9 +338,7 @@ class CreateListing extends Component {
                     </td>
                     <td> {/* Number of rooms */}
                       <div className="form-field">
-                        <label htmlFor="number">
-                          Rooms
-                        </label>
+                        <label htmlFor="number">*Rooms</label>
                         <NumericInput min={0} max={16} value={this.state.numofRooms}/>
                       </div>
                     </td>
@@ -365,9 +356,7 @@ class CreateListing extends Component {
                   <tr>
                     <td> {/* Number of WC */}
                       <div className="form-field">
-                        <label htmlFor="number">
-                          WC
-                        </label>
+                        <label htmlFor="number">WC</label>
                         <NumericInput min={0} max={10} value={this.state.numOfWc}
                         className=""/>
                       </div>
@@ -383,9 +372,7 @@ class CreateListing extends Component {
                     </td>
                     <td> {/* Maximum guests */}
                       <div className="form-field">
-                        <label htmlFor="text">
-                          Max Guests
-                        </label>
+                        <label htmlFor="text">Max Guests</label>
                         <NumericInput min={0} max={10} value={this.state.maxGuests}
                         className=""/>
                       </div>
@@ -395,9 +382,7 @@ class CreateListing extends Component {
                   <tr>
                     <td> {/* Minimum Cost */}
                       <div className="form-field">
-                        <label htmlFor="number">
-                          Minimum cost
-                        </label>
+                        <label htmlFor="number">Minimum cost</label>
                         <Input
                           type="number"
                           step="0.5"
@@ -411,9 +396,7 @@ class CreateListing extends Component {
                     </td>
                     <td> {/* Cost per extra guest */}
                       <div className="form-field">
-                        <label htmlFor="number">
-                          Cost per extra guest
-                        </label>
+                        <label htmlFor="number">*Cost per extra guest</label>
                         <Input
                           type="number"
                           step="0.5"
@@ -427,9 +410,7 @@ class CreateListing extends Component {
                     </td>
                     <td> {/* Square Footage */}
                       <div className="form-field">
-                        <label htmlFor="number">
-                          Square Footage
-                        </label>
+                        <label htmlFor="number">*Square Footage</label>
                         <Input
                           type="number"
                           step="0.5"
@@ -461,7 +442,7 @@ class CreateListing extends Component {
                       <div className = "listing-details">
                         <Checkbox
                           name = "livingRoom"
-                          label = "LivingRoom"
+                          label = "Living Room"
                           onChange = {this.handleChange}
                         />
                         <p>Living Room</p>
@@ -568,6 +549,12 @@ class CreateListing extends Component {
               onClick = {this.handleSubmit}>
                 Submit
             </button>
+            <p style={{width: '30%', marginTop: '4%',
+              marginBottom: '0', fontSize: 'small',
+              fontStyle: 'italic'}}
+            >
+              Fields with * are required!
+            </p>
           </div>
         </Form>
       </div>

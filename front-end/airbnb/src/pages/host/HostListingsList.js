@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 
-const ListingsFind = ({listings, loading}) => {
+const HostListingsList = ({listings, loading}) => {
     if(loading){
       return <h2>Loading...</h2>
     }
@@ -10,12 +10,11 @@ const ListingsFind = ({listings, loading}) => {
       style={{display: 'flex', flexDirection: 'column', padding: '0%', margin: '0%'}}>
       {listings.map(listing => (
         <Link to={{
-          pathname: `/admin/listings/${listing.id}`,
+          pathname: `/host/listings/${listing.id}`,
           state: {
             listingId: listing.id
           }
         }} style={{textDecoration: 'none'}} query={listing.id}>
-          
           <li key={listing.id} className="listing-list-item">
           {listing.title}, {listing.id}
           </li>
@@ -25,4 +24,4 @@ const ListingsFind = ({listings, loading}) => {
     </ul>
   }
 
-export default ListingsFind;
+export default HostListingsList;

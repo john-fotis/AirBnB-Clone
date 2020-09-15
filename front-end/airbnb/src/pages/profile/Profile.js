@@ -1,18 +1,10 @@
-import React, { Component } from "react";
+import React from "react";
 import AuthService from "../../_services/authentication.service";
 import './Profile.css';
 
-class Profile extends Component {
-  constructor(props) {
-    super(props);
+const Profile = (props) => {
 
-    this.state = {
-      currentUser: AuthService.getCurrentUser()
-    };
-  }
-
-  render() {
-    const { currentUser } = this.state;
+    const currentUser = AuthService.getCurrentUser();
 
     return (
       <div className="container">
@@ -45,6 +37,6 @@ class Profile extends Component {
       </div>
     );
   }
-}
+
 
 export default Profile;

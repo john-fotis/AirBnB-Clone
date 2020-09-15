@@ -45,91 +45,6 @@ class App extends Component {
 
     return (
       <AuthContext.Provider value = { currentUser}>
-        {/* <Router>
-          <div className = "body">
-            <nav className="navbar navbar-expand navbar-dark bg-dark">
-              <Link to={"/"} className="navbar-brand">
-                Travel Advisor
-              </Link>
-              <div className="navbar-nav mr-auto">
-                <li className="nav-item">
-                  <Link to={"/home"} className="nav-link">
-                    Home
-                  </Link>
-                </li>
-
-                {showHostBoard && (
-                  <li className="nav-item">
-                    <Link to={"/users/" + currentUser.id} className="nav-link">
-                      Host Board
-                    </Link>
-                  </li>
-                )}
-
-                {showGuestBoard && (
-                  <li className="nav-item">
-                    <Link to={"/users/" + currentUser.id} className="nav-link">
-                      Guest Board
-                    </Link>
-                  </li>
-                )}
-
-                {showAdminBoard && (
-                  <li className="nav-item">
-                    <Link to={"/admin/users/"} className="nav-link">
-                      Admin Board
-                    </Link>
-                  </li>
-                )}
-
-                {(
-                  <li className="nav-item">
-                    <Link to={"/host/listings"} className="nav-link">
-                      Create Listing
-                    </Link>
-                  </li>
-                )}
-              </div>
-
-              {currentUser ? (
-                <div className="navbar-nav ml-auto">
-                  <li className="nav-item">
-                    <Link to={"/admin/profile"} className="nav-link">
-                      {currentUser.username}
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <a href="/login" className="nav-link" onClick={this.logOut}>
-                      LogOut
-                    </a>
-                  </li>
-                </div>
-              ) : (
-                <div className="navbar-nav ml-auto">
-                  <li className="nav-item">
-                    <Link to={"/login"} className="nav-link">
-                      Login
-                    </Link>
-                  </li>
-
-                  <li className="nav-item">
-                    <Link to={"/register"} className="nav-link">
-                      Sign Up
-                    </Link>
-                  </li>
-                </div>
-              )}
-            </nav>
-
-            <div className="container mt-3">
-              {Routes()} 
-            </div>
-          </div>
-        </Router> */}
-
-
-
-
         <div className="grid-container">
           <header className="header">
             <nav className="navbar">
@@ -150,42 +65,56 @@ class App extends Component {
                 </li>
 
                 {showHostBoard && (
-                  <li className="nav-item">
-                    <Link to={"/users/" + currentUser.id} className="nav-link">
-                      Host Board
-                    </Link>
-                  </li>
+                  <div className="navbar-boards">
+                    <li className="nav-item">
+                      <Link to={"/host/listings"} className="nav-link">
+                        Host Board
+                      </Link>
+                    </li>
+                      <li className="nav-item">
+                      <Link to={"/host/create-listing"} className="nav-link">
+                        Create Listing
+                      </Link>
+                    </li>
+                  </div>
                 )}
 
                 {showGuestBoard && (
-                  <li className="nav-item">
-                    <Link to={"/users/" + currentUser.id} className="nav-link">
-                      Guest Board
-                    </Link>
-                  </li>
+                  <div className="navbar-boards">
+                    <li className="nav-item">
+                      <Link to={"/guest/reviews"} className="nav-link">
+                        Guest Board
+                      </Link>
+                    </li>
+                  </div>
                 )}
 
                 {showAdminBoard && (
-                  <li className="nav-item">
-                    <Link to={"/admin/users/"} className="nav-link">
-                      Admin Board
-                    </Link>
-                  </li>
+                  <div className="navbar-boards">
+                    <li className="nav-item">
+                      <Link to={"/admin/users/"} className="nav-link">
+                        Users
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link to={"/admin/listings"} className="nav-link">
+                        Listings
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link to={"/admin/reviews"} className="nav-link">
+                        Reviews
+                      </Link>
+                    </li>
+                  </div>
                 )}
 
-                {(
-                  <li className="nav-item">
-                    <Link to={"/host/listings"} className="nav-link">
-                      Create Listing
-                    </Link>
-                  </li>
-                )}
               </div>
 
               {currentUser ? (
                 <div className="navbar-links">
                   <li className="nav-item">
-                    <Link to={"/admin/profile"} className="nav-link">
+                    <Link to={`/profile`} className="nav-link">
                       {currentUser.username}
                     </Link>
                   </li>
@@ -212,30 +141,14 @@ class App extends Component {
               )}
             </nav>
           </header>
-          <aside className="sidebar">
-            <h3>Shopping Categories</h3>
-            <button className="sidebar-close-button" onclick="closeMenu()">x</button>
-            <ul>
-              <li>
-                <a href="index.html">Pants</a>
-              </li>
 
-              <li>
-                <a href="index.html">Shirts</a>
-              </li>
-
-            </ul>
-          </aside>
           <main className="main">
-            
             {Routes()}
           </main>
           <footer className="footer">
             All right reserved.
           </footer>
         </div>
-
-
       </AuthContext.Provider>
     );
   }

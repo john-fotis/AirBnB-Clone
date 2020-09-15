@@ -1,0 +1,11 @@
+.home-main-container{
+  background-image: url('./images/sample.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% 110%;
+}
+
+.home-main-container h1 {
+  padding-top: 5%;
+  color: rgb(219, 122, 150);
+  font-weight: 900;
+}

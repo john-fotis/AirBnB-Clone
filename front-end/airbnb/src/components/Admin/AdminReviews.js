@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import HostListingsList from "./HostListingsList";
-
 import UserService from "../../_services/user.service";
+import ReviewsList from './ReviewsList';
 
-class HostBoard extends Component {
+class AdminReviews extends Component {
   constructor(props) {
     super();
 
@@ -15,7 +14,7 @@ class HostBoard extends Component {
 
   componentDidMount() {
     this.setState({loading: true})
-    UserService.getHostBoard()
+    UserService.getAdminReviews()
     .then(
       response => {
         this.setState({
@@ -35,19 +34,22 @@ class HostBoard extends Component {
             error.toString()
         });
       }
-    );
+    );  
   }
 
   render() {
     return (
       <React.Fragment>
-        <main className="container" style={{width: '100%', padding: '5%', marginTop: '10%', backgroundColor: '#ff9'}}>
-          <h2>My listings</h2>
-          <HostListingsList listings={this.state.content} loading={this.state.loading}/>
-        </main>
+        <div className="container" style={{width: '100%', padding: '5%', marginTop: '10%', backgroundColor: '#ff9'}}>
+
+          <div className="content">
+            <h2>All reviews:</h2>
+            <ReviewsList reviews={this.state.content} loading={this.state.loading}/>
+          </div>
+        </div>
       </React.Fragment>
     );
   }
 }
 
-export default HostBoard;
+export default AdminReviews;

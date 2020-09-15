@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import HostListingsList from "./HostListingsList";
+import UsersList from "./UsersList";
 
 import UserService from "../../_services/user.service";
 
-class HostBoard extends Component {
+class AdminUsers extends Component {
   constructor(props) {
     super();
 
@@ -15,7 +15,7 @@ class HostBoard extends Component {
 
   componentDidMount() {
     this.setState({loading: true})
-    UserService.getHostBoard()
+    UserService.getAdminUsers()
     .then(
       response => {
         this.setState({
@@ -42,12 +42,12 @@ class HostBoard extends Component {
     return (
       <React.Fragment>
         <main className="container" style={{width: '100%', padding: '5%', marginTop: '10%', backgroundColor: '#ff9'}}>
-          <h2>My listings</h2>
-          <HostListingsList listings={this.state.content} loading={this.state.loading}/>
+          <h2>Admin Board - Users</h2>
+          <UsersList users={this.state.content} loading={this.state.loading}/>
         </main>
       </React.Fragment>
     );
   }
 }
 
-export default HostBoard;
+export default AdminUsers;
