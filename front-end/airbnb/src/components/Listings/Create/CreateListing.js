@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-import './ListingCreate.css';
+import './CreateListing.css';
 import UserService from '../../../_services/user.service';
 import { Checkbox } from "@material-ui/core";
 import NumericInput from 'react-numeric-input';
@@ -23,7 +23,7 @@ const required = value => {
 
 class CreateListing extends Component {
   constructor(props) {
-    super(props);
+    super();
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onDateChange = this.onDateChange.bind(this);
@@ -106,6 +106,8 @@ class CreateListing extends Component {
       successful: false
     });
 
+    this.form.validateAll();
+
     if (this.checkBtn.context._errors.length === 0) {
       UserService.createListing(
         this.state.title,
@@ -171,9 +173,6 @@ class CreateListing extends Component {
         }
       );
     }
-
-    this.form.validateAll();
-    console.log(this.state)
   }
 
   render() { 
@@ -188,7 +187,7 @@ class CreateListing extends Component {
           }}>
           <div 
           className = 'form-inner'
-          style = {{marginTop: '-15%', minWidth: '900px'}}>
+          style = {{marginTop: '-5%', minWidth: '900px'}}>
             <h3>Create your listing!</h3>
             {!this.state.successful && (
               <table>
@@ -196,7 +195,7 @@ class CreateListing extends Component {
                   <tr>
                     <td> {/* Title */} 
                         <div className="form-field">
-                        <label htmlFor="title">Title</label>
+                        <label htmlFor="title">*Title</label>
                         <Input
                           type="text"
                           className="form-control"
@@ -209,7 +208,7 @@ class CreateListing extends Component {
                     </td>
                     <td> {/* Country */}
                       <div className="form-field">
-                        <label htmlFor="text">Country</label>
+                        <label htmlFor="text">*Country</label>
                         <Input
                           type="text"
                           className="form-control"
@@ -222,7 +221,7 @@ class CreateListing extends Component {
                     </td>
                     <td> {/* City */} 
                         <div className="form-field">
-                        <label htmlFor="text">City</label>
+                        <label htmlFor="text">*City</label>
                         <Input
                           type="text"
                           className="form-control"
@@ -238,9 +237,7 @@ class CreateListing extends Component {
                   <tr>
                     <td> {/* Neighborhood */}
                       <div className="form-field">
-                        <label htmlFor="text">
-                          Neighborhood
-                        </label>
+                        <label htmlFor="text">*Neighborhood</label>
                         <Input
                           type="text"
                           className="form-control"
@@ -253,7 +250,7 @@ class CreateListing extends Component {
                     </td> 
                     <td> {/* Address */} 
                       <div className="form-field">
-                        <label htmlFor="text">Address</label>
+                        <label htmlFor="text">*Address</label>
                         <Input
                           type="text"
                           className="form-control"
@@ -267,7 +264,7 @@ class CreateListing extends Component {
                     <td> {/* Postal Code */}
                       <div className="form-field">
                         <label htmlFor="number">
-                          Postal Code
+                          *Postal Code
                         </label>
                         <Input
                           type="number"
@@ -341,9 +338,7 @@ class CreateListing extends Component {
                     </td>
                     <td> {/* Number of rooms */}
                       <div className="form-field">
-                        <label htmlFor="number">
-                          Rooms
-                        </label>
+                        <label htmlFor="number">*Rooms</label>
                         <NumericInput min={0} max={16} value={this.state.numofRooms}/>
                       </div>
                     </td>
@@ -361,9 +356,7 @@ class CreateListing extends Component {
                   <tr>
                     <td> {/* Number of WC */}
                       <div className="form-field">
-                        <label htmlFor="number">
-                          WC
-                        </label>
+                        <label htmlFor="number">WC</label>
                         <NumericInput min={0} max={10} value={this.state.numOfWc}
                         className=""/>
                       </div>
@@ -379,9 +372,7 @@ class CreateListing extends Component {
                     </td>
                     <td> {/* Maximum guests */}
                       <div className="form-field">
-                        <label htmlFor="text">
-                          Max Guests
-                        </label>
+                        <label htmlFor="text">Max Guests</label>
                         <NumericInput min={0} max={10} value={this.state.maxGuests}
                         className=""/>
                       </div>
@@ -391,9 +382,7 @@ class CreateListing extends Component {
                   <tr>
                     <td> {/* Minimum Cost */}
                       <div className="form-field">
-                        <label htmlFor="number">
-                          Minimum cost
-                        </label>
+                        <label htmlFor="number">Minimum cost</label>
                         <Input
                           type="number"
                           step="0.5"
@@ -407,9 +396,7 @@ class CreateListing extends Component {
                     </td>
                     <td> {/* Cost per extra guest */}
                       <div className="form-field">
-                        <label htmlFor="number">
-                          Cost per extra guest
-                        </label>
+                        <label htmlFor="number">*Cost per extra guest</label>
                         <Input
                           type="number"
                           step="0.5"
@@ -423,9 +410,7 @@ class CreateListing extends Component {
                     </td>
                     <td> {/* Square Footage */}
                       <div className="form-field">
-                        <label htmlFor="number">
-                          Square Footage
-                        </label>
+                        <label htmlFor="number">*Square Footage</label>
                         <Input
                           type="number"
                           step="0.5"
