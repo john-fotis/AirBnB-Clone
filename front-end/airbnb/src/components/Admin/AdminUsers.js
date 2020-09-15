@@ -15,8 +15,7 @@ class AdminUsers extends Component {
 
   componentDidMount() {
     this.setState({loading: true})
-    this.setState({loading: true})
-    UserService.getUsers()
+    UserService.getAdminUsers()
     .then(
       response => {
         this.setState({
@@ -42,12 +41,12 @@ class AdminUsers extends Component {
 
   render() {
     return (
-      <div className="container">
+      <React.Fragment>
         <main className="container" style={{width: '100%', padding: '5%', marginTop: '10%', backgroundColor: '#ff9'}}>
           <h2>Admin Board - Users</h2>
           <UsersList users={this.state.content} loading={this.state.loading}/>
         </main>
-      </div>
+      </React.Fragment>
     );
   }
 }

@@ -14,7 +14,7 @@ class AdminListings extends Component {
 
   componentDidMount() {
     this.setState({loading: true})
-    UserService.getListings()
+    UserService.getAdminListings()
     .then(
       response => {
         this.setState({
