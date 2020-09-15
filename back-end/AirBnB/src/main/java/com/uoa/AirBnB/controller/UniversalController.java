@@ -2,6 +2,7 @@ package com.uoa.AirBnB.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.uoa.AirBnB.converter.UserConverter;
+import com.uoa.AirBnB.converter.UserPostConverter;
 import com.uoa.AirBnB.model.imageModel.ImageDto;
 import com.uoa.AirBnB.model.listingModel.ListingDto;
 import com.uoa.AirBnB.model.listingModel.ListingParameters;
@@ -98,6 +99,37 @@ public class UniversalController {
 
         if(principal!=null) {
             User user = userService.findByUsername(principal.getName());
+            return ResponseEntity.ok().body(Helpers.convertToJson(UserConverter.convertToDto(user)));
+        }
+        else
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"Status\": \"Not a user\"}");
+    }
+
+    @PutMapping("/profile")
+    public ResponseEntity<String> updateProfile(@RequestBody UserPostDto userPostDto, Principal principal) throws JsonProcessingException {
+
+        System.out.println(userPostDto.getPassword());
+
+        if(principal!=null) {
+            User user = userService.findByUsername(principal.getName());
+
+            if(userPostDto.getPassword()!=null){
+                user.setPassword(passwordEncoder.encode(userPostDto.getPassword()));
+            }
+            if(userPostDto.getFirstName()!=null){
+                user.setFirstName(userPostDto.getFirstName());
+            }
+            if(userPostDto.getLastName()!=null){
+                user.setLastName(userPostDto.getLastName());
+            }
+            if(userPostDto.getEmail()!=null){
+                user.setEmail(userPostDto.getEmail());
+            }
+            if(userPostDto.getNumber()!=null){
+                user.setNumber(userPostDto.getNumber());
+            }
+
+            userService.save(UserPostConverter.convertToDto(user));
             return ResponseEntity.ok().body(Helpers.convertToJson(UserConverter.convertToDto(user)));
         }
         else
