@@ -10,6 +10,7 @@ import Login from '../pages/login/Login';
 import Register from '../pages/register/Register';
 import Home from '../pages/home/Home';
 import Profile from '../pages/profile/Profile';
+import ListingResults from '../components/Listings/ListingResults/ListingResults';
 
 // Admin paths
 import AdminUsers from '../components/Admin/AdminUsers';
@@ -48,6 +49,8 @@ export default function Routes () {
       <Route exact path="/host/create-listing" component = {CreateListing} />
 
       <Route exact path="/guest/reviews" component={GuestBoard} />
+
+      <Route exact path="/results" component={ListingResults} />
 
     </Switch>
   )

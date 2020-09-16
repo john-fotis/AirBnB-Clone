@@ -6,9 +6,10 @@ import './CreateListing.css';
 import UserService from '../../../_services/user.service';
 import { Checkbox } from "@material-ui/core";
 import NumericInput from 'react-numeric-input';
-import {DatePicker} from '../../../_services/date-picker'
+import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import AuthService from '../../../_services/authentication.service';
+import OpenStreetMap from '../../../components/Map/OpenStreetMap';
 import {history} from '../../../_helpers/history';
 
 const required = value => {
@@ -77,15 +78,6 @@ class CreateListing extends Component {
     this.setState({
       [this.state.startDate]: e.target.value
     });
-    console.log(e.target.value)
-  }
-
-  handleOptionChange = e => {
-    this.setState({
-      type: e.target.value
-    })
-    console.log(this.state.type)
-
   }
 
   handleChange = e => {
@@ -96,6 +88,7 @@ class CreateListing extends Component {
     this.setState({
       [name]: value
     });
+    console.log(e.target.value)
   }
 
   handleSubmit = e => {
@@ -280,7 +273,7 @@ class CreateListing extends Component {
 
                   <tr>
                     <td> {/* Description */} 
-                      <div className="form-field" style={{width: '80%', position:'absolute',right: '10%', top: '22%'}}>
+                      <div className="form-field" style={{width: '80%', position:'absolute',right: '10%', top: '17%'}}>
                         <label htmlFor="text">Description</label>
                         <textarea
                           type="text"
@@ -296,7 +289,7 @@ class CreateListing extends Component {
 
                   <tr>
                     <td> {/* Transportation */}
-                      <div className="form-field" style={{width: '80%', position:'absolute',right: '10%', top: '32%'}}>
+                      <div className="form-field" style={{width: '80%', position:'absolute',right: '10%', top: '25%'}}>
                         <label htmlFor="text">Transportation</label>
                         <textarea
                           type="text"
@@ -310,35 +303,34 @@ class CreateListing extends Component {
                     </td>
                   </tr>
                   
-                  <div style={{marginTop: '110%'}} />
+                  <div style={{height: '350px'}} />
 
                   <tr>
                     <td> {/* Category */}
                       <div className="form-field">
-                      <label htmlFor="text">Category</label>
-                      <select onChange={this.handleOptionChange}>
-                        <option
-                          name="privateRoom" 
-                          value='PRIVATE_ROOM'>
-                            Private Room
+                        <label htmlFor="text">Category</label>
+                        <select onChange={this.handleChange}>
+                          <option
+                            name="privateRoom" 
+                            value='PRIVATE_ROOM'>
+                              Private Room
                           </option>
-                        <option
-                          name="sharedRoom"
-                          value={'SHARED_ROOM'}>
-                          Shared Room
-                        </option>
-                        <option
-                        name="fullApartment"
-                        value='FULL_APARTMENT'>
-                          Full Apartment
-                        </option>
-                      </select>
-
+                          <option
+                            name="sharedRoom"
+                            value={'SHARED_ROOM'}>
+                            Shared Room
+                          </option>
+                          <option
+                          name="fullApartment"
+                          value='FULL_APARTMENT'>
+                            Full Apartment
+                          </option>
+                        </select>
                       </div>
                     </td>
                     <td> {/* Number of rooms */}
                       <div className="form-field">
-                        <label htmlFor="number">*Rooms</label>
+                        <label htmlFor="number">Rooms</label>
                         <NumericInput min={0} max={16} value={this.state.numofRooms}/>
                       </div>
                     </td>
@@ -347,8 +339,12 @@ class CreateListing extends Component {
                         <label htmlFor="number">
                          Beds
                         </label>
-                        <NumericInput min={0} max={10} value={this.state.numOfBeds}
-                        className=""/>
+                        <NumericInput min={0} max={10}
+                        value={this.state.numOfBeds}
+                        onChange={e => {
+                          this.setState({numOfBeds: e})
+                        }}
+                        />
                       </div>
                     </td>
                   </tr>
@@ -357,8 +353,12 @@ class CreateListing extends Component {
                     <td> {/* Number of WC */}
                       <div className="form-field">
                         <label htmlFor="number">WC</label>
-                        <NumericInput min={0} max={10} value={this.state.numOfWc}
-                        className=""/>
+                        <NumericInput min={0} max={10}
+                        value={this.state.numOfWc}
+                        onChange={e => {
+                          this.setState({numOfWc: e})
+                        }}
+                        />
                       </div>
                     </td>
                     <td> {/* Minimum days */}
@@ -366,15 +366,23 @@ class CreateListing extends Component {
                         <label htmlFor="number">
                           Min days
                         </label>
-                        <NumericInput min={0} max={10} value={this.state.minRentDays}
-                        className=""/>
+                        <NumericInput min={0} max={10}
+                        value={this.state.minRentDays}
+                        onChange={e => {
+                          this.setState({minRentDays: e})
+                        }}
+                        />
                       </div>
                     </td>
                     <td> {/* Maximum guests */}
                       <div className="form-field">
                         <label htmlFor="text">Max Guests</label>
-                        <NumericInput min={0} max={10} value={this.state.maxGuests}
-                        className=""/>
+                        <NumericInput min={0} max={10}
+                        value={this.state.maxGuests}
+                        onChange={e => {
+                          this.setState({maxGuests: e})
+                        }}
+                        />
                       </div>
                     </td>
                   </tr>
@@ -396,7 +404,7 @@ class CreateListing extends Component {
                     </td>
                     <td> {/* Cost per extra guest */}
                       <div className="form-field">
-                        <label htmlFor="number">*Cost per extra guest</label>
+                        <label htmlFor="number">Cost per extra guest</label>
                         <Input
                           type="number"
                           step="0.5"
@@ -410,7 +418,7 @@ class CreateListing extends Component {
                     </td>
                     <td> {/* Square Footage */}
                       <div className="form-field">
-                        <label htmlFor="number">*Square Footage</label>
+                        <label htmlFor="number">Square Footage</label>
                         <Input
                           type="number"
                           step="0.5"
@@ -425,98 +433,163 @@ class CreateListing extends Component {
                   </tr>
 
                   <tr>  {/* Available dates */}
-                    <div style={{margin: '0% 20%'}}>
+                    <td>
                       <br />
-                      <h3 style={{width: '445%', margin: '0%'}}>Available dates</h3>
-                      <div className="available-dates">
-                        <DatePicker handleChange = {this.handleChange}></DatePicker>
+                      <div style={{ paddingLeft: '-100px'}}>
+                        <h3 style={{width: '300px', marginLeft: '-60px'}}>Available dates:</h3>
+                        <ul style={{display: 'inline-block'}}>
+                          <li><label>*From:</label></li>
+                          <li>
+                            <DatePicker 
+                                selected={this.state.startDate}
+                                onChange={date => {
+                                  this.setState({
+                                    startDate: date}
+                                  )}
+                                }
+                                dateFormat='dd-MM-yyyy'
+                                minDate={new Date()}
+                              />
+                          </li>
+                          <li><br /></li>
+                          <li><label>*To:</label></li>
+                          <li>
+                            <DatePicker 
+                                  selected={this.state.endDate}
+                                  onChange={date => {
+                                    this.setState({
+                                      endDate: date}
+                                    )}
+                                  }
+                                  dateFormat='dd-MM-yyyy'
+                                  minDate={new Date()}
+                                />
+                          </li>
+                        </ul>
                       </div>
-                    </div>
+                    </td>
+                    <td> {/* Map */}
+                      <div className='map-container' style = {{paddingTop: '10px'}}>
+                        <OpenStreetMap width={'450px'} height={'450px'} />
+                      </div>
+
+                    </td>
                   </tr>
 
                   <tr> {/* Extras */}
-                    <br />
-                    <div className = "extras">
-                      <label>Extras:</label>
+                    <td>
                       <br />
-                      <div className = "listing-details">
-                        <Checkbox
-                          name = "livingRoom"
-                          label = "Living Room"
-                          onChange = {this.handleChange}
-                        />
-                        <p>Living Room</p>
-                        <Checkbox
-                          name = "kitchen"
-                          label = "kitchen"
-                          onChange = {this.handleChange}
-                        />
-                        <p>Kitchen</p>
-                        <Checkbox
-                          name = "parking"
-                          label = "parking"
-                          onChange = {this.handleChange}
-                        />
-                        <p>Parking</p>
-                        <Checkbox
-                          name = "elevator"
-                          label = "elevator"
-                          onChange = {this.handleChange}
-                        />
-                        <p>Elevator</p>
-                        <Checkbox
-                          name = "smoking"
-                          label = "smoking"
-                          onChange = {this.handleChange}
-                        />
-                        <p>Smoking</p>
-                      </div>            
-                    </div>
+                      <div className = "extras" style={{marginLeft: '0px'}}>
+                        <label>Extras:</label>
+                        <br />
+                        <div className = "listing-details">
+                          <Checkbox
+                            name = "livingRoom"
+                            label = "Living Room"
+                            onChange = {this.handleChange}
+                          />
+                          <p>Living Room</p>
+                          <Checkbox
+                            name = "kitchen"
+                            label = "kitchen"
+                            onChange = {this.handleChange}
+                          />
+                          <p>Kitchen</p>
+
+                        </div>            
+                      </div>
+                    </td>
                   </tr>
 
-                  <tr> {/* Extras */}
-                    <div className = "extras">
-                      <div className = "listing-details">
-                        <Checkbox
-                          name = "tv"
-                          label = "tv"
-                          onChange = {this.handleChange}
-                        />
-                        <p>TV</p>
-                        <Checkbox
-                          name = "ac"
-                          label = "ac"
-                          onChange = {this.handleChange}
-                        />
-                        <p>AC</p>
-                        <Checkbox
-                          name = "heating"
-                          label = "heating"
-                          onChange = {this.handleChange}
-                        />
-                        <p>Heating</p>
-                        <Checkbox
-                          name = "wifi"
-                          label = "wifi"
-                          onChange = {this.handleChange}
-                        />
-                        <p>Wifi</p>
-                        <Checkbox
-                          name = "parties"
-                          label = "parties"
-                          onChange = {this.handleChange}
-                        />
-                        <p>Parties</p>
-                        <Checkbox
-                          name = "animals"
-                          label = "animals"
-                          onChange = {this.handleChange}
-                        />
-                        <p>Animals</p>
-                      </div>            
-                    </div>
+                  <tr>
+                    <td>
+                      <div className = "extras" style={{marginLeft: '0px'}}>
+                        <div className = "listing-details">
+                          <Checkbox
+                            name = "parking"
+                            label = "parking"
+                            onChange = {this.handleChange}
+                          />
+                          <p>Parking</p>
+                          <Checkbox
+                            name = "elevator"
+                            label = "elevator"
+                            onChange = {this.handleChange}
+                          />
+                          <p>Elevator</p>
+                        </div>            
+                      </div>
+                    </td>
                   </tr>
 
+                  <tr>
+                    <td>
+                      <div className="extras" style={{marginLeft: '0px'}}>
+                        <div className="listing-details">
+                          <Checkbox
+                            name = "smoking"
+                            label = "smoking"
+                            onChange = {this.handleChange}
+                          />
+                          <p>Smoking</p>
+                          <Checkbox
+                            name = "tv"
+                            label = "tv"
+                            onChange = {this.handleChange}
+                          />
+                          <p>TV</p>
+                          <Checkbox
+                            name = "ac"
+                            label = "ac"
+                            onChange = {this.handleChange}
+                          />
+                          <p>AC</p>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className = "extras" style={{marginLeft: '0px'}}>
+                        <div className = "listing-details">
+                          <Checkbox
+                            name = "heating"
+                            label = "heating"
+                            onChange = {this.handleChange}
+                          />
+                          <p>Heating</p>
+                          <Checkbox
+                            name = "wifi"
+                            label = "wifi"
+                            onChange = {this.handleChange}
+                          />
+                          <p>Wifi</p>
+                        </div>            
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="extras" style={{marginLeft: '0px'}}>
+                        <div className="listing-details">
+                          <Checkbox
+                            name = "parties"
+                            label = "parties"
+                            onChange = {this.handleChange}
+                          />
+                          <p>Parties</p>
+                          <Checkbox
+                            name = "animals"
+                            label = "animals"
+                            onChange = {this.handleChange}
+                          />
+                          <p>Animals</p>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             )}
