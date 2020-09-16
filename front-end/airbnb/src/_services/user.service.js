@@ -48,7 +48,11 @@ class UserService {
 
   async getReviewById(id){
     const result = await axios.get(API + `/admin/reviews/${id}`, { headers: authHeader() });
-    console.log(id)
+    return result.data;
+  }
+
+  async getProfile(id){
+    const result = await axios.get(API + `/profile/`, { headers: authHeader() });
     return result.data;
   }
 
@@ -78,7 +82,6 @@ class UserService {
   }
 
   createListing(title,type,numOfBeds,numOfWc,numofRooms,livingRoom,squareFootage,description,smoking,animals,parties,minRentDays,maxGuests,latitude,longitude,country,city,neighborhood,address,postalCode,transportation,minCost,costPerExtraGuest,wifi,ac,heating,kitchen,tv,parking,elevator,startDate,endDate,host ) {
-    console.log(postalCode)
     return axios.post(API + '/host/listings', {
       title,type,numOfBeds,numOfWc,numofRooms,livingRoom,squareFootage,description,smoking,animals,parties,minRentDays,maxGuests,latitude,longitude,country,city,neighborhood,address,postalCode,transportation,minCost,costPerExtraGuest,wifi,ac,heating,kitchen,tv,parking,elevator,startDate,endDate,host
     }, { headers: authHeader() });
@@ -98,9 +101,9 @@ class UserService {
     modifiedImage, {headers: authHeader()} )
   }
 
-  searchListings(numOfBeds,numOfWc,numofRooms,smoking,animals,parties,maxGuests,latitude,longitude,country,city,neighborhood,wifi,ac,heating,kitchen,tv,parking,elevator,startDate,endDate){
+  searchListings(type,smoking,animals,parties,guests,latitude,longitude,country,city,neighborhood,maxCost,wifi,ac,heating,kitchen,tv,parking,elevator,startDate,endDate){
     return axios.put(API + '/listings',
-    {startDate, endDate, maxGuests, country, city}, {headers: authHeader()})
+    {startDate, endDate, guests, country, city}, {headers: authHeader()})
   }
 }
 
