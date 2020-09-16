@@ -37,7 +37,7 @@ public class GuestController {
 
     @PutMapping("/listings")
     public ResponseEntity<List<ListingDto>> returnWithParameters(@RequestBody ListingParameters listingParameters, Principal principal){
-        User user = userService.findByUsername(principal.getName());
+        User user = userService.findByUsername(principal.getName()).get();
         return ResponseEntity.ok().body(listingService.findWithParameters(listingParameters)); //Change to Algorithm
     }
 
@@ -49,7 +49,7 @@ public class GuestController {
     // -- Reviews --
     @GetMapping("/reviews")
     public ResponseEntity<List<ReviewDto>> returnReviews(Principal principal){
-        User user = userService.findByUsername(principal.getName());
+        User user = userService.findByUsername(principal.getName()).get();
         return ResponseEntity.ok().body(reviewService.findByGuest(user.getId()));
     }
 
@@ -75,7 +75,7 @@ public class GuestController {
     // -- Messages --
     @GetMapping("/messages")
     public ResponseEntity<List<MessageDto>> returnMessages(Principal principal){
-        User user = userService.findByUsername(principal.getName());
+        User user = userService.findByUsername(principal.getName()).get();
         return ResponseEntity.ok().body(messageService.findByGuest(user.getId()));
     }
 
@@ -93,13 +93,13 @@ public class GuestController {
     // -- Bookings --
     @GetMapping("/bookings")
     public ResponseEntity<List<BookingDto>> returnMyActiveBookings(Principal principal){
-        User user = userService.findByUsername(principal.getName());
+        User user = userService.findByUsername(principal.getName()).get();
         return ResponseEntity.ok().body(bookingService.returnMyBookings(user.getId()));
     }
 
     @PostMapping("/bookings")
     public ResponseEntity<String> createBooking(@RequestBody BookingPost bookingPost, Principal principal) throws JsonProcessingException {
-        User user = userService.findByUsername(principal.getName());
+        User user = userService.findByUsername(principal.getName()).get();
         bookingPost.setUserId(user.getId());
 
         return ResponseEntity.ok().body(Helpers.convertToJson(bookingService.newBooking(bookingPost)));

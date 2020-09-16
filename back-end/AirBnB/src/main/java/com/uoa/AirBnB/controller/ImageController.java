@@ -1,12 +1,15 @@
 package com.uoa.AirBnB.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.uoa.AirBnB.model.imageModel.Image;
 import com.uoa.AirBnB.model.imageModel.ImageDto;
 import com.uoa.AirBnB.service.ImageService;
 import com.uoa.AirBnB.util.Helpers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -34,6 +37,13 @@ public class ImageController {
 
     @PutMapping("/update")
     public ResponseEntity<String> updateImageInformation(@RequestBody ImageDto imageDto) throws JsonProcessingException {
+        if(imageDto.getUserId() != null){
+            Optional<Image> image = imageService.findByUserId(imageDto.getUserId());
+            if(image.isPresent()) {
+                imageService.deleteById(image.get().getId());
+            }
+        }
+
         imageDto = imageService.uploadImage(imageDto);
         return ResponseEntity.ok().body(Helpers.convertToJson(imageDto));
     }

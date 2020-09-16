@@ -5,9 +5,10 @@ import com.uoa.AirBnB.model.userModel.UserDto;
 import com.uoa.AirBnB.model.userModel.UserPostDto;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
-    User findByUsername(String username);
+    Optional<User> findByUsername(String username);
     User findById(Long id);
     UserDto findDtoById(Long id);
     List<UserDto> findAll();

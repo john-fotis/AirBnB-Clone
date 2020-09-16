@@ -78,6 +78,9 @@ public class UniversalController {
 
     @PostMapping("/register")
     public ResponseEntity<String> createUser(@RequestBody UserPostDto userPostDto) throws JsonProcessingException {
+        if(userService.findByUsername(userPostDto.getUsername()).isPresent())
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("{}");
+
         String password=userPostDto.getPassword();
         String encodedPassword=passwordEncoder.encode(password);
         userPostDto.setPassword(encodedPassword);
@@ -98,7 +101,7 @@ public class UniversalController {
     public ResponseEntity<String> returnProfile(Principal principal) throws JsonProcessingException {
 
         if(principal!=null) {
-            User user = userService.findByUsername(principal.getName());
+            User user = userService.findByUsername(principal.getName()).get();
             return ResponseEntity.ok().body(Helpers.convertToJson(UserConverter.convertToDto(user)));
         }
         else
@@ -111,7 +114,7 @@ public class UniversalController {
         System.out.println(userPostDto.getPassword());
 
         if(principal!=null) {
-            User user = userService.findByUsername(principal.getName());
+            User user = userService.findByUsername(principal.getName()).get();
 
             if(userPostDto.getPassword()!=null){
                 user.setPassword(passwordEncoder.encode(userPostDto.getPassword()));

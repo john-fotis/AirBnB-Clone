@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class ImageServiceImpl implements ImageService {
@@ -35,6 +36,11 @@ public class ImageServiceImpl implements ImageService {
             throw new Exception("Image not found", nsee.getCause());
         }
         return ImageConverter.convertToDto(retrievedImage);
+    }
+
+    @Override
+    public Optional<Image> findByUserId(Long id) {
+        return imageRepository.findByUserId(id);
     }
 
     @Override

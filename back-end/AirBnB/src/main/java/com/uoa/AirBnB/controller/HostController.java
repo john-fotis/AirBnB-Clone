@@ -38,7 +38,7 @@ public class HostController {
 
     @GetMapping("/listings")
     public ResponseEntity<List<ListingDto>> returnMyListings(Principal principal){
-        User user = userService.findByUsername(principal.getName());
+        User user = userService.findByUsername(principal.getName()).get();
         return ResponseEntity.ok().body(listingService.findByHost(user.getId()));
     }
 
@@ -70,7 +70,7 @@ public class HostController {
     // -- Reviews --
     @GetMapping("/reviews")
     public ResponseEntity<List<ReviewDto>> returnReviews(Principal principal){
-        User user = userService.findByUsername(principal.getName());
+        User user = userService.findByUsername(principal.getName()).get();
         return ResponseEntity.ok().body(reviewService.findByHost(user.getId()));
     }
 
