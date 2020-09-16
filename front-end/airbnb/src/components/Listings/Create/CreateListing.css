@@ -31,3 +31,9 @@ input {
 .available-dates li{
   margin: 0% 10%;
 }
+
+tr td .map-container{
+  position: absolute;
+  right: 10%;
+  bottom: 12%;
+}
