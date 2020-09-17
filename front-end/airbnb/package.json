@@ -18,6 +18,7 @@
     "devextreme": "20.1.7",
     "devextreme-react": "20.1.7",
     "formik": "^2.1.5",
+    "leaflet": "^1.7.1",
     "link": "^0.1.5",
     "moment": "^2.27.0",
     "native-base": "^2.13.14",
@@ -40,6 +41,7 @@
     "react-toastify": "^6.0.8",
     "react-validation": "^3.0.7",
     "spectre.css": "^0.5.9",
+    "styled-components": "^5.2.0",
     "validator": "^13.1.1",
     "xstate": "^4.12.0"
   },
