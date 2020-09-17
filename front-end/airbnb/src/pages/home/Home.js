@@ -47,7 +47,8 @@ class Home extends Component {
       startDate: new Date(),
       endDate: new Date(),
       successful: false,
-      message: ""
+      message: "",
+      loading: false
     };
   }
 
@@ -70,6 +71,7 @@ class Home extends Component {
     });
 
     this.form.validateAll();
+    this.setState({loading: true});
 
     if (this.checkBtn.context._errors.length === 0) {
       UserService.searchListings(
@@ -99,14 +101,16 @@ class Home extends Component {
           if (response.status === 200) {
             this.setState({
               message: response.data.message,
-              successful: true
+              successful: true,
+              loading: false
             });
             history.push({
               pathname: '/results',
-              state: {content: response.data, guests: this.state.guests}
+              state: {content: response.data, guests: this.state.guests, loading: this.state.loading}
             });
             window.location.reload();
           }
+          console.log(response)
         }
       )
       .catch(
@@ -120,7 +124,8 @@ class Home extends Component {
 
           this.setState({
             successful: false,
-            message: resMessage
+            message: resMessage,
+            loading: false
             }
           );
         }
@@ -357,25 +362,30 @@ class Home extends Component {
                             </div>
                           </div>                        
                         </td>
-
                       </tr>
+                      <tr>
+                        <td>
+                          {this.state.message && (
+                            <div className="form-field">
+                              <div
+                                className={
+                                  this.state.successful
+                                    ? "alert alert-success"
+                                    : "alert alert-danger"
+                                }
+                                role="alert"
+                              >
+                                {this.state.message}
+                              </div>
+                            </div>
+                          )}
+                        </td>
+                      </tr>
+                      
                     </tbody>
                   </table>
                 
-                {this.state.message && (
-                  <div className="form-field">
-                    <div
-                      className={
-                        this.state.successful
-                          ? "alert alert-success"
-                          : "alert alert-danger"
-                      }
-                      role="alert"
-                    >
-                      {this.state.message}
-                    </div>
-                  </div>
-                )}
+
                 <CheckButton
                   style={{ display: "none" }}
                   ref={c => {

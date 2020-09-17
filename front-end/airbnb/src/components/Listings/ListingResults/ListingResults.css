@@ -1,42 +1,43 @@
 .list-wrapper{
-  padding: 0% 25%;
+  padding: 0%;
+  width: 100%;
 }
 
 .listing-results-container{
-  background-color: transparent;
+  background-color: darkcyan;
   height: 400px;
   width: 100%;
-  margin: 5% auto;
+  margin: 5% 0%;
   position: relative;
-  background-image: url(../sample.jpg);
-  background-size: 100% 80%;
+  background-image: url(../../../images//home-background.jpg);
+  background-size: 60% 100%;
   background-repeat: no-repeat;
-  background-position: top;
+  background-position: left;
 }
 
 .listing-title {
   width: 100%;
-  text-align: center;
-  font-weight: 500;
-  font-size: 24px;
+  font-weight: 900;
+  font-size: 28px;
   position: absolute;
-  bottom: 50px;
-  color: rgb(5, 231, 194);
+  bottom: 10%;
+  color: rgb(65, 65, 65);
+  text-align: left;
 }
 
 .listing-cost {
   width: 170px;
   height: 50px;
-  background-color: rgb(126, 126, 126);
-  font-weight: 00;
+  background-color: transparent;
+  font-weight: 900;
   font-size: 30px;
-  padding-top: 8px;
+  position: absolute;
+  top: 5%;
 }
 
 .image-container {
   position: absolute;
-  left: auto;
-  right: auto;
+  left: 5px;
   z-index: 0;
   top: 0px;
   left: 0px;
@@ -44,8 +45,28 @@
 
 .listing-info {
   position: absolute;
-  font-size: 15px;
-  width: 100%;
+  font-size: 22px;
+  width: 40%;
+  height: 100%;
   bottom: 0px;
+  right: 0px;
   text-align: left;
+}
+
+.listing-type{
+  position: absolute;
+  bottom: 50%;
+  left: 5%;
+}
+
+.listing-beds{
+  position: absolute;
+  bottom: 40%;
+  left: 5%;
+}
+
+.listing-rating{
+  position: absolute;
+  bottom: 30%;
+  left: 5%;
 }

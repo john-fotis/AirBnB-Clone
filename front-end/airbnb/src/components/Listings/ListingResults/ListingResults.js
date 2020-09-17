@@ -13,13 +13,13 @@ class ListingResults extends Component {
   componentDidMount(){
     this.state.content = this.props.location.state.content
     this.state.guests = this.props.location.state.guests
-    console.log(this.state.content)
+    this.state.loading = this.props.location.state.loading
   }
 
   render(){
     return (
-      <div className="container" style={{width: '100%', padding: '5%', backgroundColor: '#ffe'}}>
-        <ResultsList listings={this.state.content} guests={this.state.guests} loading={this.state.loading} />
+      <div className="container" style={{width: '100%', padding: '5%', backgroundColor: '#ccc'}}>
+        <ResultsList listings={this.state.content} guests={this.state.guests} loading={false} />
       </div>
     )
   }
