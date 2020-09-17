@@ -19,6 +19,7 @@ class App extends Component {
       showHostBoard: false,
       showGuestBoard: false,
       showAdminBoard: false,
+      dualRole: false,
       currentUser: JSON.parse(localStorage.getItem('user'))
     };
   }
@@ -31,7 +32,8 @@ class App extends Component {
         currentUser: user,
         showHostBoard: user.roles.includes("ROLE_HOST"),
         showGuestBoard: user.roles.includes("ROLE_GUEST"),
-        showAdminBoard: user.roles.includes("ROLE_ADMIN")
+        showAdminBoard: user.roles.includes("ROLE_ADMIN"),
+        dualRole: (user.roles.includes("ROLE_HOST") && user.roles.includes("ROLE_GUEST"))
       });
     }
   }
@@ -41,10 +43,42 @@ class App extends Component {
   }
 
   render() {
-    const { currentUser, showHostBoard, showGuestBoard, showAdminBoard } = this.state;
+    const { currentUser, showHostBoard, showGuestBoard, showAdminBoard, dualRole } = this.state;
 
     return (
       <AuthContext.Provider value = { currentUser}>
+        {dualRole && (
+          <div style = {{width: '100%', height: '192%', position: 'absolute', top: '7%' , zIndex:'10',  paddingTop:'15%', backgroundImage: `url(${require('./images/main-background.jpg')})`}}>
+            <div className='wrapper'>
+              <div className='form-inner'>
+                <ul style={{display: 'inline-block', textAlign: 'center', width: '100%'}}>
+                  <li><h2>Please select the role you want for this session</h2></li>
+                  <li>
+                    <button onClick={e=>{this.setState({
+                      showGuestBoard: false,
+                      dualRole: false
+                    })}}                            
+                      className="submit-button btn btn-primary btn-block"
+                      style={{width:'30%', display: 'table-cell', verticalAlign:'middle', marginTop: '30px'}}
+                    >Host
+                    </button>
+                  </li>
+                  <li>
+                    <button onClick={e=>{this.setState({
+                      showHostBoard: false,
+                      dualRole: false
+                    })}}                            
+                      className="submit-button btn btn-primary btn-block"
+                      style={{width:'30%', display: 'table-cell', verticalAlign:'middle', marginTop: '30px'}}
+                      >Guest
+                    </button>
+                  </li>
+                </ul>                
+              </div>
+            </div>
+          </div>
+        )}
+        
         <div className="grid-container">
           <header className="header">
             <nav className="navbar">
