@@ -71,7 +71,7 @@ const vnumber = value => {
 
 class Register extends Component {
   constructor(props) {
-    super(props);
+    super();
     this.handleChange = this.handleChange.bind(this);
     this.handleRegister = this.handleRegister.bind(this);
 
@@ -109,65 +109,84 @@ class Register extends Component {
 
   handleRegister(e) {
     e.preventDefault();
-    // need further validation for photo
 
     this.setState({
       message: "",
       successful: false
     });
 
-    let formData = new FormData();
-    let userId = null;
+    if(this.state.passwordConfirm === this.state.password){
 
-    formData.append('imageFile', this.state.selectedFile, this.state.selectedFile.name);
-
-    this.form.validateAll();
-
-    if (this.checkBtn.context._errors.length === 0) {
-      AuthService.register(
-        this.state.username,
-        this.state.email,
-        this.state.password,
-        this.state.firstName,
-        this.state.lastName,
-        this.state.host,
-        this.state.tenant,
-        this.state.number
-      ).then(
-        response => {
-          this.setState({
-            message: response.data.message,
-            successful: true
-          });
-          userId = response.data.id;
-          AuthService.login(this.state.username, this.state.password).then(
-            () => {
-              history.push("/");
-              window.location.reload();
-            }
-          )
-          UserService.postPhoto(formData).then(
+      if(this.state.selectedFile){
+        let formData = new FormData();
+        let userId = null;
+    
+        formData.append('imageFile', this.state.selectedFile, this.state.selectedFile.name);
+    
+        this.form.validateAll();
+    
+        if (this.checkBtn.context._errors.length === 0) {
+          AuthService.register(
+            this.state.username,
+            this.state.email,
+            this.state.password,
+            this.state.firstName,
+            this.state.lastName,
+            this.state.host,
+            this.state.tenant,
+            this.state.number
+          ).then(
             response => {
-              UserService.linkUserPhoto(response.data, userId)
+              this.setState({
+                message: response.data.message,
+                successful: true
+              });
+              userId = response.data.id;
+              AuthService.login(this.state.username, this.state.password).then(
+                () => {
+                  history.push("/");
+                  window.location.reload();
+                }
+              )
+              UserService.postPhoto(formData).then(
+                response => {
+                  UserService.linkUserPhoto(response.data, userId)
+                }
+              )
+            }
+          ).catch(
+            error => {
+              const resMessage =
+                (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+                error.message ||
+                error.toString();
+    
+              this.setState({
+                successful: false,
+                message: resMessage
+              });
             }
           )
         }
-      ).catch(
-        error => {
-          const resMessage =
-            (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-            error.message ||
-            error.toString();
-
-          this.setState({
-            successful: false,
-            message: resMessage
-          });
-        }
-      )
+      } 
+      else{
+        this.setState({
+          successful: false,
+          message: 'Please select a profile photo'
+        })
+      }
     }
+    else{
+      this.setState({
+        successful: false,
+        message: 'Passwords must match!'
+      })
+    }
+
+    
+    
   }
 
   render() {
