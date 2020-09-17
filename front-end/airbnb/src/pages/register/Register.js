@@ -109,6 +109,7 @@ class Register extends Component {
 
   handleRegister(e) {
     e.preventDefault();
+    // need further validation for photo
 
     this.setState({
       message: "",
@@ -141,7 +142,7 @@ class Register extends Component {
           userId = response.data.id;
           AuthService.login(this.state.username, this.state.password).then(
             () => {
-              history.push("/admin/profile");
+              history.push("/");
               window.location.reload();
             }
           )
