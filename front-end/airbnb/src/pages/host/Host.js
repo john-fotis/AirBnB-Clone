@@ -42,7 +42,7 @@ class HostBoard extends Component {
     return (
       <React.Fragment>
         <main className="container" style={{width: '100%', padding: '5%', marginTop: '10%', backgroundColor: '#ff9'}}>
-          <h2>My listings</h2>
+          <h2 style={{textAlign: 'center'}}>My listings</h2>
           <HostListingsList listings={this.state.content} loading={this.state.loading}/>
         </main>
       </React.Fragment>

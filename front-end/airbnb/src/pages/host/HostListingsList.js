@@ -16,7 +16,7 @@ const HostListingsList = ({listings, loading}) => {
           }
         }} style={{textDecoration: 'none'}} query={listing.id}>
           <li key={listing.id} className="listing-list-item">
-          {listing.title}, {listing.id}
+          {listing.title}
           </li>
         </Link>
   
