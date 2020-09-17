@@ -79,6 +79,10 @@ li{
 
 .main{
   grid-area: main;
+  background-color: transparent;
+  background-image: url(./images/main-background.jpg);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 
 .footer{
