@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 body {
-  background: #1C8EF9 !important;
+  background: transparent !important;
   min-height: 100vh;
   display: flex;
   font-weight: 400;
@@ -53,6 +53,7 @@ body, html, .App, #root, .auth-wrapper {
   margin: 0;
   line-height: 1;
   padding-bottom: 20px;
+  font-size: 38px;
 }
 
 .custom-control-label {
@@ -83,4 +84,9 @@ a, p {
 p {
   margin-top: 20px;
   margin-bottom: 0px;
+}
+
+.no-account{
+  width: 100%;
+  margin-bottom: 0%;
 }

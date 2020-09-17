@@ -1,6 +1,5 @@
 import axios from 'axios';
 import authHeader from '../_helpers/auth-header';
-import AuthService from './authentication.service';
 
 const API = 'http://localhost:8080/air-bnb/api';
 
@@ -57,7 +56,6 @@ class UserService {
   }
 
   postPhoto(imageFile) {
-    AuthService.getCurrentUser()
     return axios.post(API + '/images/upload',
     imageFile, 
     {
@@ -78,7 +76,7 @@ class UserService {
     };
 
     return axios.put( API + '/images/update',
-    modifiedImage, {headers: authHeader()} )
+      modifiedImage, {headers: authHeader()} )
   }
 
   createListing(title,type,numOfBeds,numOfWc,numofRooms,livingRoom,squareFootage,description,smoking,animals,parties,minRentDays,maxGuests,latitude,longitude,country,city,neighborhood,address,postalCode,transportation,minCost,costPerExtraGuest,wifi,ac,heating,kitchen,tv,parking,elevator,startDate,endDate,host ) {
@@ -96,14 +94,30 @@ class UserService {
       userId: imageFile.userId,
       listingId: listingId
     };
-    
+    console.log(modifiedImage)
     return axios.put( API + '/images/update',
-    modifiedImage, {headers: authHeader()} )
+      modifiedImage, {headers: authHeader()})
   }
 
   searchListings(type,smoking,animals,parties,guests,latitude,longitude,country,city,neighborhood,maxCost,wifi,ac,heating,kitchen,tv,parking,elevator,startDate,endDate){
     return axios.put(API + '/listings',
     {startDate, endDate, guests, country, city}, {headers: authHeader()})
+  }
+
+  updateProfileInfo(firstName,lastName,email,number,password){
+    return axios.put(API + '/profile', {
+      firstName,
+      lastName,
+      email,
+      number,
+      password
+    }, {headers: authHeader()});
+  }
+
+  updateListingInfo(listingId, ){
+    return axios.put(API + `/host/listings/${listingId}`,{
+      //....
+    }, {headers: authHeader()});
   }
 }
 

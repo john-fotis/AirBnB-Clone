@@ -23,6 +23,7 @@ import ReviewOverview from '../components/Admin/ReviewOverview';
 // Host paths
 import HostBoard from '../pages/host/Host';
 import CreateListing from '../components/Listings/Create/CreateListing';
+import HostListingsDetails from '../pages/host/HostListingDetails';
 
 
 // Guest paths
@@ -40,13 +41,14 @@ export default function Routes () {
       <AdminRoute exact path="/admin/reviews" component={AdminReviews} />
       <AdminRoute exact path="/admin/reviews/:reviewId" component={ReviewOverview} />
 
+      <Route exact path={["/", "/home"]} component={Home} />
       <PrivateRoute exact path="/profile" component={Profile} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/register" component={Register} />
-      <Route exact path={["/", "/home"]} component={Home} />
 
       <Route exact path="/host/listings" component={HostBoard} />
-      <Route exact path="/host/create-listing" component = {CreateListing} />
+      <Route exact path="/host/create-listing" component={CreateListing} />
+      <Route exact path="/host/listings/:listingId" component={HostListingsDetails} />
 
       <Route exact path="/guest/reviews" component={GuestBoard} />
 
