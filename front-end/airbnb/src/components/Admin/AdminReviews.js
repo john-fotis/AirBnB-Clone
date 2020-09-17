@@ -41,11 +41,8 @@ class AdminReviews extends Component {
     return (
       <React.Fragment>
         <div className="container" style={{width: '100%', padding: '5%', marginTop: '10%', backgroundColor: '#ff9'}}>
-
-          <div className="content">
-            <h2>All reviews:</h2>
-            <ReviewsList reviews={this.state.content} loading={this.state.loading}/>
-          </div>
+          <h2 style={{textAlign: 'center'}}>All reviews:</h2>
+          <ReviewsList reviews={this.state.content} loading={this.state.loading}/>
         </div>
       </React.Fragment>
     );

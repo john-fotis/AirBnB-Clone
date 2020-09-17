@@ -41,10 +41,8 @@ class AdminListings extends Component {
     return (
       <React.Fragment>
         <div className="container" style={{width: '100%', padding: '5%', marginTop: '10%', backgroundColor: '#ff9'}}>
-
-          <div className="content">
-            <ListingsList listings={this.state.content} loading={this.state.loading}/>
-          </div>
+          <h2 style={{textAlign: 'center'}}> All listings:</h2>
+          <ListingsList listings={this.state.content} loading={this.state.loading}/>
         </div>
       </React.Fragment>
     );

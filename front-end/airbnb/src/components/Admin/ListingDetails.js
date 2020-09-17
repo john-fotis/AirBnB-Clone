@@ -8,8 +8,7 @@ class ListingDetails extends Component {
   }
 
   componentDidMount(){
-    const {listingId} = this.props.location.state;
-    UserService.getCurrentListing(listingId)
+    UserService.getCurrentListing(this.props.location.state.listingId)
     .then(response=>{
       this.setState({
         listing: response.data
