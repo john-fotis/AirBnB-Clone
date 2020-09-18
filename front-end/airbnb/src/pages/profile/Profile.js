@@ -119,7 +119,6 @@ class Profile extends Component {
         }
       )
     }
-
   }
 
   componentDidMount() {
@@ -131,7 +130,7 @@ class Profile extends Component {
           content: response,
           loading: false
         });
-        if(response.image.data !== null){
+        if(response.image){
           this.setState({image: 'data:image/jpg;base64,' + response.image.picByte});
         }
       }
@@ -160,11 +159,19 @@ class Profile extends Component {
           {!this.state.edit && (
             <div className="profile-content" style={{width: '100%', padding: '5% 0%', marginTop: '10%', backgroundColor: '#ff9'}}>
               <ul style={{display: 'inline-block'}}>
-                <div style={{position: 'absolute', right: '15%'}}><img src={this.state.image} alt='img' /></div>
+                <div style={{position: 'absolute', right: '15%'}}>
+                  {this.state.image && (
+                      <img src={this.state.image} alt='img' style={{width: '250px', height: '250px'}}/>
+                  )}
+                  {!this.state.image &&(
+                      <img src={require('../../images/profile-picture.jpg')} alt='default-avatar'/>
+                  )}
+                </div>
                 <li><h1>My profile</h1></li>
                 <li><h3>Username: {this.state.content.username}</h3></li>
                 <li><h3>First Name: {this.state.content.firstName}</h3></li>
                 <li><h3>Last Name: {this.state.content.lastName}</h3></li>
+                <li><h3>E-mail: {this.state.content.email}</h3></li>
                 <li><h3>Phone number: {this.state.content.number}</h3></li>
               </ul>
               <div>

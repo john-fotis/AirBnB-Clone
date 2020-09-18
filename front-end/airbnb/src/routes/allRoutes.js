@@ -22,13 +22,13 @@ import AdminReviews from '../components/Admin/AdminReviews';
 import ReviewOverview from '../components/Admin/ReviewOverview';
 
 // Host paths
-import HostBoard from '../pages/host/Host';
+import HostBoard from '../components/host/Host';
 import CreateListing from '../components/Listings/Create/CreateListing';
-import HostListingsDetails from '../pages/host/HostListingDetails';
+import HostListingsDetails from '../components/host/HostListingDetails';
 
 
 // Guest paths
-import GuestBoard from '../pages/guest/Guest'
+import GuestBoard from '../components/guest/Guest'
 
 
 

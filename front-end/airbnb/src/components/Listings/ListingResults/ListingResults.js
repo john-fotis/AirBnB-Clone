@@ -1,25 +1,17 @@
-/* eslint-disable react/no-direct-mutation-state */
 import React, { Component } from "react";
 import ResultsList from './ResultsList';
 
 class ListingResults extends Component {
-  state = {
-    content: [],
-    guests: null,
-    loading: false,
-    message: ''
-  }
-
-  componentDidMount(){
-    this.state.content = this.props.location.state.content
-    this.state.guests = this.props.location.state.guests
-    this.state.loading = this.props.location.state.loading
-  }
 
   render(){
+    const {content} = this.props.location.state;
+    const guests = this.props.location.state.guests
+    const loading = this.props.location.state.loading
+    
+    
     return (
       <div className="container" style={{width: '100%', padding: '5%', backgroundColor: '#ccc'}}>
-        <ResultsList listings={this.state.content} guests={this.state.guests} loading={false} />
+        <ResultsList listings={content} guests={guests} loading={loading} />
       </div>
     )
   }

@@ -17,6 +17,7 @@ const ResultsList = ({listings, guests, loading}) => {
         <ul
         style={{display: 'flex', flexDirection: 'column'}}>
         {listings.map(listing => (
+          
           <li key={listing.id}>
             <div className="list-wrapper">
               <Link to={{
@@ -27,7 +28,12 @@ const ResultsList = ({listings, guests, loading}) => {
               }} style={{textDecoration: 'none', color: 'brown'}} query={listing.id}>
                 <div className='listing-results-container'>
                   <div className='image-container'>
-                    {/* <img src='../.profile-photo.jpg' alt='listing photo' /> */}
+                    {listing.images[0] &&(
+                      <img src= {`data:image/jpg;base64,${listing.images[0].picByte}`}  alt="listing" width='100%' height='100%' /> 
+                    )}
+                    {!listing.images[0] && (
+                      <img src= {require('../../../images/no-image-available.jpg')}  alt="listing" width='100%' height='100%' />
+                    )}
                   </div>
                   <div className="listing-info">
                     <div className="listing-title">

@@ -21,7 +21,6 @@ class ListingResultsDetails extends Component {
         this.setState({
           images: response.data.images
         })
-        console.log(this.state.images)
       }
     })
     .catch(
