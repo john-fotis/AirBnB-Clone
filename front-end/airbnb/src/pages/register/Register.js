@@ -33,7 +33,7 @@ const vusername = value => {
   if (value.length < 3 || value.length > 20) {
     return (
       <div className="alert alert-danger" role="alert">
-        The username must be between 3 and 20 characters.
+        Must be between 3 and 20 characters.
       </div>
     );
   }
@@ -43,7 +43,7 @@ const vpassword = value => {
   if (value.length < 6 || value.length > 40) {
     return (
       <div className="alert alert-danger" role="alert">
-        The password must be between 6 and 40 characters.
+        Must be between 6 and 20 characters.
       </div>
     );
   }
@@ -63,7 +63,7 @@ const vnumber = value => {
   if (value.length !== 10){
     return (
       <div className="alert alert-danger" role="alert">
-        Invalid number.
+        Invalid number
       </div>
     );
   }
@@ -251,7 +251,7 @@ class Register extends Component {
                       <div className="form-field">
                         <label htmlFor="tel">Phone number</label>
                         <Input
-                          type="tel"
+                          type="number"
                           className="form-control"
                           name="number"
                           value={this.state.number}
@@ -367,6 +367,7 @@ class Register extends Component {
                       : "alert alert-danger"
                   }
                   role="alert"
+                  style={{textAlign: 'center', margin: '0% auto', width: '40%'}}
                 >
                   {this.state.message}
                 </div>
