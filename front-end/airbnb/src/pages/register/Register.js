@@ -59,8 +59,10 @@ const vname = value => {
   }
 }
 
+const phoneRegEx = /^[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-/\s.]?[0-9]{4}$/;
+
 const vnumber = value => {
-  if (value.length !== 10){
+  if (value.length !== 10 || !phoneRegEx.test(value)){
     return (
       <div className="alert alert-danger" role="alert">
         Invalid number
@@ -162,11 +164,17 @@ class Register extends Component {
                 error.response.data.message) ||
                 error.message ||
                 error.toString();
-    
-              this.setState({
-                successful: false,
-                message: resMessage
-              });
+              if(error.response.status === 406){
+                this.setState({
+                  successful: false,
+                  message: 'Username is taken'
+                })
+              } else {
+                this.setState({
+                  successful: false,
+                  message: resMessage
+                });
+              }
             }
           )
         }
@@ -184,9 +192,6 @@ class Register extends Component {
         message: 'Passwords must match!'
       })
     }
-
-    
-    
   }
 
   render() {
@@ -251,7 +256,7 @@ class Register extends Component {
                       <div className="form-field">
                         <label htmlFor="tel">Phone number</label>
                         <Input
-                          type="number"
+                          type="tel"
                           className="form-control"
                           name="number"
                           value={this.state.number}
