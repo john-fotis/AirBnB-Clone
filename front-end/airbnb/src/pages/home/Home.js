@@ -142,6 +142,7 @@ class Home extends Component {
             <Form 
               autocomplete = 'off'
               className = "form-wrapper"
+              style={{marginTop: '-3%'}}
               onSubmit={this.handleSubmit}
               ref={c => {
                 this.form = c;

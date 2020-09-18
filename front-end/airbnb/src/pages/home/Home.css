@@ -1,12 +1,12 @@
 .home-main-container{
-  background-image: url('../../images/home-background.jpg');
+  background-image: url('../../images/homepage.jpg');
   background-repeat: no-repeat;
   background-size: 100% 110%;
   position: relative;
 }
 
 .home-main-container h1 {
-  padding-top: 5%;
+  padding-top: 2%;
   text-align: center;
   color: rgb(219, 122, 150);
   font-weight: 900;
