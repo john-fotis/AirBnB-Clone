@@ -6,7 +6,8 @@ import Input from "react-validation/build/input";
 import NumericInput from 'react-numeric-input';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import AuthService from '../../_services/authentication.service';
+import { Checkbox } from "@material-ui/core";
+// import AuthService from '../../_services/authentication.service';
 import Loading from '../../components/Loading/Loading';
 
 class HostListingDetails extends Component {
@@ -17,14 +18,27 @@ class HostListingDetails extends Component {
     this.state = {
       listingId: null,
       listing: {},
-      image: '',
-      edit: false,
-      editPassword: null,
-      editFirstName: null,
-      editLastName: null,
-      editEmail: null,
-      editNumber: null,
-      editPhoto: null,
+      images: [],
+      
+      description: null,
+      transportation: null,
+      numOfBeds: null,
+      numOfWc: null,
+      numOfRooms: null,
+      minRentDays: null,
+      maxGuests: null,
+      livingRoom: null,
+      kitchen: null,
+      parking: null,
+      elevator: null,
+      smoking: null,
+      tv: null,
+      ac: null,
+      heating: null,
+      wifi: null,
+      parties: null,
+      animals: null,
+
       loading: false,
       successful: true
     };
@@ -50,47 +64,44 @@ class HostListingDetails extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-
-    if (this.state.editPhoto !== null){
-      let formData = new FormData();
-      console.log(this.state.editPhoto)
+    UserService.updateListingInfo(this.state.listing)
+    // if (this.state.editPhoto !== null){
+    //   let formData = new FormData();
+    //   console.log(this.state.editPhoto)
       
-      formData.append('imageFile', this.state.editPhoto, this.state.editPhoto.name);
+    //   formData.append('imageFile', this.state.editPhoto, this.state.editPhoto.name);
       
-      UserService.postPhoto(formData).then(
-        response => {
-          UserService.linkUserPhoto(response.data, AuthService.getCurrentUser().id)
-        }
-      )
-    }
+    //   UserService.postPhoto(formData).then(
+    //     response => {
+    //       UserService.linkUserPhoto(response.data, AuthService.getCurrentUser().id)
+    //     }
+    //   )
+    // }
 
-    if(this.state.successful){
-      UserService.updateListingInfo(
-        this.state.editFirstName,
-        this.state.editLastName,
-        this.state.editEmail,
-        this.state.editNumber,
-        this.state.editPassword
-      ).then(response => {
-        if(response.status === 200){
-          window.location.reload();
-        }
-      }).catch(
-        error => {
-          const resMessage =
-            (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-            error.message ||
-            error.toString();
+    // if(this.state.successful){
+    //   UserService.updateListingInfo(
+    //     this.state.transportation
+    //   ).then(response => {
+    //     if(response.status === 200){
+    //       // window.location.reload();
+    //     }
+    //   }).catch(
+    //     error => {
+    //       const resMessage =
+    //         (error.response &&
+    //         error.response.data &&
+    //         error.response.data.message) ||
+    //         error.message ||
+    //         error.toString();
   
-          this.setState({
-            message: resMessage
-          });
-        }
-      )
-    }
+    //       this.setState({
+    //         message: resMessage
+    //       });
+    //     }
+    //   )
+    // }
 
+    console.log(this.state)
   }
 
   componentDidMount() {
@@ -104,10 +115,32 @@ class HostListingDetails extends Component {
           listing: response.data,
           loading: false
         });
+        
+        // console.log(this.state.images.id)
         // if(response.image.data !== null){
         //   this.setState({image: 'data:image/jpg;base64,' + response.image.picByte});
         // }
         console.log(this.state.listing)
+        this.setState({
+          description: this.state.listing.description,
+          transportation: this.state.listing.transportation,
+          numOfBeds: this.state.listing.numOfBeds,
+          numOfWc: this.state.listing.numOfWc,
+          numOfRooms: this.state.listing.numOfRooms,
+          minRentDays: this.state.listing.minRentDays,
+          maxGuests: this.state.listing.maxGuests,
+          livingRoom: this.state.listing.livingRoom,
+          kitchen: this.state.listing.kitchen,
+          parking: this.state.listing.parking,
+          elevator: this.state.listing.elevator,
+          smoking: this.state.listing.smoking,
+          tv: this.state.listing.tv,
+          ac: this.state.listing.ac,
+          heating: this.state.listing.heating,
+          wifi: this.state.listing.wifi,
+          parties: this.state.listing.parties,
+          animals: this.state.listing.animals
+        })
       })
     .catch(
       error => {
@@ -198,7 +231,7 @@ class HostListingDetails extends Component {
                           type="text"
                           className="form-control"
                           name="title"
-                          value={this.state.title}
+                          value={this.state.listing.title}
                           onChange={this.handleChange}
                         />
                       </li>
@@ -210,7 +243,7 @@ class HostListingDetails extends Component {
                           type="text"
                           className="form-control"
                           name="country"
-                          value={this.state.country}
+                          value={this.state.listing.country}
                           onChange={this.handleChange}
                         />
                       </li>
@@ -222,7 +255,7 @@ class HostListingDetails extends Component {
                           type="text"
                           className="form-control"
                           name="city"
-                          value={this.state.city}
+                          value={this.state.listing.city}
                           onChange={this.handleChange}
                         />
                       </li>
@@ -234,7 +267,7 @@ class HostListingDetails extends Component {
                           type="text"
                           className="form-control"
                           name="neighborhood"
-                          value={this.state.neighborhood}
+                          value={this.state.listing.neighborhood}
                           onChange={this.handleChange}
                         />
                       </li>
@@ -246,7 +279,7 @@ class HostListingDetails extends Component {
                           type="text"
                           className="form-control"
                           name="address"
-                          value={this.state.address}
+                          value={this.state.listing.address}
                           onChange={this.handleChange}
                         />
                       </li>
@@ -258,7 +291,7 @@ class HostListingDetails extends Component {
                           type="number"
                           className="form-control"
                           name="postalCode"
-                          value={this.state.postalCode}
+                          value={this.state.listing.postalCode}
                           onChange={this.handleChange}
                         />
                       </li>
@@ -266,7 +299,7 @@ class HostListingDetails extends Component {
                         <label htmlFor="text">Description</label>
                       </li>
                       <li>
-                        <textarea
+                        <input
                           type="text"
                           className="form-control"
                           name="description"
@@ -278,7 +311,7 @@ class HostListingDetails extends Component {
                         <label htmlFor="text">Transportation</label>
                       </li>
                       <li>
-                        <textarea
+                        <input
                           type="text"
                           className="form-control"
                           name="transportation"
@@ -293,10 +326,10 @@ class HostListingDetails extends Component {
                             <label htmlFor="text">Category</label>
                           </li>
                           <li style={{marginLeft: '4%'}}>
-                            <select onChange={this.handleChange}>
+                            <select  onChange={this.handleChange}>
                               <option
                                 name="privateRoom" 
-                                value='PRIVATE_ROOM'>
+                                value={'PRIVATE_ROOM'}>
                                   Private Room
                               </option>
                               <option
@@ -316,9 +349,9 @@ class HostListingDetails extends Component {
                           </li>
                           <li style={{position: 'absolute', right: '0px'}}>
                             <NumericInput min={0} max={16}
-                            value={this.state.numofRooms}
+                            value={this.state.numOfRooms}
                             onChange={e=> {
-                              this.setState({numofRooms: e})
+                              this.setState({numOfRooms: e})
                             }}/>
                           </li>
                         </ul>
@@ -387,7 +420,7 @@ class HostListingDetails extends Component {
                           step="0.5"
                           className="form-control"
                           name="minCost"
-                          value={this.state.minCost}
+                          value={this.state.listing.minCost}
                           onChange={this.handleChange}
                         />
                       </li>
@@ -400,7 +433,7 @@ class HostListingDetails extends Component {
                           step="0.5"
                           className="form-control"
                           name="costPerExtraGuest"
-                          value={this.state.costPerExtraGuest}
+                          value={this.state.listing.costPerExtraGuest}
                           onChange={this.handleChange}
                         />
                       </li>
@@ -413,7 +446,7 @@ class HostListingDetails extends Component {
                           step="0.5"
                           className="form-control"
                           name="squareFootage"
-                          value={this.state.squareFootage}
+                          value={this.state.listing.squareFootage}
                           onChange={this.handleChange}
                         />
                       </li>
@@ -426,6 +459,7 @@ class HostListingDetails extends Component {
                           <li>
                             <DatePicker 
                               selected={this.state.startDate}
+                              value={this.state.startDate}
                               onChange={date => {
                                 this.setState({
                                   startDate: date}
@@ -439,6 +473,7 @@ class HostListingDetails extends Component {
                           <li>
                             <DatePicker 
                               selected={this.state.endDate}
+                              value={this.state.endDate}
                               onChange={date => {
                                 this.setState({
                                   endDate: date}
@@ -449,6 +484,120 @@ class HostListingDetails extends Component {
                             />
                           </li>
                         </ul>
+                      </li>
+                      <li>
+                        <table>
+                          <tbody>
+                            <tr> {/* Extras */}
+                              <td>
+                                <br />
+                                <div className = "extras" style={{marginLeft: '0px'}}>
+                                  <label>Extras:</label>
+                                  <br />
+                                  <div className = "listing-details">
+                                    <Checkbox
+                                      name = "livingRoom"
+                                      label = "Living Room"
+                                      value = {this.state.livingRoom}
+                                      checked = {this.state.livingRoom}
+                                      onChange = {this.handleChange}
+                                    />
+                                    <p>Living Room</p>
+                                    <Checkbox
+                                      name = "kitchen"
+                                      label = "kitchen"
+                                      value = {this.state.kitchen}
+                                      checked = {this.state.kitchen}
+                                      onChange = {this.handleChange}
+                                    />
+                                    <p>Kitchen</p>
+                                    <Checkbox
+                                      name = "parking"
+                                      label = "parking"
+                                      value = {this.state.parking}
+                                      checked = {this.state.parking}
+                                      onChange = {this.handleChange}
+                                    />
+                                    <p>Parking</p>
+                                    <Checkbox
+                                      name = "elevator"
+                                      label = "elevator"
+                                      value = {this.state.elevator}
+                                      checked = {this.state.elevator}
+                                      onChange = {this.handleChange}
+                                    />
+                                    <p>Elevator</p>
+                                    <Checkbox
+                                      name = "wifi"
+                                      label = "wifi"
+                                      value = {this.state.wifi}
+                                      checked = {this.state.wifi}
+                                      onChange = {this.handleChange}
+                                    />
+                                    <p>Wifi</p>
+                                  </div>            
+                                </div>
+                              </td>
+                            </tr>
+
+                            <tr>
+                              <td>
+                                <div className="extras" style={{marginLeft: '0px'}}>
+                                  <div className="listing-details">
+                                    <Checkbox
+                                      name = "smoking"
+                                      label = "smoking"
+                                      value = {this.state.smoking}
+                                      checked = {this.state.smoking}
+                                      onChange = {this.handleChange}
+                                    />
+                                    <p>Smoking</p>
+                                    <Checkbox
+                                      name = "tv"
+                                      label = "tv"
+                                      value = {this.state.tv}
+                                      checked = {this.state.tv}
+                                      onChange = {this.handleChange}
+                                    />
+                                    <p>TV</p>
+                                    <Checkbox
+                                      name = "ac"
+                                      label = "ac"
+                                      value = {this.state.ac}
+                                      checked = {this.state.ac}
+                                      onChange = {this.handleChange}
+                                    />
+                                    <p>AC</p>
+                                    <Checkbox
+                                      name = "heating"
+                                      label = "heating"
+                                      value = {this.state.heating}
+                                      checked = {this.state.heating}
+                                      onChange = {this.handleChange}
+                                    />
+                                    <p>Heating</p>
+                                    <Checkbox
+                                      name = "parties"
+                                      label = "parties"
+                                      value = {this.state.parties}
+                                      checked = {this.state.parties}
+                                      onChange = {this.handleChange}
+                                    />
+                                    <p>Parties</p>
+                                    <Checkbox
+                                      name = "animals"
+                                      label = "animals"
+                                      value = {this.state.animals}
+                                      checked = {this.state.animals}
+                                      onChange = {this.handleChange}
+                                    />
+                                    <p>Animals</p>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </li>
                     </ul>
                   </div>
