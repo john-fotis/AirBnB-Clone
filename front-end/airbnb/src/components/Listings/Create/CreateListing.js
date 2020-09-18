@@ -34,7 +34,7 @@ class CreateListing extends Component {
       type: "PRIVATE_ROOM",
       numOfBeds: 1,
       numOfWc: 1,
-      numofRooms: 1,
+      numOfRooms: 1,
       livingRoom: false,
       squareFootage: 0.0,
       description: "",
@@ -61,7 +61,7 @@ class CreateListing extends Component {
       parking: false,
       elevator: false,
       startDate: new Date(),
-      endDate: new Date(),
+      endDate: new Date('12/30/2020'),
       numOfReviews: 0,
       averageRating: 0.0,
       host: {
@@ -102,88 +102,98 @@ class CreateListing extends Component {
       message: "",
       successful: false
     });
-    let formData = new FormData();
-    let listingId = null;
-    formData.append('imageFile', this.state.selectedFile, this.state.selectedFile.name);
-    
-    this.form.validateAll();
 
-    if (this.checkBtn.context._errors.length === 0) {
-      UserService.createListing(
-        this.state.title,
-        this.state.type,
-        this.state.numOfBeds,
-        this.state.numOfWc,
-        this.state.numofRooms,
-        this.state.livingRoom,
-        this.state.squareFootage,
-        this.state.description,
-        this.state.smoking,
-        this.state.animals,
-        this.state.parties,
-        this.state.minRentDays,
-        this.state.maxGuests,
-        this.state.latitude,
-        this.state.longitude,
-        this.state.country,
-        this.state.city,
-        this.state.neighborhood,
-        this.state.address,
-        this.state.postalCode.toString(),
-        this.state.transportation,
-        this.state.minCost,
-        this.state.costPerExtraGuest,
-        this.state.wifi,
-        this.state.ac,
-        this.state.heating,
-        this.state.kitchen,
-        this.state.tv,
-        this.state.parking,
-        this.state.elevator,
-        this.state.startDate,
-        this.state.endDate,
-        this.state.host        
-      )
-      .then(
-        response => {
-          if(response.status === 200){
-            listingId = response.data.id;
-            UserService.postPhoto(formData)
-            .then(response => {
-              if(response.status === 200){
-                UserService.linkListingPhoto(response.data, listingId)
-                .then(response => {
-                  if(response.status === 200){
-                    this.setState({
-                      message: response.data.message,
-                      successful: true
-                    });
-                    history.push('/host/listings');
-                    window.location.reload();
-                  }
-                })
-              }
-            })
-          }
-        }
-      )
-      .catch(
-        error => {
-          const resMessage =
-            (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-            error.message ||
-            error.toString();
+    if(this.state.selectedFile){
 
-          this.setState({
-            successful: false,
-            message: resMessage
+      let formData = new FormData();
+      let listingId = null;
+      formData.append('imageFile', this.state.selectedFile, this.state.selectedFile.name);
+      
+      this.form.validateAll();
+  
+      if (this.checkBtn.context._errors.length === 0) {
+        UserService.createListing(
+          this.state.title,
+          this.state.type,
+          this.state.numOfBeds,
+          this.state.numOfWc,
+          this.state.numOfRooms,
+          this.state.livingRoom,
+          this.state.squareFootage,
+          this.state.description,
+          this.state.smoking,
+          this.state.animals,
+          this.state.parties,
+          this.state.minRentDays,
+          this.state.maxGuests,
+          this.state.latitude,
+          this.state.longitude,
+          this.state.country,
+          this.state.city,
+          this.state.neighborhood,
+          this.state.address,
+          this.state.postalCode.toString(),
+          this.state.transportation,
+          this.state.minCost,
+          this.state.costPerExtraGuest,
+          this.state.wifi,
+          this.state.ac,
+          this.state.heating,
+          this.state.kitchen,
+          this.state.tv,
+          this.state.parking,
+          this.state.elevator,
+          this.state.startDate,
+          this.state.endDate,
+          this.state.host        
+        )
+        .then(
+          response => {
+            if(response.status === 200){
+              listingId = response.data.id;
+              UserService.postPhoto(formData)
+              .then(response => {
+                if(response.status === 200){
+                  UserService.linkListingPhoto(response.data, listingId)
+                  .then(response => {
+                    if(response.status === 200){
+                      this.setState({
+                        message: response.data.message,
+                        successful: true
+                      });
+                      history.push('/host/listings');
+                      window.location.reload();
+                    }
+                  })
+                }
+              })
             }
-          );
-        }
-      );
-    } 
+          }
+        )
+        .catch(
+          error => {
+            const resMessage =
+              (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+              error.message ||
+              error.toString();
+  
+            this.setState({
+              successful: false,
+              message: resMessage
+              }
+            );
+          }
+        );
+      } 
+    }
+    else {
+      this.setState({
+        successful: false,
+        message: 'Please select a photo!'
+      })
+    }
   }
 
   render() { 
@@ -349,10 +359,10 @@ class CreateListing extends Component {
                     <td> {/* Number of rooms */}
                       <div className="form-field">
                         <label htmlFor="number">*Rooms</label>
-                        <NumericInput min={0} max={16}
-                        value={this.state.numofRooms}
+                        <NumericInput min={0} max={10}
+                        value={this.state.numOfRooms}
                         onChange={e=> {
-                          this.setState({numofRooms: e})
+                          this.setState({numOfRooms: e})
                         }}/>
                       </div>
                     </td>
@@ -473,7 +483,7 @@ class CreateListing extends Component {
                           <li><label>*To:</label></li>
                           <li>
                             <DatePicker 
-                                  selected={this.state.endDate}
+                                  selected={(this.state.endDate)}
                                   onChange={date => {
                                     this.setState({
                                       endDate: date}
@@ -513,7 +523,6 @@ class CreateListing extends Component {
                             onChange = {this.handleChange}
                           />
                           <p>Kitchen</p>
-
                         </div>            
                       </div>
                     </td>
@@ -612,11 +621,11 @@ class CreateListing extends Component {
                   <tr>
                     <td>
                       <div
-                        style={{width: '300px'}}>
+                        style={{width: '200px'}}>
                         <label>Add photo</label>
                         <p style={{fontSize: '12px', width: '135px', margin: '0%'}}>(You can add more later)</p>
                         <input
-                        style={{width: '300px'}}
+                        style={{width: '290px'}}
                         name = "selectedFile"
                         type = "file"
                         onChange={this.fileSelectedHandler} />         
@@ -627,7 +636,7 @@ class CreateListing extends Component {
                 </tbody>
               </table>
             )}
-            
+
             {this.state.message && (
               <div className="form-field">
                 <div
@@ -637,6 +646,7 @@ class CreateListing extends Component {
                       : "alert alert-danger"
                   }
                   role="alert"
+                  style={{width: '47%', textAlign: 'center', float: 'inherit'}}
                 >
                   {this.state.message}
                 </div>
@@ -648,7 +658,7 @@ class CreateListing extends Component {
                 this.checkBtn = c;
               }}
             />
-
+            
             <button 
               style = {{marginTop: '42px', marginLeft: 'auto', marginRight: 'auto', width: '25%'}} 
               type = "submit" 
