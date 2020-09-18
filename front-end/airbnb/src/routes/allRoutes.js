@@ -11,6 +11,7 @@ import Register from '../pages/register/Register';
 import Home from '../pages/home/Home';
 import Profile from '../pages/profile/Profile';
 import ListingResults from '../components/Listings/ListingResults/ListingResults';
+import ListingResultsDetails from '../components/Listings/ListingResults/ListingResultsDetails';
 
 // Admin paths
 import AdminUsers from '../components/Admin/AdminUsers';
@@ -53,6 +54,7 @@ export default function Routes () {
       <Route exact path="/guest/reviews" component={GuestBoard} />
 
       <Route exact path="/results" component={ListingResults} />
+      <Route exact path="/listings/:listingId" component={ListingResultsDetails} />
 
     </Switch>
   )

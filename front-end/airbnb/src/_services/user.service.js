@@ -79,9 +79,9 @@ class UserService {
       modifiedImage, {headers: authHeader()} )
   }
 
-  createListing(title,type,numOfBeds,numOfWc,numofRooms,livingRoom,squareFootage,description,smoking,animals,parties,minRentDays,maxGuests,latitude,longitude,country,city,neighborhood,address,postalCode,transportation,minCost,costPerExtraGuest,wifi,ac,heating,kitchen,tv,parking,elevator,startDate,endDate,host ) {
+  createListing(title,type,numOfBeds,numOfWc,numOfRooms,livingRoom,squareFootage,description,smoking,animals,parties,minRentDays,maxGuests,latitude,longitude,country,city,neighborhood,address,postalCode,transportation,minCost,costPerExtraGuest,wifi,ac,heating,kitchen,tv,parking,elevator,startDate,endDate,host ) {
     return axios.post(API + '/host/listings', {
-      title,type,numOfBeds,numOfWc,numofRooms,livingRoom,squareFootage,description,smoking,animals,parties,minRentDays,maxGuests,latitude,longitude,country,city,neighborhood,address,postalCode,transportation,minCost,costPerExtraGuest,wifi,ac,heating,kitchen,tv,parking,elevator,startDate,endDate,host
+      title,type,numOfBeds,numOfWc,numOfRooms,livingRoom,squareFootage,description,smoking,animals,parties,minRentDays,maxGuests,latitude,longitude,country,city,neighborhood,address,postalCode,transportation,minCost,costPerExtraGuest,wifi,ac,heating,kitchen,tv,parking,elevator,startDate,endDate,host
     }, { headers: authHeader() });
   }
 
@@ -114,10 +114,11 @@ class UserService {
     }, {headers: authHeader()});
   }
 
-  updateListingInfo(listingId, ){
-    return axios.put(API + `/host/listings/${listingId}`,{
-      //....
-    }, {headers: authHeader()});
+  updateListingInfo(listing){
+    console.log(listing)
+    // return axios.put(API + `/host/listings/${listing}`,{
+    //   //....
+    // }, {headers: authHeader()});
   }
 }
 
