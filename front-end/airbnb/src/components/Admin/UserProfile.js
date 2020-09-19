@@ -13,9 +13,13 @@ class UserProfile extends Component {
     UserService.getUserById(userId)
     .then(response=>{
       this.setState({
-        user: response,
-        image: 'data:image/jpg;base64,' + response.image.picByte
+        user: response
       });
+      if(response.image){
+        this.setState({
+          image: 'data:image/jpg;base64,' + response.image.picByte
+        })
+      }
     })
     .catch(
       error => {
@@ -37,7 +41,14 @@ class UserProfile extends Component {
   render(){
     return (
       <div className="user-view-admin" style={{width: '100%', padding: '5% 15%', marginTop: '10%', backgroundColor: '#ff9'}}>
-        <div style={{position: 'absolute', right: '15%'}}><img src={this.state.image} alt='img' /></div>
+        <div style={{position: 'absolute', right: '15%'}}>
+          {this.state.image && (
+              <img src={this.state.image} alt='img' style={{width: '250px', height: '250px'}}/>
+          )}
+          {!this.state.image &&(
+              <img src={require('../../images/profile-picture.jpg')} alt='default-avatar'/>
+          )}
+        </div>
         <ul style = {{display: 'flex', flexDirection: 'column'}}>
           <li><h2>Username: {this.state.user.username} </h2></li>
           <li><h4><strong>ID: {this.state.user.id}</strong></h4></li>
