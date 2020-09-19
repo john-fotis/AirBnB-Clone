@@ -82,21 +82,18 @@ class App extends Component {
         <div className="grid-container">
           <header className="header">
             <nav className="navbar">
-              <HiddenMenu />
-              <div className = "spacer" />
-              <div className = "brand">
+              <Link to={'/'}>
+                <img src= {require('./images/logo.jpg')} width='70px' height='60px' alt='logo' style={{marginTop: '-10px'}} />
+                <div className = "spacer" />
+              </Link>
+              <div className = "brand" style={{marginLeft: '-20px'}}>
                 <Link to={"/"} className="navbar-brand">
-                  Travel Advisor
+                  ravel Advisor
                 </Link>
               </div>
               <div className = "spacer" />
 
               <div className="navbar-boards">
-                <li className="nav-item">
-                  <Link to={"/home"} className="nav-link">
-                    Home
-                  </Link>
-                </li>
 
                 {showHostBoard && (
                   <div className="navbar-boards">
@@ -138,6 +135,11 @@ class App extends Component {
                     <li className="nav-item">
                       <Link to={"/admin/reviews"} className="nav-link">
                         Reviews
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link to={"/admin/application-data"} className="nav-link">
+                        Application Data
                       </Link>
                     </li>
                   </div>
