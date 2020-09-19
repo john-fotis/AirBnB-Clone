@@ -20,13 +20,18 @@ class UserService {
     return result;
   }
 
+  async adminExtractEverything() {
+    const result = await axios.get(API + '/admin/extractEverything', {headers: authHeader()});
+    return result;
+  }
+
   async getCurrentListing (listingId) {
-    const result = await axios.get(API + '/listings/' + listingId, {headers: authHeader() });
+    const result = await axios.get(API + `/listings/${listingId}`, {headers: authHeader() });
     return result;
   }
 
   async getCurrentReview (reviewId) {
-    const result = await axios.get(API + '/reviews/' + reviewId, {headers: authHeader() });
+    const result = await axios.get(API + `/reviews/${reviewId}`, {headers: authHeader() });
     return result;
   }
 
