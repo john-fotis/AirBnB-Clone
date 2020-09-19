@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import Loading from '../Loading/Loading';
 
 const HostListingsList = ({listings, loading}) => {
     if(loading){
-      return <h2>Loading...</h2>
+      return <Loading />
     }
   
     return <ul
@@ -19,7 +20,6 @@ const HostListingsList = ({listings, loading}) => {
           {listing.title}
           </li>
         </Link>
-  
       ))}
     </ul>
   }

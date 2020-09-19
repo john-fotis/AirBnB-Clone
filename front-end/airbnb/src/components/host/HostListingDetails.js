@@ -17,29 +17,7 @@ class HostListingDetails extends Component {
     super();
 
     this.state = {
-      listingId: null,
       listing: {},
-      images: [],
-      
-      description: null,
-      transportation: null,
-      numOfBeds: null,
-      numOfWc: null,
-      numOfRooms: null,
-      minRentDays: null,
-      maxGuests: null,
-      livingRoom: null,
-      kitchen: null,
-      parking: null,
-      elevator: null,
-      smoking: null,
-      tv: null,
-      ac: null,
-      heating: null,
-      wifi: null,
-      parties: null,
-      animals: null,
-
       loading: false,
       successful: true
     };
@@ -65,7 +43,7 @@ class HostListingDetails extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    UserService.updateListingInfo(this.state.listing)
+    // UserService.updateListingInfo(this.state)
     // if (this.state.editPhoto !== null){
     //   let formData = new FormData();
     //   console.log(this.state.editPhoto)
@@ -116,8 +94,16 @@ class HostListingDetails extends Component {
           listing: response.data,
           loading: false
         });
-                
+        // console.log(this.state.listing)    
         this.setState({
+          id: listingId,
+          title: this.state.listing.title,
+          type: this.state.listing.type,
+          country: this.state.listing.country,
+          city: this.state.listing.city,
+          neighborhood: this.state.listing.neighborhood,
+          address: this.state.listing.address,
+          postalCode: this.state.listing.postalCode,
           description: this.state.listing.description,
           transportation: this.state.listing.transportation,
           numOfBeds: this.state.listing.numOfBeds,
@@ -125,6 +111,9 @@ class HostListingDetails extends Component {
           numOfRooms: this.state.listing.numOfRooms,
           minRentDays: this.state.listing.minRentDays,
           maxGuests: this.state.listing.maxGuests,
+          minCost: this.state.listing.minCost,
+          costPerExtraGuest: this.state.listing.costPerExtraGuest,
+          squareFootage: this.state.listing.squareFootage,
           livingRoom: this.state.listing.livingRoom,
           kitchen: this.state.listing.kitchen,
           parking: this.state.listing.parking,
@@ -135,8 +124,15 @@ class HostListingDetails extends Component {
           heating: this.state.listing.heating,
           wifi: this.state.listing.wifi,
           parties: this.state.listing.parties,
-          animals: this.state.listing.animals
-        })
+          animals: this.state.listing.animals,
+          startDate: Date.parse(this.state.listing.startDate.toString()),
+          endDate: Date.parse(this.state.listing.endDate.toString()),
+          images: this.state.listing.images,
+          host: this.state.listing.host,
+          reviews: this.state.listing.reviews
+        });
+        // console.log(this.state)
+        console.log(this.state.listing)
       })
     .catch(
       error => {
@@ -181,35 +177,37 @@ class HostListingDetails extends Component {
                   </Carousel>
                 )}
                 <li><h1>Listing Details:</h1></li>
-                <li><h3>Title: {this.state.listing.title}</h3></li>
-                <li><h3>Country: {this.state.listing.country}</h3></li>
-                <li><h3>City: {this.state.listing.city}</h3></li>
-                <li><h3>Neighborhood: {this.state.listing.neighborhood}</h3></li>
-                <li><h3>Address: {this.state.listing.address}</h3></li>                
-                <li><h3>Postal Code: {this.state.listing.postalCode}</h3></li>                
-                <li><h3>Description: {this.state.listing.description}</h3></li>                <li><h3>Transportation: {this.state.listing.transportation}</h3></li>                
-                <li><h3>Category: {this.state.listing.type}</h3></li>                
-                <li><h3>Rooms: {this.state.listing.numOfRooms}</h3></li>                
-                <li><h3>Beds: {this.state.listing.numOfBeds}</h3></li>
-                <li><h3>WC: {this.state.listing.numOfWc}</h3></li>                
-                <li><h3>Minimum rent days: {this.state.listing.minRentDays}</h3></li>                
-                <li><h3>Maximum guests: {this.state.listing.maxGuests}</h3></li>                
-                <li><h3>Minimum cost: {this.state.listing.minCost}</h3></li>                
-                <li><h3>Cost per extra guest: {this.state.listing.costPerExtraGuest}</h3></li>
-                <li><h3>Square footage: {this.state.listing.squareFootage}</h3></li>                <li><h3>Availability: From {this.state.listing.startDate} to {this.state.listing.endDate}</h3></li>                
-                <li><h3>Extras: {this.state.listing.number}</h3></li>
+                <li><h3>Title: {this.state.title}</h3></li>
+                <li><h3>Country: {this.state.country}</h3></li>
+                <li><h3>City: {this.state.city}</h3></li>
+                <li><h3>Neighborhood: {this.state.neighborhood}</h3></li>
+                <li><h3>Address: {this.state.address}</h3></li>                
+                <li><h3>Postal Code: {this.state.postalCode}</h3></li>                
+                <li><h3>Description: {this.state.description}</h3></li>
+                <li><h3>Transportation: {this.state.transportation}</h3></li>                
+                <li><h3>Category: {this.state.type}</h3></li>                
+                <li><h3>Rooms: {this.state.numOfRooms}</h3></li>                
+                <li><h3>Beds: {this.state.numOfBeds}</h3></li>
+                <li><h3>WC: {this.state.numOfWc}</h3></li>                
+                <li><h3>Minimum rent days: {this.state.minRentDays}</h3></li>                
+                <li><h3>Maximum guests: {this.state.maxGuests}</h3></li>                
+                <li><h3>Minimum cost: {this.state.minCost}</h3></li>                
+                <li><h3>Cost per extra guest: {this.state.costPerExtraGuest}</h3></li>
+                <li><h3>Square footage: {this.state.squareFootage}</h3></li>
+                <li><h3>Availability: From {this.state.listing.startDate} to {this.state.listing.endDate}</h3></li>                
+                <li><h3>Extras: {this.state.number}</h3></li>
                 <ul style={{display: 'inline-block'}}>
-                  <li>Living Room: {this.state.listing.livingRoom ? 'yes' : 'no'}</li>
-                  <li>Kitchen: {this.state.listing.kitchen ? 'yes' : 'no'}</li>
-                  <li>Parking: {this.state.listing.parking ? 'yes' : 'no'}</li>
-                  <li>Elevator: {this.state.listing.elevator ? 'yes' : 'no'}</li>
-                  <li>Smoking: {this.state.listing.smoking ? 'yes' : 'no'}</li>
-                  <li>TV: {this.state.listing.tv ? 'yes' : 'no'}</li>
-                  <li>AC: {this.state.listing.ac ? 'yes' : 'no'}</li>
-                  <li>Heating: {this.state.listing.heating ? 'yes' : 'no'}</li>
-                  <li>Wi-Fi: {this.state.listing.wifi ? 'yes' : 'no'}</li>
-                  <li>Parties: {this.state.listing.parties ? 'yes' : 'no'}</li>
-                  <li>Animals: {this.state.listing.animals ? 'yes' : 'no'}</li>
+                  <li>Living Room: {this.state.livingRoom ? 'yes' : 'no'}</li>
+                  <li>Kitchen: {this.state.kitchen ? 'yes' : 'no'}</li>
+                  <li>Parking: {this.state.parking ? 'yes' : 'no'}</li>
+                  <li>Elevator: {this.state.elevator ? 'yes' : 'no'}</li>
+                  <li>Smoking: {this.state.smoking ? 'yes' : 'no'}</li>
+                  <li>TV: {this.state.tv ? 'yes' : 'no'}</li>
+                  <li>AC: {this.state.ac ? 'yes' : 'no'}</li>
+                  <li>Heating: {this.state.heating ? 'yes' : 'no'}</li>
+                  <li>Wi-Fi: {this.state.wifi ? 'yes' : 'no'}</li>
+                  <li>Parties: {this.state.parties ? 'yes' : 'no'}</li>
+                  <li>Animals: {this.state.animals ? 'yes' : 'no'}</li>
                 </ul>
               </ul>
               <div>
@@ -225,7 +223,6 @@ class HostListingDetails extends Component {
             <div className='container' style={{marginTop: '7%'}}>
               <Form
                 autocomplete = 'off'
-                className = "form-wrapper"
                 onSubmit={this.handleSubmit}
                 ref={c => {
                   this.form = c;
@@ -242,7 +239,7 @@ class HostListingDetails extends Component {
                           type="text"
                           className="form-control"
                           name="title"
-                          value={this.state.listing.title}
+                          value={this.state.title}
                           onChange={this.handleChange}
                         />
                       </li>
@@ -254,7 +251,7 @@ class HostListingDetails extends Component {
                           type="text"
                           className="form-control"
                           name="country"
-                          value={this.state.listing.country}
+                          value={this.state.country}
                           onChange={this.handleChange}
                         />
                       </li>
@@ -266,7 +263,7 @@ class HostListingDetails extends Component {
                           type="text"
                           className="form-control"
                           name="city"
-                          value={this.state.listing.city}
+                          value={this.state.city}
                           onChange={this.handleChange}
                         />
                       </li>
@@ -278,7 +275,7 @@ class HostListingDetails extends Component {
                           type="text"
                           className="form-control"
                           name="neighborhood"
-                          value={this.state.listing.neighborhood}
+                          value={this.state.neighborhood}
                           onChange={this.handleChange}
                         />
                       </li>
@@ -290,7 +287,7 @@ class HostListingDetails extends Component {
                           type="text"
                           className="form-control"
                           name="address"
-                          value={this.state.listing.address}
+                          value={this.state.address}
                           onChange={this.handleChange}
                         />
                       </li>
@@ -302,7 +299,7 @@ class HostListingDetails extends Component {
                           type="number"
                           className="form-control"
                           name="postalCode"
-                          value={this.state.listing.postalCode}
+                          value={this.state.postalCode}
                           onChange={this.handleChange}
                         />
                       </li>
@@ -310,7 +307,7 @@ class HostListingDetails extends Component {
                         <label htmlFor="text">Description</label>
                       </li>
                       <li>
-                        <input
+                        <Input
                           type="text"
                           className="form-control"
                           name="description"
@@ -322,7 +319,7 @@ class HostListingDetails extends Component {
                         <label htmlFor="text">Transportation</label>
                       </li>
                       <li>
-                        <input
+                        <Input
                           type="text"
                           className="form-control"
                           name="transportation"
@@ -330,22 +327,21 @@ class HostListingDetails extends Component {
                           onChange={this.handleChange}
                         />
                       </li>
-
                       <li>
                         <ul>
                           <li> {/* Category */}
                             <label htmlFor="text">Category</label>
                           </li>
                           <li style={{marginLeft: '4%'}}>
-                            <select  onChange={this.handleChange}>
+                            <select name='' onChange={this.handleChange}>
                               <option
                                 name="privateRoom" 
-                                value={'PRIVATE_ROOM'}>
+                                value='PRIVATE_ROOM'>
                                   Private Room
                               </option>
                               <option
                                 name="sharedRoom"
-                                value={'SHARED_ROOM'}>
+                                value='SHARED_ROOM'>
                                 Shared Room
                               </option>
                               <option
@@ -360,14 +356,13 @@ class HostListingDetails extends Component {
                           </li>
                           <li style={{position: 'absolute', right: '0px'}}>
                             <NumericInput min={0} max={16}
-                            value={this.state.numOfRooms}
-                            onChange={e=> {
-                              this.setState({numOfRooms: e})
-                            }}/>
+                              value={this.state.numOfRooms}
+                              onChange={e=> {
+                                this.setState({numOfRooms: e})
+                              }}/>
                           </li>
                         </ul>
                       </li>
-
                       <li>
                         <ul style={{justifyContent: 'space-between'}}>
                           <li>  {/* Number of beds */}
@@ -375,10 +370,10 @@ class HostListingDetails extends Component {
                           </li>
                           <li>
                             <NumericInput min={0} max={10}
-                            value={this.state.numOfBeds}
-                            onChange={e => {
-                              this.setState({numOfBeds: e})
-                            }}
+                              value={this.state.numOfBeds}
+                              onChange={e => {
+                                this.setState({numOfBeds: e})
+                              }}
                             />
                           </li>
                           <li> {/* Number of WC */}
@@ -386,10 +381,10 @@ class HostListingDetails extends Component {
                           </li>
                           <li>
                             <NumericInput min={0} max={10}
-                            value={this.state.numOfWc}
-                            onChange={e => {
-                              this.setState({numOfWc: e})
-                            }}
+                              value={this.state.numOfWc}
+                              onChange={e => {
+                                this.setState({numOfWc: e})
+                              }}
                             />
                           </li>
                         </ul>
@@ -402,10 +397,10 @@ class HostListingDetails extends Component {
                           </li>
                           <li>
                             <NumericInput min={0} max={10}
-                            value={this.state.minRentDays}
-                            onChange={e => {
-                              this.setState({minRentDays: e})
-                            }}
+                              value={this.state.minRentDays}
+                              onChange={e => {
+                                this.setState({minRentDays: e})
+                              }}
                             />
                           </li> {/* Maximum Guests */}
                           <li style={{width: '130px', marginLeft: '45px'}}> {/* Maximum guests */}
@@ -413,10 +408,10 @@ class HostListingDetails extends Component {
                           </li>
                           <li style={{marginLeft: '40px'}}>
                             <NumericInput min={0} max={10}
-                            value={this.state.maxGuests}
-                            onChange={e => {
-                              this.setState({maxGuests: e})
-                            }}
+                              value={this.state.maxGuests}
+                              onChange={e => {
+                                this.setState({maxGuests: e})
+                              }}
                             />
                           </li>
                         </ul>
@@ -431,7 +426,7 @@ class HostListingDetails extends Component {
                           step="0.5"
                           className="form-control"
                           name="minCost"
-                          value={this.state.listing.minCost}
+                          value={this.state.minCost}
                           onChange={this.handleChange}
                         />
                       </li>
@@ -444,7 +439,7 @@ class HostListingDetails extends Component {
                           step="0.5"
                           className="form-control"
                           name="costPerExtraGuest"
-                          value={this.state.listing.costPerExtraGuest}
+                          value={this.state.costPerExtraGuest}
                           onChange={this.handleChange}
                         />
                       </li>
@@ -457,7 +452,7 @@ class HostListingDetails extends Component {
                           step="0.5"
                           className="form-control"
                           name="squareFootage"
-                          value={this.state.listing.squareFootage}
+                          value={this.state.squareFootage}
                           onChange={this.handleChange}
                         />
                       </li>
