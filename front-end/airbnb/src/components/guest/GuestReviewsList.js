@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import Loading from '../Loading/Loading';
 
 const GuestReviewsList = ({reviews, loading}) => {
     if(loading){
-      return <h2>Loading...</h2>
+      return <Loading />
     }
   
     return <ul
@@ -12,14 +13,13 @@ const GuestReviewsList = ({reviews, loading}) => {
         <Link to={{
           pathname: `/guest/reviews/${review.id}`,
           state: {
-            listingId: review.id
+            reviewId: review.id
           }
         }} style={{textDecoration: 'none'}} query={review.id}>
-          <li key={review.id} className="listing-list-item">
+          <li key={review.id} className="review-list-item">
           {review.listingTitle}
           </li>
         </Link>
-  
       ))}
     </ul>
   }

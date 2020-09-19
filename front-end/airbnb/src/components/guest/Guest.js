@@ -8,7 +8,7 @@ class GuestBoard extends Component {
     super();
 
     this.state = {
-      content: [],
+      reviews: [],
       loading: false
     };
   }
@@ -19,15 +19,16 @@ class GuestBoard extends Component {
     .then(
       response => {
         this.setState({
-          content: response.data,
+          reviews: response.data,
           loading: false
         });
+        console.log(this.state.reviews)
       }
     )
     .catch(
       error => {
         this.setState({
-          content:
+          reviews:
             (error.response &&
               error.response.data &&
               error.response.data.message) ||
@@ -41,9 +42,9 @@ class GuestBoard extends Component {
   render() {
     return (
       <React.Fragment>
-        <main className="container" style={{width: '100%', padding: '5%', marginTop: '10%', backgroundColor: '#ff9'}}>
+        <main className="container" style={{width: '100%', padding: '5%', marginTop: '10%', backgroundColor: '#ff9', textAlign: 'center'}}>
           <h2>My reviews</h2>
-          <GuestReviewsList reviews={this.state.content} loading={this.state.loading}/>
+          <GuestReviewsList reviews={this.state.reviews} loading={this.state.loading}/>
         </main>
       </React.Fragment>
     );
