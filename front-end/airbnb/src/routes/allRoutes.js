@@ -20,27 +20,27 @@ import AdminListings from '../components/Admin/AdminListings';
 import ListingDetails from '../components/Admin/ListingDetails';
 import AdminReviews from '../components/Admin/AdminReviews';
 import ReviewOverview from '../components/Admin/ReviewOverview';
+import ExtractApplicationData from '../components/Admin/ExtractApplicationData';
 
 // Host paths
-import HostBoard from '../components/host/Host';
+import HostBoard from '../components/Host/Host';
 import CreateListing from '../components/Listings/Create/CreateListing';
-import HostListingsDetails from '../components/host/HostListingDetails';
-
+import HostListingsDetails from '../components/Host/HostListingDetails';
 
 // Guest paths
-import GuestBoard from '../components/guest/Guest'
-
-
+import GuestBoard from '../components/Guest/Guest';
+import GuestReviewOverview from '../components/Guest/GuestReviewOverview';
 
 export default function Routes () {
   return (
     <Switch>
-      <AdminRoute exact path="/admin/users" component={AdminUsers} />
-      <AdminRoute exact path="/admin/users/:userId" component= {UserProfile}/>
-      <AdminRoute exact path="/admin/listings" component={AdminListings} />
-      <AdminRoute exact path="/admin/listings/:listingId" component= {ListingDetails}/> 
-      <AdminRoute exact path="/admin/reviews" component={AdminReviews} />
-      <AdminRoute exact path="/admin/reviews/:reviewId" component={ReviewOverview} />
+      <AdminRoute exact path="/admin/users" component = {AdminUsers} />
+      <AdminRoute exact path="/admin/users/:userId" component = {UserProfile} />
+      <AdminRoute exact path="/admin/listings" component = {AdminListings}/>
+      <AdminRoute exact path="/admin/listings/:listingId" component= {ListingDetails} /> 
+      <AdminRoute exact path="/admin/reviews" component = {AdminReviews} />
+      <AdminRoute exact path="/admin/reviews/:reviewId" component = {ReviewOverview} />
+      <AdminRoute exact path="/admin/application-data" component = {ExtractApplicationData} />
 
       <Route exact path={["/", "/home"]} component={Home} />
       <PrivateRoute exact path="/profile" component={Profile} />
@@ -52,6 +52,7 @@ export default function Routes () {
       <Route exact path="/host/listings/:listingId" component={HostListingsDetails} />
 
       <Route exact path="/guest/reviews" component={GuestBoard} />
+      <Route exact path="/guest/reviews/:reviewId" component={GuestReviewOverview} />
 
       <Route exact path="/results" component={ListingResults} />
       <Route exact path="/listings/:listingId" component={ListingResultsDetails} />
