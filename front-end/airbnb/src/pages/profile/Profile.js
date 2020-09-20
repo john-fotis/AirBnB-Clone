@@ -46,14 +46,6 @@ class Profile extends Component {
       content: [],
       image: '',
       edit: false,
-      editPassword: null,
-      editFirstName: null,
-      editLastName: null,
-      editEmail: null,
-      editNumber: null,
-      editPhoto: null,
-      loading: false,
-      successful: true
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -78,9 +70,7 @@ class Profile extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    // need further validation when user starts typing and then deletes a field
-
-    if (this.state.editPhoto !== null){
+    if (this.state.editPhoto){
       let formData = new FormData();
       console.log(this.state.editPhoto)
       
@@ -128,11 +118,19 @@ class Profile extends Component {
       response => {
         this.setState({
           content: response,
-          loading: false
+          loading: false,
+          successful: true
         });
         if(response.image){
           this.setState({image: 'data:image/jpg;base64,' + response.image.picByte});
         }
+        this.setState({
+          editPassword: this.state.content.password,
+          editFirstName: this.state.content.firstName,
+          editLastName: this.state.content.lastName,
+          editEmail: this.state.content.email,
+          editNumber: this.state.content.number,
+        })
       }
     )
     .catch(
@@ -155,16 +153,16 @@ class Profile extends Component {
     }
     return (
       <React.Fragment>
-        <div className="container" style={{width: '100%', padding: '0% 15%', marginTop: '10%', backgroundColor: '#ff9', position: 'relative'}}>
+        <div className="container" style={{width: '100%', padding: '0% 10%', marginTop: '5%', backgroundColor: '#ff9', position: 'relative', border: 'solid 3px purple'}}>
           {!this.state.edit && (
-            <div className="profile-content" style={{width: '100%', padding: '5% 0%', marginTop: '10%', backgroundColor: '#ff9'}}>
+            <div className="profile-content" style={{width: '100%', paddingBottom: '10%', marginTop: '10%', backgroundColor: '#ff9'}}>
               <ul style={{display: 'inline-block'}}>
-                <div style={{position: 'absolute', right: '15%'}}>
+                <div style={{position: 'absolute', right: '15%', width: '100%', height: '100%'}}>
                   {this.state.image && (
-                      <img src={this.state.image} alt='img' style={{width: '250px', height: '250px'}}/>
+                    <img src={this.state.image} alt='img' style={{width: '25%', height: '60%', float: 'right'}}/>
                   )}
                   {!this.state.image &&(
-                      <img src={require('../../images/profile-picture.jpg')} alt='default-avatar'/>
+                    <img src={require('../../images/profile-picture.jpg')} alt='default-avatar'/>
                   )}
                 </div>
                 <li><h1>My profile</h1></li>
@@ -275,7 +273,7 @@ class Profile extends Component {
                 </div>
 
               </Form>
-              <div style={{width: '30%',marginLeft: '34%'}}>
+              <div style={{width: '30%', marginLeft: '34%'}}>
                 <button
                   style = {{marginBottom: '42px'}} 
                   type = "submit" 
@@ -283,6 +281,15 @@ class Profile extends Component {
                   onClick = {this.handleSubmit}>
                   Submit
                 </button>
+                {this.state.edit && (
+                  <button
+                    style = {{marginBottom: '42px'}} 
+                    type = "submit" 
+                    className="submit-button btn btn-danger btn-block"
+                    onClick = {() => {this.setState({edit: false})}}>
+                    Cancel
+                  </button>
+                )}
               </div>
             </div>
           )}
