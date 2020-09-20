@@ -23,7 +23,10 @@ const ResultsList = ({listings, guests, loading}) => {
               <Link to={{
                 pathname: `/listings/${listing.id}`,
                 state: {
-                  listingId: listing.id
+                  listingId: listing.id,
+                  startDate: listing.startDate,
+                  endDate: listing.endDate,
+                  price: listing.minCost+(guests-1)*listing.costPerExtraGuest
                 }
               }} style={{textDecoration: 'none', color: 'brown'}} query={listing.id}>
                 <div className='listing-results-container'>

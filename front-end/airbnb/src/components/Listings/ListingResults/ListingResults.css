@@ -1,9 +1,9 @@
-.list-wrapper{
+.list-wrapper {
   padding: 0%;
   width: 100%;
 }
 
-.listing-results-container{
+.listing-results-container {
   background-color: darkcyan;
   height: 400px;
   width: 100%;
@@ -51,20 +51,60 @@
   text-align: left;
 }
 
-.listing-type{
+.listing-type {
   position: absolute;
   bottom: 50%;
   left: 5%;
 }
 
-.listing-beds{
+.listing-beds {
   position: absolute;
   bottom: 40%;
   left: 5%;
 }
 
-.listing-rating{
+.listing-rating {
   position: absolute;
   bottom: 30%;
   left: 5%;
+}
+
+.listing-overview {
+  color: brown;
+}
+
+.listing-overview h1 {
+  text-align: center;
+  font-size: 40px;
+  font-weight: 600;
+}
+
+.listing-results-details {
+  height: 1050px;
+  font-size: 22px;
+  padding: 12px 48px;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  text-align: left;
+  background-color: lightsteelblue;
+}
+
+.host-info{
+  width: 100%;
+  height: 450px;
+  border-bottom-right-radius: 15px;
+  text-align: center;
+  background-color: tan;
+}
+
+.listing-access {
+  background-color: rgb(108, 247, 108);
+  padding: 50px 15%;
+  position: relative;
+  width: 100%;
+  height: 600px;
+  border-top-right-radius: 15px;
+}
+.booking-dialog{
+  display: flex;
 }
