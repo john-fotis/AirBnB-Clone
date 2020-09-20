@@ -45,7 +45,7 @@ class App extends Component {
     return (
       <AuthContext.Provider value = { currentUser}>
         {dualRole && (
-          <div style = {{width: '100%', height: '192%', position: 'absolute', top: '7%' , zIndex:'10',  paddingTop:'15%', backgroundImage: `url(${require('./images/main-background.jpg')})`}}>
+          <div style = {{width: '100%', height: '105%', position: 'absolute', top: '0%' , zIndex:'10',  paddingTop:'15%', backgroundImage: `url(${require('./images/main-background.jpg')})`}}>
             <div className='wrapper'>
               <div className='form-inner'>
                 <ul style={{display: 'inline-block', textAlign: 'center', width: '100%'}}>
@@ -57,7 +57,7 @@ class App extends Component {
                     })}}                            
                       className="submit-button btn btn-primary btn-block"
                       style={{width:'30%', display: 'table-cell', verticalAlign:'middle', marginTop: '30px'}}
-                    >Host
+                      >Host
                     </button>
                   </li>
                   <li>
