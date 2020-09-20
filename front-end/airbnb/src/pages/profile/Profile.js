@@ -156,15 +156,15 @@ class Profile extends Component {
         <div className="container" style={{width: '100%', padding: '0% 10%', marginTop: '5%', backgroundColor: '#ff9', position: 'relative', border: 'solid 3px purple'}}>
           {!this.state.edit && (
             <div className="profile-content" style={{width: '100%', paddingBottom: '10%', marginTop: '10%', backgroundColor: '#ff9'}}>
-              <ul style={{display: 'inline-block'}}>
-                <div style={{position: 'absolute', right: '15%', width: '100%', height: '100%'}}>
-                  {this.state.image && (
-                    <img src={this.state.image} alt='img' style={{width: '25%', height: '60%', float: 'right'}}/>
-                  )}
-                  {!this.state.image &&(
-                    <img src={require('../../images/profile-picture.jpg')} alt='default-avatar'/>
-                  )}
-                </div>
+              <div style={{width: '50%', height: '250px', float: 'right'}}>
+                {this.state.image && (
+                  <img src={this.state.image} alt='img' style={{width: '60%', height: '100%', float: 'right'}}/>
+                )}
+                {!this.state.image &&(
+                  <img src={require('../../images/profile-picture.jpg')} alt='default-avatar'/>
+                )}
+              </div>
+              <ul style={{display: 'inline-block', width: '50%'}}>
                 <li><h1>My profile</h1></li>
                 <li><h3>Username: {this.state.content.username}</h3></li>
                 <li><h3>First Name: {this.state.content.firstName}</h3></li>
