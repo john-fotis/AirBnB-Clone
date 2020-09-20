@@ -6,7 +6,6 @@ import NumericInput from 'react-numeric-input';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Checkbox } from "@material-ui/core";
-// import AuthService from '../../_services/authentication.service';
 import Loading from '../Loading/Loading';
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -18,8 +17,10 @@ class HostListingDetails extends Component {
 
     this.state = {
       listing: {},
+      image: '',
       loading: false,
-      successful: true
+      successful: true,
+      message: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -41,46 +42,82 @@ class HostListingDetails extends Component {
     });
   };
 
+  fileSelectedHandler = e =>{
+    this.setState({image: e.target.files[0]})
+  }
+
   handleSubmit = e => {
     e.preventDefault();
-    // UserService.updateListingInfo(this.state)
-    // if (this.state.editPhoto !== null){
-    //   let formData = new FormData();
-    //   console.log(this.state.editPhoto)
-      
-    //   formData.append('imageFile', this.state.editPhoto, this.state.editPhoto.name);
-      
-    //   UserService.postPhoto(formData).then(
-    //     response => {
-    //       UserService.linkUserPhoto(response.data, AuthService.getCurrentUser().id)
-    //     }
-    //   )
-    // }
 
-    // if(this.state.successful){
-    //   UserService.updateListingInfo(
-    //     this.state.transportation
-    //   ).then(response => {
-    //     if(response.status === 200){
-    //       // window.location.reload();
-    //     }
-    //   }).catch(
-    //     error => {
-    //       const resMessage =
-    //         (error.response &&
-    //         error.response.data &&
-    //         error.response.data.message) ||
-    //         error.message ||
-    //         error.toString();
+    if (this.state.image !== null){
+      let formData = new FormData();
+      console.log(this.state.image)
+      
+      formData.append('imageFile', this.state.image, this.state.image.name);
+      
+      UserService.postPhoto(formData).then(
+        response => {
+          UserService.linkListingPhoto(response.data, this.state.listing.id)
+        }
+      )
+    }
+
+    if(this.state.successful){
+      UserService.updateListingInfo(
+        this.state.id,
+        this.state.title,
+        this.state.type,
+        this.state.country,
+        this.state.city,
+        this.state.neighborhood,
+        this.state.address,
+        this.state.postalCode,
+        this.state.description,
+        this.state.transportation,
+        this.state.numOfBeds,
+        this.state.numOfWc,
+        this.state.numOfRooms,
+        this.state.minRentDays,
+        this.state.maxGuests,
+        this.state.minCost,
+        this.state.costPerExtraGuest,
+        this.state.squareFootage,
+        this.state.livingRoom,
+        this.state.kitchen,
+        this.state.parking,
+        this.state.elevator,
+        this.state.smoking,
+        this.state.tv,
+        this.state.ac,
+        this.state.heating,
+        this.state.wifi,
+        this.state.parties,
+        this.state.animals,
+        this.state.startDate,
+        this.state.endDate,
+        this.state.images,
+        this.state.host,
+        this.state.reviews
+      ).then(response => {
+        if(response.status === 200){
+          console.log(response)
+          window.location.reload();
+        }
+      }).catch(
+        error => {
+          const resMessage =
+            (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+            error.message ||
+            error.toString();
   
-    //       this.setState({
-    //         message: resMessage
-    //       });
-    //     }
-    //   )
-    // }
-
-    console.log(this.state)
+          this.setState({
+            message: resMessage
+          });
+        }
+      )
+    }
   }
 
   componentDidMount() {
@@ -94,7 +131,6 @@ class HostListingDetails extends Component {
           listing: response.data,
           loading: false
         });
-        // console.log(this.state.listing)    
         this.setState({
           id: listingId,
           title: this.state.listing.title,
@@ -131,13 +167,11 @@ class HostListingDetails extends Component {
           host: this.state.listing.host,
           reviews: this.state.listing.reviews
         });
-        // console.log(this.state)
-        console.log(this.state.listing)
       })
     .catch(
       error => {
         this.setState({
-          listing:
+          message:
             (error.response &&
               error.response.data &&
               error.response.data.message) ||
@@ -161,7 +195,7 @@ class HostListingDetails extends Component {
 
     return (
       <React.Fragment>
-        <div className="container" style={{width: '100%', padding: '0% 15%', backgroundColor: '#ff9', position: 'relative', marginBottom: '4%'}}>
+        <div className="container" style={{width: '100%', padding: '0% 15%', backgroundColor: '#ff9', position: 'relative', marginTop: '4%', marginBottom: '4%', border: 'solid 3px purple'}}>
           {!this.state.edit && (
             <div className="profile-content" style={{width: '100%', padding: '5% 0%', marginTop: '10%', backgroundColor: '#ff9'}}>
               <ul style={{display: 'inline-block'}}>
@@ -185,7 +219,7 @@ class HostListingDetails extends Component {
                 <li><h3>Postal Code: {this.state.postalCode}</h3></li>                
                 <li><h3>Description: {this.state.description}</h3></li>
                 <li><h3>Transportation: {this.state.transportation}</h3></li>                
-                <li><h3>Category: {this.state.type}</h3></li>                
+                <li><h3>Category: {((this.state.listing.type).replace('_', ' ').toLowerCase())}</h3></li>                
                 <li><h3>Rooms: {this.state.numOfRooms}</h3></li>                
                 <li><h3>Beds: {this.state.numOfBeds}</h3></li>
                 <li><h3>WC: {this.state.numOfWc}</h3></li>                
@@ -495,9 +529,9 @@ class HostListingDetails extends Component {
                         <table>
                           <tbody>
                             <tr> {/* Extras */}
-                              <td>
+                              <td style={{padding: '0%'}}>
                                 <br />
-                                <div className = "extras" style={{marginLeft: '0px'}}>
+                                <div>
                                   <label>Extras:</label>
                                   <br />
                                   <div className = "listing-details">
@@ -547,8 +581,8 @@ class HostListingDetails extends Component {
                             </tr>
 
                             <tr>
-                              <td>
-                                <div className="extras" style={{marginLeft: '0px'}}>
+                              <td style={{padding: '0%'}}>
+                                <div>
                                   <div className="listing-details">
                                     <Checkbox
                                       name = "smoking"
@@ -606,13 +640,21 @@ class HostListingDetails extends Component {
                         </table>
                       </li>
                     </ul>
+                    <div>
+                      <h2>Add photo</h2>
+                      <input
+                        type='file'
+                        style={{width: '350px'}}
+                        onChange={this.fileSelectedHandler}
+                      />
+                    </div>
                   </div>
                 </div>
-
+                
               </Form>
               <div style={{width: '30%',marginLeft: '34%'}}>
                 <button
-                  style = {{marginBottom: '42px'}} 
+                  style = {{marginBottom: '42px', marginTop: '25px'}} 
                   type = "submit" 
                   className="submit-button btn btn-primary btn-block"
                   onClick = {this.handleSubmit}>
