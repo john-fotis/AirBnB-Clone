@@ -34,17 +34,19 @@ class ExtractApplicationData extends Component {
     return ( 
       <div className="container">
         <div className="form-inner">
-          <button onClick={this.extractJson}                            
+          <button 
+            onClick={this.extractJson}
             className="submit-button btn btn-primary btn-block"
-            style={{width:'30%'}}
+            style={{width:'30%', margin: 'auto'}}
             >Extract JSON
           </button>
           {this.state.data &&(
             <div>
-              <h3>Extract Succesfull!</h3>
-                <button onClick={this.downloadData}                            
+              <h3 style={{textAlign: 'center'}}><br />Extract Succesfull!</h3>
+                <button 
+                onClick={this.downloadData}
                 className="submit-button btn btn-primary btn-block"
-                style={{width:'30%'}}
+                style={{width:'30%', margin: 'auto'}}
                 >Download
               </button>
             </div>

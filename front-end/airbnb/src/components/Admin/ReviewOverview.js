@@ -14,6 +14,7 @@ class ReviewOverview extends Component {
       this.setState({
         review: response
       });
+      console.log(response)
     })
     .catch(
       error => {
@@ -35,11 +36,11 @@ class ReviewOverview extends Component {
   render(){
     return (
       <div className="review-overview-admin" style={{width: '100%', padding: '5%', marginTop: '10%', backgroundColor: '#ff9'}}>
-        <ul style = {{display: 'flex', flexDirection: 'column'}}>
+        <ul style = {{display: 'flex', flexDirection: 'column', textAlign: 'center'}}>
           <li><h2>{this.state.review.comment}</h2></li>
           <li><h4><strong>By: {this.state.review.userName}</strong></h4></li>
-          <li><p>On: {this.state.review.date}</p></li>
-          <li><p>Listing ID: {this.state.review.listingId}</p></li>
+          <li><h4>On: {this.state.review.date}</h4></li>
+          <li><h4>Listing ID: {this.state.review.listingId}</h4></li>
         </ul>
       </div>
     )

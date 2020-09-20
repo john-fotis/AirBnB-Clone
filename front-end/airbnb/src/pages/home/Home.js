@@ -26,7 +26,7 @@ class Home extends Component {
     super();
 
     this.state = {
-      type: 'ANY',
+      type: 'PRIVATE_ROOM',
       smoking: false,
       animals: false,
       parties: false,
@@ -255,11 +255,6 @@ class Home extends Component {
                           <div className="form-field">
                             <label htmlFor="text">Category</label>
                             <select onChange={this.handleChange}>
-                              <option
-                                name="ANY" 
-                                value='ANY'>
-                                  Any
-                              </option>
                               <option
                                 name="privateRoom" 
                                 value='PRIVATE_ROOM'>
