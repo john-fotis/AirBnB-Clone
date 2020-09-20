@@ -35,13 +35,18 @@ class UserService {
     return result;
   }
 
+  async getCurrentBooking(bookingId) {
+    const result = await axios.get(API + `/guest/bookings/${bookingId}`, {headers: authHeader()});
+    return result;
+  }
+
   async getHostBoard() {
     const result = await axios.get(API + '/host/listings', { headers: authHeader() });
     return result;
   }
 
   async getGuestBoard() {
-    const result = await axios.get(API + '/guest/reviews', { headers: authHeader() });
+    const result = await axios.get(API + '/guest/bookings', { headers: authHeader() });
     return result;
   }
 
@@ -63,11 +68,10 @@ class UserService {
   postPhoto(imageFile) {
     return axios.post(API + '/images/upload',
     imageFile, 
-    {
-      headers:{
+    {headers:{
         'content-type': 'multipart/form-data'
-      }
-    });
+      }}
+    );
   }
 
   linkUserPhoto(imageFile, userId){
@@ -81,13 +85,16 @@ class UserService {
     };
 
     return axios.put( API + '/images/update',
-      modifiedImage, {headers: authHeader()} )
+      modifiedImage,
+      {headers: authHeader()}
+    );
   }
 
   createListing(title,type,numOfBeds,numOfWc,numOfRooms,livingRoom,squareFootage,description,smoking,animals,parties,minRentDays,maxGuests,latitude,longitude,country,city,neighborhood,address,postalCode,transportation,minCost,costPerExtraGuest,wifi,ac,heating,kitchen,tv,parking,elevator,startDate,endDate,host ) {
-    return axios.post(API + '/host/listings', {
-      title,type,numOfBeds,numOfWc,numOfRooms,livingRoom,squareFootage,description,smoking,animals,parties,minRentDays,maxGuests,latitude,longitude,country,city,neighborhood,address,postalCode,transportation,minCost,costPerExtraGuest,wifi,ac,heating,kitchen,tv,parking,elevator,startDate,endDate,host
-    }, { headers: authHeader() });
+    return axios.post(API + '/host/listings',
+    {title,type,numOfBeds,numOfWc,numOfRooms,livingRoom,squareFootage,description,smoking,animals,parties,minRentDays,maxGuests,latitude,longitude,country,city,neighborhood,address,postalCode,transportation,minCost,costPerExtraGuest,wifi,ac,heating,kitchen,tv,parking,elevator,startDate,endDate,host},
+      { headers: authHeader()}
+    );
   }
 
   linkListingPhoto(imageFile, listingId){
@@ -101,12 +108,15 @@ class UserService {
     };
     console.log(modifiedImage)
     return axios.put( API + '/images/update',
-      modifiedImage, {headers: authHeader()})
+      modifiedImage,
+      {headers: authHeader()});
   }
 
   searchListings(type,smoking,animals,parties,guests,latitude,longitude,country,city,neighborhood,maxCost,wifi,ac,heating,kitchen,tv,parking,elevator,startDate,endDate){
     return axios.put(API + '/listings',
-    {startDate, endDate, guests, country, city}, {headers: authHeader()})
+      {startDate, endDate, guests, country, city}, 
+      // {type,smoking,animals,parties,guests,latitude,longitude,country,city,neighborhood,maxCost,wifi,ac,heating,kitchen,tv,parking,elevator,startDate,endDate},
+      {headers: authHeader()});
   }
 
   updateProfileInfo(firstName,lastName,email,number,password){
@@ -119,11 +129,23 @@ class UserService {
     }, {headers: authHeader()});
   }
 
-  updateListingInfo(listing){
-    console.log(listing)
-    // return axios.put(API + `/host/listings/${listing}`,{
-    //   //....
-    // }, {headers: authHeader()});
+  updateListingInfo(id,title,type,country,city,neighborhood,address,postalCode,description,transportation,numOfBeds,numOfWc,numOfRooms,minRentDays,maxGuests,minCost,costPerExtraGuest,squareFootage,livingRoom,kitchen,parking,elevator,smoking,tv,ac,heating,wifi,parties,animals,startDate,endDate,images,host,reviews){
+    return axios.put(API + `/host/listings/${id}`,
+    {id,title,type,country,city,neighborhood,address,postalCode,description,transportation,numOfBeds,numOfWc,numOfRooms,minRentDays,maxGuests,minCost,costPerExtraGuest,squareFootage,livingRoom,kitchen,parking,elevator,smoking,tv,ac,heating,wifi,parties,animals,startDate,endDate,images,host,reviews},
+    {headers: authHeader()});
+  }
+
+  bookListing (listingId, startDate, endDate){
+    return axios.post( API + '/guest/bookings',
+      {startDate, endDate, listingId},
+      {headers: authHeader()
+    });
+  }
+
+  chatFromGuest(text, listingId, guestId){
+    return axios.post(API + '/guest/messages',
+    {text, listingId, guestId},
+    {headers: authHeader()});
   }
 }
 

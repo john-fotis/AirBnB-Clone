@@ -2,8 +2,10 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 // Path types
-import AdminRoute from './AdminRoute';
 import PrivateRoute from './PrivateRoute';
+import AdminRoute from './AdminRoute';
+import HostRoute from './HostRoute';
+import GuestRoute from './GuestRoute';
 
 // Universal paths
 import Login from '../pages/login/Login';
@@ -29,11 +31,17 @@ import HostListingsDetails from '../components/Host/HostListingDetails';
 
 // Guest paths
 import GuestBoard from '../components/Guest/Guest';
-import GuestReviewOverview from '../components/Guest/GuestReviewOverview';
+import GuestBooking from '../components/Guest/GuestBooking';
+import GuestChat from '../components/Guest/GuestChat';
 
 export default function Routes () {
   return (
     <Switch>
+      <Route exact path={["/", "/home"]} component={Home} />
+      <Route exact path="/login" component={Login} />
+      <Route exact path="/register" component={Register} />
+      <PrivateRoute exact path="/profile" component={Profile} />
+
       <AdminRoute exact path="/admin/users" component = {AdminUsers} />
       <AdminRoute exact path="/admin/users/:userId" component = {UserProfile} />
       <AdminRoute exact path="/admin/listings" component = {AdminListings}/>
@@ -42,17 +50,13 @@ export default function Routes () {
       <AdminRoute exact path="/admin/reviews/:reviewId" component = {ReviewOverview} />
       <AdminRoute exact path="/admin/application-data" component = {ExtractApplicationData} />
 
-      <Route exact path={["/", "/home"]} component={Home} />
-      <PrivateRoute exact path="/profile" component={Profile} />
-      <Route exact path="/login" component={Login} />
-      <Route exact path="/register" component={Register} />
+      <HostRoute exact path="/host/listings" component={HostBoard} />
+      <HostRoute exact path="/host/create-listing" component={CreateListing} />
+      <HostRoute exact path="/host/listings/:listingId" component={HostListingsDetails} />
 
-      <Route exact path="/host/listings" component={HostBoard} />
-      <Route exact path="/host/create-listing" component={CreateListing} />
-      <Route exact path="/host/listings/:listingId" component={HostListingsDetails} />
-
-      <Route exact path="/guest/reviews" component={GuestBoard} />
-      <Route exact path="/guest/reviews/:reviewId" component={GuestReviewOverview} />
+      <GuestRoute exact path="/guest/bookings" component={GuestBoard} />
+      <GuestRoute exact path="/guest/bookings/:bookingId" component={GuestBooking} />
+      <GuestRoute exact path="/guest/messages" component={GuestChat} />
 
       <Route exact path="/results" component={ListingResults} />
       <Route exact path="/listings/:listingId" component={ListingResultsDetails} />
