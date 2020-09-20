@@ -646,7 +646,7 @@ class CreateListing extends Component {
                       : "alert alert-danger"
                   }
                   role="alert"
-                  style={{width: '40%', textAlign: 'center', float: 'inherit'}}
+                  style={{width: '47%', textAlign: 'center', float: 'inherit'}}
                 >
                   {this.state.message}
                 </div>
