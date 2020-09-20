@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import GuestReviewsList from "./GuestReviewsList";
+import GuestBookingList from "./GuestBookingList";
 
 import UserService from "../../_services/user.service";
 
@@ -8,7 +8,7 @@ class GuestBoard extends Component {
     super();
 
     this.state = {
-      reviews: [],
+      bookings: [],
       loading: false
     };
   }
@@ -19,16 +19,16 @@ class GuestBoard extends Component {
     .then(
       response => {
         this.setState({
-          reviews: response.data,
+          bookings: response.data,
           loading: false
         });
-        console.log(this.state.reviews)
+        console.log(this.state.bookings)
       }
     )
     .catch(
       error => {
         this.setState({
-          reviews:
+          bookings:
             (error.response &&
               error.response.data &&
               error.response.data.message) ||
@@ -42,9 +42,9 @@ class GuestBoard extends Component {
   render() {
     return (
       <React.Fragment>
-        <main className="container" style={{width: '100%', padding: '5%', marginTop: '10%', backgroundColor: '#ff9', textAlign: 'center'}}>
-          <h2>My reviews</h2>
-          <GuestReviewsList reviews={this.state.reviews} loading={this.state.loading}/>
+        <main className="container" style={{width: '100%', padding: '5%', marginTop: '10%', backgroundColor: '#ff9', textAlign: 'center', border: 'solid 3px purple'}}>
+          <h2>My bookings</h2>
+          <GuestBookingList bookings={this.state.bookings} loading={this.state.loading}/>
         </main>
       </React.Fragment>
     );

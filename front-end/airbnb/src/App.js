@@ -113,7 +113,7 @@ class App extends Component {
                 {showGuestBoard && (
                   <div className="navbar-boards">
                     <li className="nav-item">
-                      <Link to={"/guest/reviews"} className="nav-link">
+                      <Link to={"/guest/bookings"} className="nav-link">
                         Guest Board
                       </Link>
                     </li>
@@ -182,7 +182,7 @@ class App extends Component {
             {Routes()}
           </main>
           <footer className="footer">
-            All right reserved.
+            &copy;	All rights reserved
           </footer>
         </div>
       </AuthContext.Provider>
