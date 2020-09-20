@@ -1,14 +1,11 @@
-/* eslint-disable no-unused-vars */
-import React, { useState, Component } from "react";
-import { BrowserRouter as Router,  Link } from "react-router-dom";
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 import AuthService from "./_services/authentication.service";
 import Routes from "./routes/allRoutes";
-import { history } from './_helpers/history';
 import { AuthContext } from "./context/auth";
-import HiddenMenu from './components/HiddenMenu/HiddenMenu';
 
 class App extends Component {
   constructor() {

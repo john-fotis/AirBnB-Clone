@@ -49,7 +49,7 @@ class HostListingDetails extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    if (this.state.image !== null){
+    if (this.state.image){
       let formData = new FormData();
       console.log(this.state.image)
       
@@ -652,13 +652,20 @@ class HostListingDetails extends Component {
                 </div>
                 
               </Form>
-              <div style={{width: '30%',marginLeft: '34%'}}>
+              <div style={{width: '30%',marginLeft: '34%', display: 'flex', justifyContent: 'space-between'}}>
                 <button
-                  style = {{marginBottom: '42px', marginTop: '25px'}} 
+                  style = {{marginBottom: '42px', marginTop: '25px', marginRight: '30px'}} 
                   type = "submit" 
                   className="submit-button btn btn-primary btn-block"
                   onClick = {this.handleSubmit}>
                   Submit
+                </button>
+                <button
+                  style = {{marginBottom: '42px', marginTop: '25px', marginLeft: '30px'}} 
+                  type = "submit" 
+                  className="submit-button btn btn-danger btn-block"
+                  onClick = {e => {this.setState({edit: false})}}>
+                  Cancel
                 </button>
               </div>
             </div>

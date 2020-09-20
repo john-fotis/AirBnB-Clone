@@ -10,6 +10,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import {history} from '../../_helpers/history';
 import OpenStreetMapView from '../../components/Map/OpenStreetMap';
+import Loading from '../../components/Loading/Loading';
 
 const required = value => {
   if (!value) {
@@ -106,11 +107,10 @@ class Home extends Component {
             });
             history.push({
               pathname: '/results',
-              state: {content: response.data, guests: this.state.guests, loading: this.state.loading}
+              state: {listings: response.data, guests: this.state.guests, loading: this.state.loading}
             });
             window.location.reload();
           }
-          console.log(response)
         }
       )
       .catch(
@@ -134,6 +134,11 @@ class Home extends Component {
   }
 
   render() {
+
+    if(this.state.loading){
+      return <Loading />
+    }
+
     return (
       <div>
         <div className="home-main-container">
