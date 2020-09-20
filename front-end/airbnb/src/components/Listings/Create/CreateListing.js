@@ -490,7 +490,7 @@ class CreateListing extends Component {
                                     )}
                                   }
                                   dateFormat='dd-MM-yyyy'
-                                  minDate={new Date()}
+                                  minDate={this.state.startDate}
                                 />
                           </li>
                         </ul>
@@ -646,7 +646,7 @@ class CreateListing extends Component {
                       : "alert alert-danger"
                   }
                   role="alert"
-                  style={{width: '47%', textAlign: 'center', float: 'inherit'}}
+                  style={{width: '40%', textAlign: 'center', float: 'inherit'}}
                 >
                   {this.state.message}
                 </div>

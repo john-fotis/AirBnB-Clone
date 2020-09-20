@@ -142,16 +142,18 @@ a:hover{
   display: block;
 }
 
+/* Image slider */
 .slider{
-  height: 500px;
+  min-height: 400px;
+  max-height: 700px;
   width: 100%;
 }
 
 .slider-container {
   width: 100%;
   height: 100%;
-  position: relative;; /* add this code for position fixed */
-  top:0px; /* set top and left 0 */
+  position: relative;
+  top:0px;
   left:0px;
 }
 .slider-item-div {
