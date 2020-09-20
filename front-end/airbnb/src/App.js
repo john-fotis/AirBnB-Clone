@@ -83,16 +83,10 @@ class App extends Component {
           <header className="header">
             <nav className="navbar">
               <Link to={'/'}>
-                <img src= {require('./images/logo.jpg')} width='70px' height='60px' alt='logo' style={{marginTop: '-10px'}} />
-                <div className = "spacer" />
+                <img id="logo" src= {require('./images/logo-text.jpg')} 
+                  width='400px' height='60px' alt='logo'
+                  style={{marginBottom: '8px'}}/>
               </Link>
-              <div className = "brand" style={{marginLeft: '-20px'}}>
-                <Link to={"/"} className="navbar-brand">
-                  ravel Advisor
-                </Link>
-              </div>
-              <div className = "spacer" />
-
               <div className="navbar-boards">
 
                 {showHostBoard && (

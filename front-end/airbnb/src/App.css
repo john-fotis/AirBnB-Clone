@@ -61,6 +61,7 @@ li{
 .navbar-boards{
   display: flex;
   padding: 0%;
+  width: 400px;
 }
 
 .navbar-boards a{
@@ -95,6 +96,7 @@ li{
   justify-content: center;
   align-items: center;
 }
+
 a{
   text-decoration: none;
 }
