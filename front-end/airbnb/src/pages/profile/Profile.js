@@ -158,10 +158,12 @@ class Profile extends Component {
             <div className="profile-content" style={{width: '100%', paddingBottom: '10%', marginTop: '10%', backgroundColor: '#ff9'}}>
               <div style={{width: '50%', height: '250px', float: 'right'}}>
                 {this.state.image && (
-                  <img src={this.state.image} alt='img' style={{width: '60%', height: '100%', float: 'right'}}/>
+                  <img src={this.state.image} alt='img' 
+                  style={{width: '60%', height: '100%', float: 'right'}}/>
                 )}
                 {!this.state.image &&(
-                  <img src={require('../../images/profile-picture.jpg')} alt='default-avatar'/>
+                  <img src={require('../../images/profile-picture.jpg')} alt='default-avatar'
+                  style={{width: '60%', height: '100%', float: 'right'}}/>
                 )}
               </div>
               <ul style={{display: 'inline-block', width: '50%'}}>
