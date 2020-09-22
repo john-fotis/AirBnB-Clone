@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./App.css";
-
 import AuthService from "./_services/authentication.service";
 import Routes from "./routes/allRoutes";
 import { AuthContext } from "./context/auth";
+import Helmet from 'react-helmet';
+import "./App.css";
 
 class App extends Component {
   constructor() {
@@ -17,26 +17,33 @@ class App extends Component {
       showGuestBoard: false,
       showAdminBoard: false,
       dualRole: false,
-      currentUser: JSON.parse(localStorage.getItem('user'))
+      currentUser: JSON.parse(localStorage.getItem('user')),
+      logged: false
     };
   }
 
   componentDidMount() {
     const user = AuthService.getCurrentUser();
 
-    if (user) {
+    if (user && !this.state.logged) {
       this.setState({
-        currentUser: user,
-        showHostBoard: user.roles.includes("ROLE_HOST"),
-        showGuestBoard: user.roles.includes("ROLE_GUEST"),
-        showAdminBoard: user.roles.includes("ROLE_ADMIN"),
-        dualRole: (user.roles.includes("ROLE_HOST") && user.roles.includes("ROLE_GUEST"))
+        logged: true
       });
+      if(!this.state.logged){
+        this.setState({
+          currentUser: user,
+          showHostBoard: user.roles.includes("ROLE_HOST"),
+          showGuestBoard: user.roles.includes("ROLE_GUEST"),
+          showAdminBoard: user.roles.includes("ROLE_ADMIN"),
+          dualRole: (user.roles.includes("ROLE_HOST") && user.roles.includes("ROLE_GUEST"))
+        });
+      }
     }
   }
 
   logOut() {
     AuthService.logout();
+    this.setState({logged: false});
   }
 
   render() {
@@ -44,6 +51,10 @@ class App extends Component {
 
     return (
       <AuthContext.Provider value = { currentUser}>
+          <Helmet>
+            <meta charSet="utf-8" />
+            <title>Travel Advisor</title>
+          </Helmet>
         {dualRole && (
           <div style = {{width: '100%', height: '105%', position: 'absolute', top: '0%' , zIndex:'10',  paddingTop:'15%', backgroundImage: `url(${require('./images/main-background.jpg')})`}}>
             <div className='wrapper'>
@@ -93,7 +104,7 @@ class App extends Component {
                         Host Board
                       </Link>
                     </li>
-                      <li className="nav-item">
+                    <li className="nav-item">
                       <Link to={"/host/create-listing"} className="nav-link">
                         Create Listing
                       </Link>

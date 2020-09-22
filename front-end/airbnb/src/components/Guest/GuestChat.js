@@ -7,7 +7,7 @@ class GuestChat extends Component {
     super();
 
     this.state = { 
-      text: '',
+      text: null,
       succesfull: false,
       message: ''
     }
@@ -19,26 +19,34 @@ class GuestChat extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    const listingId = this.props.location.state.listingId;
+    if(this.state.text){
+      const listingId = this.props.location.state.listingId;
 
-    UserService.chatFromGuest(
-      this.state.text,
-      listingId,
-      AuthService.getCurrentUser().id
-    ).then(response => {
-      if(response.status === 200){
-        this.setState({
-          succesfull: true,
-          message: 'Your message has been sent'
-        });
-        setTimeout(() => window.location.reload(), 5000);
-      }
-    })
+      UserService.chatFromGuest(
+        this.state.text,
+        listingId,
+        AuthService.getCurrentUser().id
+      ).then(response => {
+        if(response.status === 200){
+          this.setState({
+            succesfull: true,
+            message: 'Your message has been sent'
+          });
+          setTimeout(() => window.location.reload(), 3000);
+        }
+      });
+    }
+    else {
+      this.setState({
+        succesfull: false,
+        message: 'Please type first'
+      })
+    }
   }
 
   render() { 
     return ( 
-      <div style={{backgroundColor: 'white', width: '40%', height: '35%', position: 'absolute', top: '20%', left: '30%', borderRadius: '15px', padding: '5%', textAlign: 'center' }}>
+      <div style={{backgroundColor: 'white', width: '40%', height: '42%', position: 'absolute', top: '20%', left: '30%', borderRadius: '15px', padding: '5%', textAlign: 'center' }}>
         <label>Chat with host</label>
         <textarea
           style={{fontSize: '20px', border: 'solid 3px purple', margin: '5% 0%'}}
@@ -67,6 +75,22 @@ class GuestChat extends Component {
                 this.state.successful
                   ? "alert alert-success"
                   : "alert alert-primary"
+              }
+              role="alert"
+              style={{textAlign: 'center', margin: '0% auto', width: '60%'}}
+            >
+              {this.state.message}
+            </div>
+          </div>
+        )}
+
+        {this.state.message && !this.state.succesfull && (
+          <div className="form-field">
+            <div
+              className={
+                this.state.successful
+                  ? "alert alert-success"
+                  : "alert alert-danger"
               }
               role="alert"
               style={{textAlign: 'center', margin: '0% auto', width: '60%'}}

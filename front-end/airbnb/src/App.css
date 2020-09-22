@@ -61,7 +61,7 @@ li{
 .navbar-boards{
   display: flex;
   padding: 0%;
-  width: 400px;
+  width: fit-content;
 }
 
 .navbar-boards a{
@@ -84,6 +84,7 @@ li{
   grid-area: main;
   background-color: transparent;
   background-image: url(./images/main-background.jpg);
+  background-position: fixed;
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
@@ -133,7 +134,7 @@ a:hover{
   margin-left: 20%;
   margin-top: 20px;
   background-color: #f9f9f9;
-  min-width: 510px;
+  min-width: 480px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   padding: 12px 16px;
   z-index: 999;

@@ -22,7 +22,6 @@ class GuestBoard extends Component {
           bookings: response.data,
           loading: false
         });
-        console.log(this.state.bookings)
       }
     )
     .catch(
