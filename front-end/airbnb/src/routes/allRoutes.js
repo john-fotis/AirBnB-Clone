@@ -12,8 +12,8 @@ import Login from '../pages/login/Login';
 import Register from '../pages/register/Register';
 import Home from '../pages/home/Home';
 import Profile from '../pages/profile/Profile';
-import ListingResults from '../components/Listings/ListingResults/ListingResults';
-import ListingResultsDetails from '../components/Listings/ListingResults/ListingResultsDetails';
+import ListingResults from '../components/Listings/Results/ListingResults';
+import ListingResultsDetails from '../components/Listings/Results/ListingResultsDetails';
 
 // Admin paths
 import AdminUsers from '../components/Admin/AdminUsers';
