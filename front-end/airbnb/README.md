@@ -10,7 +10,7 @@ In the project directory, you can run:
 
 ## Alternative scripts with yarn:
 
-## Download yarn here: https://classic.yarnpkg.com
+## Download yarn [here](https://classic.yarnpkg.com)
 
 In the project directory, you can run:
 
