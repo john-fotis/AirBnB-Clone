@@ -1,7 +1,6 @@
 import axios from 'axios';
 import authHeader from '../_helpers/auth-header';
-
-const API = 'http://localhost:8080/air-bnb/api';
+import {API} from '../config/config.utils';
 
 class UserService {
 
@@ -42,6 +41,11 @@ class UserService {
 
   async getHostBoard() {
     const result = await axios.get(API + '/host/listings', { headers: authHeader() });
+    return result;
+  }
+
+  async getHostMessages(id) {
+    const result = await axios.get(API + `/host/listings/${id}/messages`, { headers: authHeader() });
     return result;
   }
 
@@ -106,16 +110,16 @@ class UserService {
       userId: imageFile.userId,
       listingId: listingId
     };
-    console.log(modifiedImage)
     return axios.put( API + '/images/update',
       modifiedImage,
       {headers: authHeader()});
   }
 
-  searchListings(type,smoking,animals,parties,guests,latitude,longitude,country,city,neighborhood,maxCost,wifi,ac,heating,kitchen,tv,parking,elevator,startDate,endDate){
+  searchListings(type,smoking,animals,parties,guests,latitude,longitude,country,city,maxCost,wifi,ac,heating,kitchen,tv,parking,elevator,startDate,endDate){
     return axios.put(API + '/listings',
-      {startDate, endDate, guests, country, city}, 
-      // {type,smoking,animals,parties,guests,latitude,longitude,country,city,neighborhood,maxCost,wifi,ac,heating,kitchen,tv,parking,elevator,startDate,endDate},
+      {type,smoking,animals,parties,guests,latitude,longitude,country,city,maxCost,wifi,ac,heating,kitchen,tv,parking,elevator,startDate,endDate},
+
+      // {type,smoking,animals,parties,guests,country,city,latitude,longitude,maxCost, startDate,endDate},
       {headers: authHeader()});
   }
 
@@ -144,6 +148,12 @@ class UserService {
 
   chatFromGuest(text, listingId, guestId){
     return axios.post(API + '/guest/messages',
+    {text, listingId, guestId},
+    {headers: authHeader()});
+  }
+
+  chatFromHost(text, listingId, guestId){
+    return axios.post(API + '/host/messages',
     {text, listingId, guestId},
     {headers: authHeader()});
   }

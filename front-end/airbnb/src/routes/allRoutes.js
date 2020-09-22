@@ -28,6 +28,8 @@ import ExtractApplicationData from '../components/Admin/ExtractApplicationData';
 import HostBoard from '../components/Host/Host';
 import CreateListing from '../components/Listings/Create/CreateListing';
 import HostListingsDetails from '../components/Host/HostListingDetails';
+import HostMessages from '../components/Host/HostMessages';
+import HostMessageReply from '../components/Host/HostMessageReply';
 
 // Guest paths
 import GuestBoard from '../components/Guest/Guest';
@@ -53,6 +55,8 @@ export default function Routes () {
       <HostRoute exact path="/host/listings" component={HostBoard} />
       <HostRoute exact path="/host/create-listing" component={CreateListing} />
       <HostRoute exact path="/host/listings/:listingId" component={HostListingsDetails} />
+      <HostRoute exact path="/host/messages" component={HostMessages} />
+      <HostRoute exact path="/host/messages/:messageId" component={HostMessageReply} />
 
       <GuestRoute exact path="/guest/bookings" component={GuestBoard} />
       <GuestRoute exact path="/guest/bookings/:bookingId" component={GuestBooking} />
