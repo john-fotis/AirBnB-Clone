@@ -8,7 +8,7 @@ const MapWrapper = styled.div`
   height: ${props => props.height};
 `;
 
-class Map extends Component {
+class OpenStreetMap extends Component {
 
   componentDidMount(){
     this.map = L.map('map', {
@@ -20,7 +20,7 @@ class Map extends Component {
       
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(this.map);
+    }).addTo(this.map);
   }
 
 
@@ -31,4 +31,4 @@ class Map extends Component {
   }
 }
  
-export default Map;
+export default OpenStreetMap;
