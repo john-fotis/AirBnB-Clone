@@ -49,10 +49,10 @@ class UserProfile extends Component {
               <img src={require('../../images/profile-picture.jpg')} alt='default-avatar'/>
           )}
         </div>
-        <ul style = {{display: 'flex', flexDirection: 'column'}}>
+        <ul style = {{width: '50%', display: 'inline-block', textAlign: 'left'}}>
           <li><h2>Username: {this.state.user.username} </h2></li>
-          <li><h4><strong>ID: {this.state.user.id}</strong></h4></li>
-          <li><h4>Rest data:</h4></li>
+          <li><h3><strong>ID: {this.state.user.id}</strong></h3></li>
+          <li><h4><br />Rest data:</h4></li>
           <li>First name: {this.state.user.firstName}</li>
           <li>Last name: {this.state.user.lastName} </li>
           <li>E-mail: {this.state.user.email} </li>

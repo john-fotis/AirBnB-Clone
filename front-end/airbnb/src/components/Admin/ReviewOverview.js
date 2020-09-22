@@ -14,7 +14,6 @@ class ReviewOverview extends Component {
       this.setState({
         review: response
       });
-      console.log(response)
     })
     .catch(
       error => {
