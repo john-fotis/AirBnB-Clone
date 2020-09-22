@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ResultsList from './ResultsList';
 import Loading from '../../Loading/Loading';
-import Pagination from './Pagination';
+import Pagination from '../../Pagination/Pagination';
 
 class ListingResults extends Component {
 

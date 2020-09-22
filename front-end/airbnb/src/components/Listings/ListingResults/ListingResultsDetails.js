@@ -3,9 +3,10 @@ import UserService from '../../../_services/user.service';
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Loading from '../../Loading/Loading';
-import Map from '../../Map/OpenStreetMap';
+import OpenStreetMap from '../../Map/OpenStreetMap';
 import {Link} from 'react-router-dom';
-
+import {history} from '../../../_helpers/history';
+import MessageIcon from '@material-ui/icons/Message';
 class ListingResultsDetails extends Component {
   state = {
     listing: {},
@@ -59,7 +60,11 @@ class ListingResultsDetails extends Component {
       this.state.endDate
     )
     .then(response => {
-      console.log(response);
+      if(response.status === 200){
+        history.push('/guest/bookings');
+        window.location.reload();
+        alert("Your booking was completed successfully!")
+      }
     })
     .catch(error => {
       this.setState({
@@ -91,14 +96,14 @@ class ListingResultsDetails extends Component {
         <ul style={{display: 'flex'}}>
           <ul className="listing-results-details"
             style={{position: 'relative', display: 'inline-block', width: '50%'}}>
-            <li><h3><br />Address:</h3></li>
+            <li><h3 style={{color: 'black'}}><br />Address:</h3></li>
             <li>
               <h4>{this.state.listing.address}, {' '}
               {this.state.listing.neighborhood}, {' '}
               {this.state.listing.city}, {' '}
               {this.state.listing.country}</h4>
             </li>     
-            <li><h3><br />Category:</h3></li>
+            <li><h3 style={{color: 'black'}}><br />Category:</h3></li>
             <li>
               <h4>{((this.state.listing.type).replace('_', ' ').toLowerCase())}</h4>
             </li>             
@@ -106,7 +111,7 @@ class ListingResultsDetails extends Component {
             <li><h3>Beds: {this.state.listing.numOfBeds}</h3></li>
             <li><h3>WC: {this.state.listing.numOfWc}</h3></li>                
             <li><h3>Square footage: {this.state.listing.squareFootage}&#13217;</h3></li>             
-            <li><h3><br />Available features: {this.state.listing.number}</h3></li>
+            <li><h3 style={{color: 'black'}}><br />Available features: {this.state.listing.number}</h3></li>
             <ul style={{display: 'inline-block'}}>
               {this.state.listing.livingRoom &&(<li><h5>Living Room &#10004;</h5></li>)}
               {this.state.listing.kitchen &&(<li><h5>Kitchen &#10004;</h5></li>)}
@@ -159,12 +164,12 @@ class ListingResultsDetails extends Component {
           </ul>
           <li style={{width: '50%'}}>
             <ul className="listing-access" style={{float: 'right', display: 'inline-block'}}>
-              <li><Map width='100%' height='400px' /><br /></li>
-              <li><h3>Transportation:</h3></li>
+              <li><OpenStreetMap width='100%' height='400px' /><br /></li>
+              <li><h3 style={{color: 'black'}}>Transportation:</h3></li>
               <li><h5>{this.state.listing.transportation}</h5></li>  
             </ul>
             <ul className="host-info" style={{float: 'right', display: 'inline-block'}}>
-              <li><h2>Host info</h2></li>
+              <li><h2 style={{color: 'black'}}>Host info</h2></li>
               <li>
                 {this.state.listing.host.image &&(
                   <img src={'data:image/jpg;base64,' + this.state.listing.host.image.picByte}
@@ -191,7 +196,7 @@ class ListingResultsDetails extends Component {
                   }}
                 }
                 style={{textDecoration: 'none'}}>
-                  Have Questions?
+                  <MessageIcon /> Have Questions?
                 </Link>
               </li>
             </ul>
