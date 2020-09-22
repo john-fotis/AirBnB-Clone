@@ -72,7 +72,6 @@ class Profile extends Component {
 
     if (this.state.editPhoto){
       let formData = new FormData();
-      console.log(this.state.editPhoto)
       
       formData.append('imageFile', this.state.editPhoto, this.state.editPhoto.name);
       
@@ -159,11 +158,11 @@ class Profile extends Component {
               <div style={{width: '50%', height: '250px', float: 'right'}}>
                 {this.state.image && (
                   <img src={this.state.image} alt='img' 
-                  style={{width: '60%', height: '100%', float: 'right'}}/>
+                  style={{width: '60%', height: '100%', float: 'right', boxShadow: '2px 2px grey'}}/>
                 )}
                 {!this.state.image &&(
                   <img src={require('../../images/profile-picture.jpg')} alt='default-avatar'
-                  style={{width: '60%', height: '100%', float: 'right'}}/>
+                  style={{width: '60%', height: '100%', float: 'right', boxShadow: '2px 2px grey'}}/>
                 )}
               </div>
               <ul style={{display: 'inline-block', width: '50%'}}>
@@ -276,13 +275,6 @@ class Profile extends Component {
 
               </Form>
               <div style={{width: '30%', marginLeft: '34%'}}>
-                <button
-                  style = {{marginBottom: '42px'}} 
-                  type = "submit" 
-                  className="submit-button btn btn-primary btn-block"
-                  onClick = {this.handleSubmit}>
-                  Submit
-                </button>
                 {this.state.edit && (
                   <button
                     style = {{marginBottom: '42px'}} 
@@ -292,6 +284,14 @@ class Profile extends Component {
                     Cancel
                   </button>
                 )}
+                <button
+                  style = {{marginBottom: '42px'}} 
+                  type = "submit" 
+                  className="submit-button btn btn-primary btn-block"
+                  onClick = {this.handleSubmit}>
+                  Submit
+                </button>
+                
               </div>
             </div>
           )}

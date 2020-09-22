@@ -9,7 +9,7 @@ import NumericInput from 'react-numeric-input';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import {history} from '../../_helpers/history';
-import OpenStreetMapView from '../../components/Map/OpenStreetMap';
+import OpenStreetMap from '../../components/Map/OpenStreetMap';
 import Loading from '../../components/Loading/Loading';
 
 const required = value => {
@@ -28,28 +28,32 @@ class Home extends Component {
 
     this.state = {
       type: 'PRIVATE_ROOM',
-      smoking: false,
-      animals: false,
-      parties: false,
+      smoking: null,
+      animals: null,
+      parties: null,
       guests: 1,
       latitude: 0.0,
       longitude: 0.0,
       country: "",
       city: "",
-      neighborhood: "",
       maxCost: null,
-      wifi: false,
-      ac: false,
-      heating: false,
-      kitchen: false,
-      tv: false,
-      parking: false,
-      elevator: false,
+      wifi: null,
+      ac: null,
+      heating: null,
+      kitchen: null,
+      tv: null,
+      parking: null,
+      elevator: null,
       startDate: new Date(),
       endDate: new Date(),
       successful: false,
       message: "",
-      loading: false
+      loading: false,
+
+      markerPosition: {
+        lat: 38,
+        lng: 23
+      }
     };
   }
 
@@ -85,7 +89,6 @@ class Home extends Component {
         this.state.longitude,
         this.state.country,
         this.state.city,
-        this.state.neighborhood,
         this.state.maxCost,
         this.state.wifi,
         this.state.ac,
@@ -142,7 +145,7 @@ class Home extends Component {
     return (
       <div>
         <div className="home-main-container">
-          <header><h1><strong>Planning your trip made easy!</strong></h1></header>
+          <header><h1 style={{fontFamily:'arial'}}><strong>Planning your trip made easy!</strong></h1></header>
           {!this.state.successful && (
             <Form 
               autocomplete = 'off'
@@ -154,16 +157,15 @@ class Home extends Component {
               }}>
               <div 
               className = 'form-inner'
-              style = {{marginTop: '5%', minWidth: '1000px'}}>
+              style = {{marginTop: '5%', minWidth: '1000px', boxShadow: '3px 3px grey'}}>
               <div className='map-container'> 
-                <OpenStreetMapView width='450px' height='450px' />
+                <OpenStreetMap width='450px' height='450px' markerPosition = {this.state.markerPosition} />
               </div>
                 <h3>I'm looking for...</h3>
                   <table style={{width: '400px', marginLeft: '2%'}}>
                     <tbody>
                       <tr>
-                        <td>
-                          {/* Country */}
+                        <td> {/* Country */}
                           <div className="form-field">
                             <label htmlFor="text">* Country</label>
                             <Input
@@ -177,9 +179,8 @@ class Home extends Component {
                             />
                           </div>
                         </td>
-                        <td>
-                            {/* City */} 
-                            <div className="form-field">
+                        <td> {/* City */} 
+                          <div className="form-field">
                             <label htmlFor="text">* City</label>
                             <Input
                               type="text"
@@ -195,36 +196,33 @@ class Home extends Component {
                       </tr>
                       
                       <tr>
-                        <td>
-                          {/* Number of people */}
+                        <td> {/* Number of people */}
                           <div className="form-field">
                             <label htmlFor="text" style = {{marginRight: '16px'}}>
                               People
                             </label>
                             <NumericInput min={0} max={10}
-                            value={this.state.guests}
-                            onChange={e => {
+                              value={this.state.guests}
+                              onChange={e => {
                               this.setState({guests: e})
-                            }}
+                              }}
                             />
                           </div>
                         </td>
-                        <td>
-                          {/* Maximum cost */}
+                        <td> {/* Maximum cost */}
                           <div className="form-field">
                             <label htmlFor="text" style = {{marginRight: '16px'}}>
                               Max Cost
                             </label>
                             <NumericInput min={0} max={10}
-                            value={this.state.maxCost}
-                            onChange={e => {
-                              this.setState({maxCost: e})
-                            }}
+                              value={this.state.maxCost}
+                              onChange={e => {
+                                this.setState({maxCost: e})
+                              }}
                             />
                           </div>
                         </td>
                       </tr>
-
                       <div><br /></div>
                       <tr>
                         <td> {/* When */}
@@ -281,8 +279,7 @@ class Home extends Component {
                       </tr>
 
                       <tr>
-                        <td>
-                          {/* Extras */}
+                        <td>{/* Extras */}
                           <div className="dropdown">
                             <label style={{marginTop: '50%', marginBottom: '0%'}}>Extras:</label>
                             <div className="dropdown-content-search">
@@ -382,11 +379,9 @@ class Home extends Component {
                           )}
                         </td>
                       </tr>
-                      
                     </tbody>
                   </table>
                 
-
                 <CheckButton
                   style={{ display: "none" }}
                   ref={c => {
