@@ -11,6 +11,7 @@ public class MessageDto {
     private String text;
     private Date sendDate;
     private boolean seen;
+    private boolean way;
 
     private long listingId;
     private String listingTitle;

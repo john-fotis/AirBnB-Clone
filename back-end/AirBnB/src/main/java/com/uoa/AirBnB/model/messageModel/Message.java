@@ -28,6 +28,8 @@ public class Message {
 
     private boolean seen;
 
+    private boolean way;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name ="listing_id", nullable = false)
     private Listing listing;
@@ -35,6 +37,7 @@ public class Message {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name ="user_id", nullable = false)
     private User guest;
+
 
     public Message(){
     }

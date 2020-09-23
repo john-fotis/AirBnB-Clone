@@ -391,6 +391,7 @@ INSERT INTO `airbnb`.`message`
 (
 `message_id`,
 `seen`,
+`way`,
 `send_date`,
 `text`,
 `listing_id`,
@@ -398,6 +399,7 @@ INSERT INTO `airbnb`.`message`
 VALUES
 (
 1,
+0,
 0,
 NOW(),
 "Καλησπέρα σας",

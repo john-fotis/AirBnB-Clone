@@ -39,7 +39,7 @@ public class MessageServiceImpl implements MessageService{
 
     @Override
     public List<MessageDto> findByListing(Long id) {
-        return messageRepository.findByListingId(id)
+        return messageRepository.findByListingIdAndWayAndSeen(id,false, false)
                 .stream()
                 .map(MessageConverter::convertToDto)
                 .collect(Collectors.toList());
@@ -47,7 +47,7 @@ public class MessageServiceImpl implements MessageService{
 
     @Override
     public List<MessageDto> findByGuest(Long id) {
-        return messageRepository.findByGuestId(id)
+        return messageRepository.findByGuestIdAndWayAndSeen(id, true, false)
                 .stream()
                 .map(MessageConverter::convertToDto)
                 .collect(Collectors.toList());

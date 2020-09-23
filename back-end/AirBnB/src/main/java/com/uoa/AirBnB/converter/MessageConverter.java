@@ -30,6 +30,7 @@ public class MessageConverter {
         messageDto.setId(message.getId());
         messageDto.setText(message.getText());
         messageDto.setSeen(message.isSeen());
+        messageDto.setWay(message.isWay());
         messageDto.setSendDate(message.getSendDate());
 
         messageDto.setListingId(message.getListing().getId());
@@ -46,6 +47,7 @@ public class MessageConverter {
         message.setId(messageDto.getId());
         message.setText(messageDto.getText());
         message.setSeen(messageDto.isSeen());
+        message.setWay(messageDto.isWay());
         message.setSendDate(messageDto.getSendDate());
 
         message.setListing(listingServiceStatic.findById(messageDto.getListingId()));
