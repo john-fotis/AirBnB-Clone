@@ -82,6 +82,8 @@ public class HostController {
 
     @PostMapping("/messages")
     public ResponseEntity<String> createMessage(@RequestBody MessageDto messageDto) throws JsonProcessingException {
+        messageDto.setSeen(false);
+        messageDto.setWay(true);
         return ResponseEntity.ok().body(Helpers.convertToJson(messageService.save(messageDto)));
     }
 
