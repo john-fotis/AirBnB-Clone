@@ -16,6 +16,7 @@ public class UserConverter {
         userDto.setLastName(user.getLastName());
         userDto.setEmail(user.getEmail());
         userDto.setNumber(user.getNumber());
+        userDto.setApproved(user.getApproved());
 
         if(user.getProfileImage()!=null)
             userDto.setImage(ImageConverter.convertToDto(user.getProfileImage()));
@@ -32,6 +33,7 @@ public class UserConverter {
         user.setLastName(userDto.getLastName());
         user.setEmail(userDto.getEmail());
         user.setNumber(userDto.getNumber());
+        user.setApproved(userDto.getApproved());
 
         if(userDto.getImage()!=null)
             user.setProfileImage(ImageConverter.convert(userDto.getImage()));

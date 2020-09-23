@@ -24,5 +24,7 @@ public class UserDto {
     private String email;
     private String number;
 
+    private Boolean approved;
+
     private ImageDto image;
 }

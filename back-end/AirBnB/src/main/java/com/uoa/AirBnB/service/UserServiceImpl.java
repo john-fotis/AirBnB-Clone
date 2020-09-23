@@ -64,4 +64,12 @@ public class UserServiceImpl implements UserService{
     public UserPostDto findFullDtoById(Long id) {
         return UserPostConverter.convertToDto(userRepository.findById(id).get());
     }
+
+    @Override
+    public UserDto approve(Long id) {
+        User user = userRepository.findById(id).get();
+        user.setApproved(true);
+        userRepository.save(user);
+        return UserConverter.convertToDto(user);
+    }
 }

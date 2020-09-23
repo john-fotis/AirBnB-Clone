@@ -12,8 +12,9 @@ public class JwtResponse {
     private String lastName;
     private String number;
     private List<String> roles;
+    private Boolean approved;
 
-    public JwtResponse(String token, Long id, String username, String email, List<String> roles, String firstName, String lastName, String number) {
+    public JwtResponse(String token, Long id, String username, String email, List<String> roles, String firstName, String lastName, String number, Boolean approved) {
         this.token = token;
         this.id = id;
         this.username = username;
@@ -22,6 +23,15 @@ public class JwtResponse {
         this.lastName = lastName;
         this.roles = roles;
         this.number=number;
+        this.approved=approved;
+    }
+
+    public Boolean getApproved() {
+        return approved;
+    }
+
+    public void setApproved(Boolean approved) {
+        this.approved = approved;
     }
 
     public String getAccessToken() {

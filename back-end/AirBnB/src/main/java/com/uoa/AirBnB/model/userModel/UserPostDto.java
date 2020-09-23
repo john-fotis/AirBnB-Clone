@@ -29,6 +29,7 @@ public class UserPostDto {
     private String password;
 
     private Set<Role> roles;
+    private Boolean approved;
 
     private String firstName;
     private String lastName;

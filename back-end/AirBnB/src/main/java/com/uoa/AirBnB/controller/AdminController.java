@@ -75,6 +75,12 @@ public class AdminController {
     public ResponseEntity<UserPostDto> findFullUserById(@PathVariable("id") Long id){
         return ResponseEntity.ok().body(userService.findFullDtoById(id));
     }
+
+    @PutMapping("/users/{id}/approve")
+    public ResponseEntity<String> approveUser(@PathVariable("id") Long id) throws JsonProcessingException {
+        return ResponseEntity.ok().body(Helpers.convertToJson(userService.approve(id)));
+
+    }
     // --------------------------- Listings ----------------------------
     @GetMapping("/listings")
     public ResponseEntity<List<ListingDto>> returnAllListings() {

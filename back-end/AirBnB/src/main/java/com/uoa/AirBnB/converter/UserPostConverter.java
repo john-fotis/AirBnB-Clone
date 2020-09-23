@@ -29,6 +29,7 @@ public class UserPostConverter {
         userPostDto.setLastName(user.getLastName());
         userPostDto.setEmail(user.getEmail());
         userPostDto.setRoles(user.getRoles());
+        userPostDto.setApproved(user.getApproved());
         userPostDto.setNumber(user.getNumber());
         userPostDto.setUserSince(user.getUserSince());
 
@@ -59,6 +60,7 @@ public class UserPostConverter {
         user.setLastName(userPostDto.getLastName());
         user.setEmail(userPostDto.getEmail());
         user.setRoles(userPostDto.getRoles());
+        user.setApproved(userPostDto.getApproved());
         user.setNumber(userPostDto.getNumber());
         user.setUserSince(userPostDto.getUserSince());
 

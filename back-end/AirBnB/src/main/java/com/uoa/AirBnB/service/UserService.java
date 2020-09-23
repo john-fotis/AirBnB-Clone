@@ -13,6 +13,8 @@ public interface UserService {
     UserDto findDtoById(Long id);
     List<UserDto> findAll();
 
+    UserDto approve(Long id);
+
     UserDto save(UserPostDto userPostDto);
     void deleteById(Long id);
     UserPostDto findFullDtoById(Long id);

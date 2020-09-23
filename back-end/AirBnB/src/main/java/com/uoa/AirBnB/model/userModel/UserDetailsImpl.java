@@ -24,9 +24,10 @@ public class UserDetailsImpl implements UserDetails {
     private String password;
 
     private Collection<? extends GrantedAuthority> authorities;
+    private Boolean approved;
 
     public UserDetailsImpl(Long id, String username, String email, String password,
-                           Collection<? extends GrantedAuthority> authorities, String firstName, String lastName, String number) {
+                           Collection<? extends GrantedAuthority> authorities, String firstName, String lastName, String number, Boolean approved) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -35,6 +36,7 @@ public class UserDetailsImpl implements UserDetails {
         this.firstName = firstName;
         this.lastName = lastName;
         this.number = number;
+        this.approved= approved;
     }
 
     public static UserDetailsImpl build(User user) {
@@ -51,13 +53,18 @@ public class UserDetailsImpl implements UserDetails {
                 authorities,
                 user.getFirstName(),
                 user.getLastName(),
-                user.getNumber()
+                user.getNumber(),
+                user.getApproved()
         );
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
+    }
+
+    public Boolean getApproved() {
+        return approved;
     }
 
     public Long getId() {

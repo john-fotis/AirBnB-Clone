@@ -12,7 +12,8 @@ INSERT INTO `airbnb`.`user`
 `password`,
 `username`,
 `number`,
-`user_since`)
+`user_since`,
+`approved`)
 VALUES
 (1,
 "admin@airbnb.test",
@@ -21,7 +22,8 @@ VALUES
 "$2a$10$YHVRGOscVYeMbIjkf5qRg.lYqB43jrIh1baf2SyeI5K3DfL8Mvj4G",
 "admin",
 "6987939000",
-NOW());
+NOW(),
+null);
 
 INSERT INTO `airbnb`.`user_roles` (`user_id`,`role_id`)
 VALUES (1,1);
@@ -35,7 +37,8 @@ INSERT INTO `airbnb`.`user`
 `password`,
 `username`,
 `number`,
-`user_since`)
+`user_since`,
+`approved`)
 VALUES
 (2,
 "petros@airbnb.test",
@@ -44,7 +47,8 @@ VALUES
 "$2a$10$YHVRGOscVYeMbIjkf5qRg.lYqB43jrIh1baf2SyeI5K3DfL8Mvj4G",
 "petros",
 "6988654120",
-NOW());
+NOW(),
+true);
 
 INSERT INTO `airbnb`.`user_roles` (`user_id`,`role_id`)
 VALUES (2,2);
@@ -58,7 +62,8 @@ INSERT INTO `airbnb`.`user`
 `password`,
 `username`,
 `number`,
-`user_since`)
+`user_since`,
+`approved`)
 VALUES
 (3,
 "giannis@airbnb.test",
@@ -67,7 +72,8 @@ VALUES
 "$2a$10$YHVRGOscVYeMbIjkf5qRg.lYqB43jrIh1baf2SyeI5K3DfL8Mvj4G",
 "giannis",
 "6990564871",
-NOW());
+NOW(),
+null);
 
 INSERT INTO `airbnb`.`user_roles` (`user_id`,`role_id`)
 VALUES (3,3);
@@ -81,7 +87,8 @@ INSERT INTO `airbnb`.`user`
 `password`,
 `username`,
 `number`,
-`user_since`)
+`user_since`,
+`approved`)
 VALUES
 (4,
 "giovani@airbnb.test",
@@ -90,7 +97,8 @@ VALUES
 "$2a$10$YHVRGOscVYeMbIjkf5qRg.lYqB43jrIh1baf2SyeI5K3DfL8Mvj4G",
 "giovani",
 "6998451220",
-NOW());
+NOW(),
+false);
 
 INSERT INTO `airbnb`.`user_roles` (`user_id`,`role_id`)
 VALUES(4,2);

@@ -6,9 +6,7 @@ import com.uoa.AirBnB.converter.UserPostConverter;
 import com.uoa.AirBnB.model.imageModel.ImageDto;
 import com.uoa.AirBnB.model.listingModel.ListingDto;
 import com.uoa.AirBnB.model.listingModel.ListingParameters;
-import com.uoa.AirBnB.model.userModel.User;
-import com.uoa.AirBnB.model.userModel.UserDetailsImpl;
-import com.uoa.AirBnB.model.userModel.UserPostDto;
+import com.uoa.AirBnB.model.userModel.*;
 import com.uoa.AirBnB.payload.request.LoginRequest;
 import com.uoa.AirBnB.payload.response.JwtResponse;
 import com.uoa.AirBnB.service.ImageService;
@@ -68,7 +66,7 @@ public class UniversalController {
 
         return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getId(),
                 userDetails.getUsername(), userDetails.getEmail(), roles,
-                userDetails.getFirstName(), userDetails.getLastName(),userDetails.getNumber()));
+                userDetails.getFirstName(), userDetails.getLastName(),userDetails.getNumber(), userDetails.getApproved()));
     }
 
     @PostMapping("/logout")
@@ -80,6 +78,11 @@ public class UniversalController {
     public ResponseEntity<String> createUser(@RequestBody UserPostDto userPostDto) throws JsonProcessingException {
         if(userService.findByUsername(userPostDto.getUsername()).isPresent())
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("{}");
+
+        if(userPostDto.getRoles().stream().findFirst().get().getId().equals(2))
+            userPostDto.setApproved(false);
+        else
+            userPostDto.setApproved(null);
 
         String password=userPostDto.getPassword();
         String encodedPassword=passwordEncoder.encode(password);
