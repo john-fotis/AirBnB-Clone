@@ -4,6 +4,7 @@ import UserService from '../../_services/user.service'
 class UserProfile extends Component {
   state = {
     user: {},
+    image: '',
     message: ''
   }
 
@@ -14,6 +15,11 @@ class UserProfile extends Component {
       this.setState({
         user: response
       });
+      if(response.image){
+        this.setState({
+          image: 'data:image/jpg;base64,' + response.image.picByte
+        })
+      }
     })
     .catch(
       error => {
@@ -34,12 +40,19 @@ class UserProfile extends Component {
 
   render(){
     return (
-      <div className="user-view-admin" style={{width: '100%', padding: '5%', marginTop: '10%', backgroundColor: '#ff9'}}>
-        <ul style = {{display: 'flex', flexDirection: 'column'}}>
-          <li><img src={this.state.image} alt='img' /></li>
+      <div className="user-view-admin" style={{width: '100%', padding: '5% 15%', marginTop: '10%', backgroundColor: '#ff9'}}>
+        <div style={{position: 'absolute', right: '15%'}}>
+          {this.state.image && (
+              <img src={this.state.image} alt='img' style={{width: '250px', height: '250px'}}/>
+          )}
+          {!this.state.image &&(
+              <img src={require('../../images/profile-picture.jpg')} alt='default-avatar'/>
+          )}
+        </div>
+        <ul style = {{width: '50%', display: 'inline-block', textAlign: 'left'}}>
           <li><h2>Username: {this.state.user.username} </h2></li>
-          <li><h4><strong>ID: {this.state.user.id}</strong></h4></li>
-          <li><h4>Rest data:</h4></li>
+          <li><h3><strong>ID: {this.state.user.id}</strong></h3></li>
+          <li><h4><br />Rest data:</h4></li>
           <li>First name: {this.state.user.firstName}</li>
           <li>Last name: {this.state.user.lastName} </li>
           <li>E-mail: {this.state.user.email} </li>

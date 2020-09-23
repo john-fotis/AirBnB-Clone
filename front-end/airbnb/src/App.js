@@ -1,14 +1,11 @@
-/* eslint-disable no-unused-vars */
-import React, { useState, Component } from "react";
-import { BrowserRouter as Router,  Link } from "react-router-dom";
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./App.css";
-
 import AuthService from "./_services/authentication.service";
 import Routes from "./routes/allRoutes";
-import { history } from './_helpers/history';
 import { AuthContext } from "./context/auth";
-import HiddenMenu from './components/HiddenMenu/HiddenMenu';
+import Helmet from 'react-helmet';
+import "./App.css";
 
 class App extends Component {
   constructor() {
@@ -19,50 +16,86 @@ class App extends Component {
       showHostBoard: false,
       showGuestBoard: false,
       showAdminBoard: false,
-      currentUser: JSON.parse(localStorage.getItem('user'))
+      dualRole: false,
+      currentUser: JSON.parse(localStorage.getItem('user')),
+      logged: false
     };
   }
 
   componentDidMount() {
     const user = AuthService.getCurrentUser();
 
-    if (user) {
+    if (user && !this.state.logged) {
       this.setState({
-        currentUser: user,
-        showHostBoard: user.roles.includes("ROLE_HOST"),
-        showGuestBoard: user.roles.includes("ROLE_GUEST"),
-        showAdminBoard: user.roles.includes("ROLE_ADMIN")
+        logged: true
       });
+      if(!this.state.logged){
+        this.setState({
+          currentUser: user,
+          showHostBoard: user.roles.includes("ROLE_HOST"),
+          showGuestBoard: user.roles.includes("ROLE_GUEST"),
+          showAdminBoard: user.roles.includes("ROLE_ADMIN"),
+          dualRole: (user.roles.includes("ROLE_HOST") && user.roles.includes("ROLE_GUEST"))
+        });
+      }
     }
   }
 
   logOut() {
     AuthService.logout();
+    this.setState({logged: false});
   }
 
   render() {
-    const { currentUser, showHostBoard, showGuestBoard, showAdminBoard } = this.state;
+    const { currentUser, showHostBoard, showGuestBoard, showAdminBoard, dualRole } = this.state;
 
     return (
       <AuthContext.Provider value = { currentUser}>
+          <Helmet>
+            <meta charSet="utf-8" />
+            <title>Travel Advisor</title>
+          </Helmet>
+        {dualRole && (
+          <div style = {{width: '100%', height: '105%', position: 'absolute', top: '0%' , zIndex:'10',  paddingTop:'15%', backgroundImage: `url(${require('./images/main-background.jpg')})`}}>
+            <div className='wrapper'>
+              <div className='form-inner'>
+                <ul style={{display: 'inline-block', textAlign: 'center', width: '100%'}}>
+                  <li><h2>Please select the role you want for this session</h2></li>
+                  <li>
+                    <button onClick={e=>{this.setState({
+                      showGuestBoard: false,
+                      dualRole: false
+                    })}}                            
+                      className="submit-button btn btn-primary btn-block"
+                      style={{width:'30%', display: 'table-cell', verticalAlign:'middle', marginTop: '30px'}}
+                      >Host
+                    </button>
+                  </li>
+                  <li>
+                    <button onClick={e=>{this.setState({
+                      showHostBoard: false,
+                      dualRole: false
+                    })}}                            
+                      className="submit-button btn btn-primary btn-block"
+                      style={{width:'30%', display: 'table-cell', verticalAlign:'middle', marginTop: '30px'}}
+                      >Guest
+                    </button>
+                  </li>
+                </ul>                
+              </div>
+            </div>
+          </div>
+        )}
+        
         <div className="grid-container">
           <header className="header">
             <nav className="navbar">
-              <HiddenMenu />
-              <div className = "spacer" />
-              <div className = "brand">
-                <Link to={"/"} className="navbar-brand">
-                  Travel Advisor
-                </Link>
-              </div>
-              <div className = "spacer" />
-
+              <Link to={'/'}>
+                <img id="logo" src= {require('./images/logo-text.jpg')} 
+                  width='400px' height='60px' alt='logo'
+                  style={{marginBottom: '8px'}}/>
+              </Link>
               <div className="navbar-boards">
-                <li className="nav-item">
-                  <Link to={"/home"} className="nav-link">
-                    Home
-                  </Link>
-                </li>
 
                 {showHostBoard && (
                   <div className="navbar-boards">
@@ -71,7 +104,7 @@ class App extends Component {
                         Host Board
                       </Link>
                     </li>
-                      <li className="nav-item">
+                    <li className="nav-item">
                       <Link to={"/host/create-listing"} className="nav-link">
                         Create Listing
                       </Link>
@@ -82,7 +115,7 @@ class App extends Component {
                 {showGuestBoard && (
                   <div className="navbar-boards">
                     <li className="nav-item">
-                      <Link to={"/guest/reviews"} className="nav-link">
+                      <Link to={"/guest/bookings"} className="nav-link">
                         Guest Board
                       </Link>
                     </li>
@@ -104,6 +137,11 @@ class App extends Component {
                     <li className="nav-item">
                       <Link to={"/admin/reviews"} className="nav-link">
                         Reviews
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link to={"/admin/application-data"} className="nav-link">
+                        Application Data
                       </Link>
                     </li>
                   </div>
@@ -146,7 +184,7 @@ class App extends Component {
             {Routes()}
           </main>
           <footer className="footer">
-            All right reserved.
+            &copy;	All rights reserved
           </footer>
         </div>
       </AuthContext.Provider>

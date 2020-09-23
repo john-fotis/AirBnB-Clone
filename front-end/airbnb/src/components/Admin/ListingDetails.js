@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import UserService from '../../_services/user.service';
+import {Carousel} from 'react-responsive-carousel';
 
 class ListingDetails extends Component {
   state = {
     listing: {},
+    images: '',
     message: ''
   }
 
@@ -12,8 +14,13 @@ class ListingDetails extends Component {
     UserService.getCurrentListing(listingId)
     .then(response=>{
       this.setState({
-        listing: response.data
+        listing: response.data,
       });
+      if(this.state.listing.images){
+        this.setState({
+          images: response.data.images
+        })
+      }
     })
     .catch(
       error => {
@@ -33,10 +40,24 @@ class ListingDetails extends Component {
   }
 
   render(){
+    const images = this.state.images;
+
+    if(!images) return <h2>Failed to load images</h2>
+    
     return (
-      <div className="user-view-admin" style={{width: '100%', padding: '5%', marginTop: '10%', backgroundColor: '#ff9'}}>
+      <div className="user-view-admin" style={{width: '100%', padding: '5%', marginTop: '10%', marginBottom: '10%', backgroundColor: '#ff9'}}>
+        {this.state.images && (
+          <Carousel autoPlay= 'true' infiniteLoop='true' showArrows='true'>{
+            images.map( image => {
+            return <div>
+              <img src={ 'data:image/jpg;base64,' + image.picByte } alt='test' />
+              <p className="legend">{ image.name }</p>
+            </div>
+            })
+          }
+          </Carousel>
+        )}
         <ul style = {{display: 'flex', flexDirection: 'column'}}>
-          <li><img src={this.state.image} alt='img' /></li>
           <li><h2>Title: {this.state.listing.title} </h2></li>
           <li><h4><strong>ID: {this.state.listing.id}</strong></h4></li>
           <li><h4><strong>Country: {this.state.listing.country}</strong></h4></li>

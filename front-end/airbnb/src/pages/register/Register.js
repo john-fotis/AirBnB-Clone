@@ -33,7 +33,7 @@ const vusername = value => {
   if (value.length < 3 || value.length > 20) {
     return (
       <div className="alert alert-danger" role="alert">
-        The username must be between 3 and 20 characters.
+        Must be between 3 and 20 characters.
       </div>
     );
   }
@@ -43,7 +43,7 @@ const vpassword = value => {
   if (value.length < 6 || value.length > 40) {
     return (
       <div className="alert alert-danger" role="alert">
-        The password must be between 6 and 40 characters.
+        Must be between 6 and 20 characters.
       </div>
     );
   }
@@ -59,11 +59,13 @@ const vname = value => {
   }
 }
 
+const phoneRegEx = /^[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-/\s.]?[0-9]{4}$/;
+
 const vnumber = value => {
-  if (value.length !== 10){
+  if (value.length !== 10 || !phoneRegEx.test(value)){
     return (
       <div className="alert alert-danger" role="alert">
-        Invalid number.
+        Invalid number
       </div>
     );
   }
@@ -71,7 +73,7 @@ const vnumber = value => {
 
 class Register extends Component {
   constructor(props) {
-    super(props);
+    super();
     this.handleChange = this.handleChange.bind(this);
     this.handleRegister = this.handleRegister.bind(this);
 
@@ -115,57 +117,80 @@ class Register extends Component {
       successful: false
     });
 
-    let formData = new FormData();
-    let userId = null;
+    if(this.state.passwordConfirm === this.state.password){
 
-    formData.append('imageFile', this.state.selectedFile, this.state.selectedFile.name);
-
-    this.form.validateAll();
-
-    if (this.checkBtn.context._errors.length === 0) {
-      AuthService.register(
-        this.state.username,
-        this.state.email,
-        this.state.password,
-        this.state.firstName,
-        this.state.lastName,
-        this.state.host,
-        this.state.tenant,
-        this.state.number
-      ).then(
-        response => {
-          this.setState({
-            message: response.data.message,
-            successful: true
-          });
-          userId = response.data.id;
-          AuthService.login(this.state.username, this.state.password).then(
-            () => {
-              history.push("/admin/profile");
-              window.location.reload();
-            }
-          )
-          UserService.postPhoto(formData).then(
+      if(this.state.selectedFile){
+        let formData = new FormData();
+        let userId = null;
+    
+        formData.append('imageFile', this.state.selectedFile, this.state.selectedFile.name);
+    
+        this.form.validateAll();
+    
+        if (this.checkBtn.context._errors.length === 0) {
+          AuthService.register(
+            this.state.username,
+            this.state.email,
+            this.state.password,
+            this.state.firstName,
+            this.state.lastName,
+            this.state.host,
+            this.state.tenant,
+            this.state.number
+          ).then(
             response => {
-              UserService.linkUserPhoto(response.data, userId)
+              this.setState({
+                message: response.data.message,
+                successful: true
+              });
+              userId = response.data.id;
+              AuthService.login(this.state.username, this.state.password).then(
+                () => {
+                  history.push("/");
+                  window.location.reload();
+                }
+              )
+              UserService.postPhoto(formData).then(
+                response => {
+                  UserService.linkUserPhoto(response.data, userId)
+                }
+              )
+            }
+          ).catch(
+            error => {
+              const resMessage =
+                (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+                error.message ||
+                error.toString();
+              if(error.response.status === 406){
+                this.setState({
+                  successful: false,
+                  message: 'Username is taken'
+                })
+              } else {
+                this.setState({
+                  successful: false,
+                  message: resMessage
+                });
+              }
             }
           )
         }
-      ).catch(
-        error => {
-          const resMessage =
-            (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-            error.message ||
-            error.toString();
-
-          this.setState({
-            successful: false,
-            message: resMessage
-          });
-        }
-      )
+      } 
+      else{
+        this.setState({
+          successful: false,
+          message: 'Please select a profile photo'
+        })
+      }
+    }
+    else{
+      this.setState({
+        successful: false,
+        message: 'Passwords must match!'
+      })
     }
   }
 
@@ -347,6 +372,7 @@ class Register extends Component {
                       : "alert alert-danger"
                   }
                   role="alert"
+                  style={{textAlign: 'center', margin: '0% auto', width: '40%'}}
                 >
                   {this.state.message}
                 </div>

@@ -34,7 +34,7 @@ class CreateListing extends Component {
       type: "PRIVATE_ROOM",
       numOfBeds: 1,
       numOfWc: 1,
-      numofRooms: 1,
+      numOfRooms: 1,
       livingRoom: false,
       squareFootage: 0.0,
       description: "",
@@ -61,13 +61,12 @@ class CreateListing extends Component {
       parking: false,
       elevator: false,
       startDate: new Date(),
-      endDate: new Date(),
+      endDate: new Date('12/30/2020'),
       numOfReviews: 0,
       averageRating: 0.0,
       host: {
         id: AuthService.getCurrentUser().id
       },
-
       selectedFile: null,
       successful: false,
       message: ""
@@ -80,6 +79,12 @@ class CreateListing extends Component {
     });
   }
 
+  fileSelectedHandler = e =>{
+    this.setState(
+      {selectedFile: e.target.files[0]}
+    );
+  }
+
   handleChange = e => {
     const target = e.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -88,7 +93,6 @@ class CreateListing extends Component {
     this.setState({
       [name]: value
     });
-    console.log(e.target.value)
   }
 
   handleSubmit = e => {
@@ -99,72 +103,96 @@ class CreateListing extends Component {
       successful: false
     });
 
-    this.form.validateAll();
+    if(this.state.selectedFile){
 
-    if (this.checkBtn.context._errors.length === 0) {
-      UserService.createListing(
-        this.state.title,
-        this.state.type,
-        this.state.numOfBeds,
-        this.state.numOfWc,
-        this.state.numofRooms,
-        this.state.livingRoom,
-        this.state.squareFootage,
-        this.state.description,
-        this.state.smoking,
-        this.state.animals,
-        this.state.parties,
-        this.state.minRentDays,
-        this.state.maxGuests,
-        this.state.latitude,
-        this.state.longitude,
-        this.state.country,
-        this.state.city,
-        this.state.neighborhood,
-        this.state.address,
-        this.state.postalCode.toString(),
-        this.state.transportation,
-        this.state.minCost,
-        this.state.costPerExtraGuest,
-        this.state.wifi,
-        this.state.ac,
-        this.state.heating,
-        this.state.kitchen,
-        this.state.tv,
-        this.state.parking,
-        this.state.elevator,
-        this.state.startDate,
-        this.state.endDate,
-        this.state.host        
-      )
-      .then(
-        response => {
-          if (response.status === 200) {
-            this.setState({
-              message: response.data.message,
-              successful: true
-            });
-            history.push('/');
-            window.location.reload();
-          }
-        }
-      )
-      .catch(
-        error => {
-          const resMessage =
-            (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-            error.message ||
-            error.toString();
-
-          this.setState({
-            successful: false,
-            message: resMessage
+      let formData = new FormData();
+      let listingId = null;
+      formData.append('imageFile', this.state.selectedFile, this.state.selectedFile.name);
+      
+      this.form.validateAll();
+  
+      if (this.checkBtn.context._errors.length === 0) {
+        UserService.createListing(
+          this.state.title,
+          this.state.type,
+          this.state.numOfBeds,
+          this.state.numOfWc,
+          this.state.numOfRooms,
+          this.state.livingRoom,
+          this.state.squareFootage,
+          this.state.description,
+          this.state.smoking,
+          this.state.animals,
+          this.state.parties,
+          this.state.minRentDays,
+          this.state.maxGuests,
+          this.state.latitude,
+          this.state.longitude,
+          this.state.country,
+          this.state.city,
+          this.state.neighborhood,
+          this.state.address,
+          this.state.postalCode.toString(),
+          this.state.transportation,
+          this.state.minCost,
+          this.state.costPerExtraGuest,
+          this.state.wifi,
+          this.state.ac,
+          this.state.heating,
+          this.state.kitchen,
+          this.state.tv,
+          this.state.parking,
+          this.state.elevator,
+          this.state.startDate,
+          this.state.endDate,
+          this.state.host        
+        )
+        .then(
+          response => {
+            if(response.status === 200){
+              listingId = response.data.id;
+              UserService.postPhoto(formData)
+              .then(response => {
+                if(response.status === 200){
+                  UserService.linkListingPhoto(response.data, listingId)
+                  .then(response => {
+                    if(response.status === 200){
+                      this.setState({
+                        message: response.data.message,
+                        successful: true
+                      });
+                      history.push('/host/listings');
+                      window.location.reload();
+                    }
+                  })
+                }
+              })
             }
-          );
-        }
-      );
+          }
+        )
+        .catch(
+          error => {
+            const resMessage =
+              (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+              error.message ||
+              error.toString();
+  
+            this.setState({
+              successful: false,
+              message: resMessage
+              }
+            );
+          }
+        );
+      } 
+    }
+    else {
+      this.setState({
+        successful: false,
+        message: 'Please select a photo!'
+      })
     }
   }
 
@@ -272,8 +300,8 @@ class CreateListing extends Component {
                   </tr>
 
                   <tr>
-                    <td> {/* Description */} 
-                      <div className="form-field" style={{width: '80%', position:'absolute',right: '10%', top: '17%'}}>
+                    <td> {/* Description */}
+                      <div className="form-field" style={{width: '80%', position:'absolute',right: '10%', top: '19%'}}>
                         <label htmlFor="text">Description</label>
                         <textarea
                           type="text"
@@ -289,7 +317,7 @@ class CreateListing extends Component {
 
                   <tr>
                     <td> {/* Transportation */}
-                      <div className="form-field" style={{width: '80%', position:'absolute',right: '10%', top: '25%'}}>
+                      <div className="form-field" style={{width: '80%', position:'absolute',right: '10%', top: '27%'}}>
                         <label htmlFor="text">Transportation</label>
                         <textarea
                           type="text"
@@ -308,7 +336,7 @@ class CreateListing extends Component {
                   <tr>
                     <td> {/* Category */}
                       <div className="form-field">
-                        <label htmlFor="text">Category</label>
+                        <label htmlFor="text">*Category</label>
                         <select onChange={this.handleChange}>
                           <option
                             name="privateRoom" 
@@ -330,15 +358,17 @@ class CreateListing extends Component {
                     </td>
                     <td> {/* Number of rooms */}
                       <div className="form-field">
-                        <label htmlFor="number">Rooms</label>
-                        <NumericInput min={0} max={16} value={this.state.numofRooms}/>
+                        <label htmlFor="number">*Rooms</label>
+                        <NumericInput min={0} max={10}
+                        value={this.state.numOfRooms}
+                        onChange={e=> {
+                          this.setState({numOfRooms: e})
+                        }}/>
                       </div>
                     </td>
-                    <td>{/* Number of beds */}
+                    <td> {/* Number of beds */}
                       <div className="form-field">
-                        <label htmlFor="number">
-                         Beds
-                        </label>
+                        <label htmlFor="number">*Beds</label>
                         <NumericInput min={0} max={10}
                         value={this.state.numOfBeds}
                         onChange={e => {
@@ -352,7 +382,7 @@ class CreateListing extends Component {
                   <tr>
                     <td> {/* Number of WC */}
                       <div className="form-field">
-                        <label htmlFor="number">WC</label>
+                        <label htmlFor="number">*WC</label>
                         <NumericInput min={0} max={10}
                         value={this.state.numOfWc}
                         onChange={e => {
@@ -363,9 +393,7 @@ class CreateListing extends Component {
                     </td>
                     <td> {/* Minimum days */}
                       <div className="form-field">
-                        <label htmlFor="number">
-                          Min days
-                        </label>
+                        <label htmlFor="number">*Min days</label>
                         <NumericInput min={0} max={10}
                         value={this.state.minRentDays}
                         onChange={e => {
@@ -376,7 +404,7 @@ class CreateListing extends Component {
                     </td>
                     <td> {/* Maximum guests */}
                       <div className="form-field">
-                        <label htmlFor="text">Max Guests</label>
+                        <label htmlFor="text">*Max Guests</label>
                         <NumericInput min={0} max={10}
                         value={this.state.maxGuests}
                         onChange={e => {
@@ -390,7 +418,7 @@ class CreateListing extends Component {
                   <tr>
                     <td> {/* Minimum Cost */}
                       <div className="form-field">
-                        <label htmlFor="number">Minimum cost</label>
+                        <label htmlFor="number">*Minimum cost</label>
                         <Input
                           type="number"
                           step="0.5"
@@ -404,7 +432,7 @@ class CreateListing extends Component {
                     </td>
                     <td> {/* Cost per extra guest */}
                       <div className="form-field">
-                        <label htmlFor="number">Cost per extra guest</label>
+                        <label htmlFor="number">*Cost per extra guest</label>
                         <Input
                           type="number"
                           step="0.5"
@@ -418,7 +446,7 @@ class CreateListing extends Component {
                     </td>
                     <td> {/* Square Footage */}
                       <div className="form-field">
-                        <label htmlFor="number">Square Footage</label>
+                        <label htmlFor="number">*Square Footage</label>
                         <Input
                           type="number"
                           step="0.5"
@@ -435,8 +463,8 @@ class CreateListing extends Component {
                   <tr>  {/* Available dates */}
                     <td>
                       <br />
-                      <div style={{ paddingLeft: '-100px'}}>
-                        <h3 style={{width: '300px', marginLeft: '-60px'}}>Available dates:</h3>
+                      <div>
+                        <h3 style={{width: '300px', marginLeft: '-15px'}}>Available dates:</h3>
                         <ul style={{display: 'inline-block'}}>
                           <li><label>*From:</label></li>
                           <li>
@@ -455,14 +483,14 @@ class CreateListing extends Component {
                           <li><label>*To:</label></li>
                           <li>
                             <DatePicker 
-                                  selected={this.state.endDate}
+                                  selected={(this.state.endDate)}
                                   onChange={date => {
                                     this.setState({
                                       endDate: date}
                                     )}
                                   }
                                   dateFormat='dd-MM-yyyy'
-                                  minDate={new Date()}
+                                  minDate={this.state.startDate}
                                 />
                           </li>
                         </ul>
@@ -470,7 +498,7 @@ class CreateListing extends Component {
                     </td>
                     <td> {/* Map */}
                       <div className='map-container' style = {{paddingTop: '10px'}}>
-                        <OpenStreetMap width={'450px'} height={'450px'} />
+                        <OpenStreetMap width={'500px'} height={'500px'} />
                       </div>
 
                     </td>
@@ -495,7 +523,6 @@ class CreateListing extends Component {
                             onChange = {this.handleChange}
                           />
                           <p>Kitchen</p>
-
                         </div>            
                       </div>
                     </td>
@@ -590,10 +617,26 @@ class CreateListing extends Component {
                       </div>
                     </td>
                   </tr>
+
+                  <tr>
+                    <td>
+                      <div
+                        style={{width: '200px'}}>
+                        <label>Add photo</label>
+                        <p style={{fontSize: '12px', width: '135px', margin: '0%'}}>(You can add more later)</p>
+                        <input
+                        style={{width: '290px'}}
+                        name = "selectedFile"
+                        type = "file"
+                        onChange={this.fileSelectedHandler} />         
+                      </div>
+                    </td>
+                  </tr>
+
                 </tbody>
               </table>
             )}
-            
+
             {this.state.message && (
               <div className="form-field">
                 <div
@@ -603,6 +646,7 @@ class CreateListing extends Component {
                       : "alert alert-danger"
                   }
                   role="alert"
+                  style={{width: '47%', textAlign: 'center', float: 'inherit'}}
                 >
                   {this.state.message}
                 </div>
@@ -614,7 +658,7 @@ class CreateListing extends Component {
                 this.checkBtn = c;
               }}
             />
-
+            
             <button 
               style = {{marginTop: '42px', marginLeft: 'auto', marginRight: 'auto', width: '25%'}} 
               type = "submit" 

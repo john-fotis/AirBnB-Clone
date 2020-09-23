@@ -9,7 +9,7 @@
 
 .listing-details{
   display: flex;
-  width: 85%;
+  width: 50%;
   font-size: 1rem;
   position: relative;
   margin: 0%;
@@ -35,5 +35,5 @@ input {
 tr td .map-container{
   position: absolute;
   right: 10%;
-  bottom: 12%;
+  top: 57%;
 }

@@ -1,6 +1,5 @@
 import axios from "axios";
-
-const API = "http://localhost:8080/air-bnb/api";
+import {API} from '../config/config.utils';
 
 class AuthService {
   async login(username, password) {

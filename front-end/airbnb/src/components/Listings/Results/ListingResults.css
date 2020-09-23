@@ -1,0 +1,111 @@
+.list-wrapper {
+  padding: 0%;
+  width: 100%;
+}
+
+.listing-results-container {
+  background-color: darkcyan;
+  height: 400px;
+  width: 100%;
+  margin: 5% 0%;
+  position: relative;
+  box-shadow: 2px 2px;
+}
+
+.listing-title {
+  width: 100%;
+  font-weight: 900;
+  font-size: 28px;
+  position: absolute;
+  bottom: 10%;
+  color: rgb(65, 65, 65);
+  text-align: left;
+}
+
+.listing-cost {
+  width: 170px;
+  height: 50px;
+  background-color: transparent;
+  font-weight: 900;
+  font-size: 30px;
+  position: absolute;
+  top: 5%;
+}
+
+.image-container {
+  position: absolute;
+  width: 60%;
+  height: 100%;
+  left: 5px;
+  z-index: 0;
+  top: 0px;
+  left: 0px;
+}
+
+.listing-info {
+  position: absolute;
+  font-size: 22px;
+  width: 40%;
+  height: 100%;
+  bottom: 0px;
+  right: 0px;
+  text-align: left;
+}
+
+.listing-type {
+  position: absolute;
+  bottom: 50%;
+  left: 5%;
+}
+
+.listing-beds {
+  position: absolute;
+  bottom: 40%;
+  left: 5%;
+}
+
+.listing-rating {
+  position: absolute;
+  bottom: 30%;
+  left: 5%;
+}
+
+.listing-overview {
+  color: brown;
+}
+
+.listing-overview h1 {
+  text-align: center;
+  font-size: 40px;
+  font-weight: 600;
+}
+
+.listing-results-details {
+  height: 1050px;
+  font-size: 22px;
+  padding: 12px 48px;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  text-align: left;
+  background-color: lightsteelblue;
+}
+
+.host-info{
+  width: 100%;
+  height: 450px;
+  border-bottom-right-radius: 15px;
+  text-align: center;
+  background-color: tan;
+}
+
+.listing-access {
+  background-color: rgb(108, 247, 108);
+  padding: 50px 15%;
+  position: relative;
+  width: 100%;
+  height: 600px;
+  border-top-right-radius: 15px;
+}
+.booking-dialog{
+  display: flex;
+}

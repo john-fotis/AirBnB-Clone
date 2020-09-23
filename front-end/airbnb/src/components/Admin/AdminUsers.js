@@ -41,8 +41,8 @@ class AdminUsers extends Component {
   render() {
     return (
       <React.Fragment>
-        <main className="container" style={{width: '100%', padding: '5%', marginTop: '10%', backgroundColor: '#ff9'}}>
-          <h2>Admin Board - Users</h2>
+        <main className="container" style={{width: '100%', padding: '5%', marginTop: '5%', backgroundColor: '#ff9', border: 'solid 3px purple'}}>
+          <h2 style={{textAlign: 'center'}}>Admin Board - Users</h2>
           <UsersList users={this.state.content} loading={this.state.loading}/>
         </main>
       </React.Fragment>
