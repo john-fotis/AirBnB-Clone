@@ -89,6 +89,10 @@ public class GuestController {
         messageService.deleteById(id);
         return ResponseEntity.ok().body("{\"Status\": \"Successful Deletion\"}");
     }
+    @PutMapping("/messages/{id}/seen")
+    public ResponseEntity<String> seenMessageWithId(@PathVariable("id") Long id) throws JsonProcessingException {
+        return ResponseEntity.ok().body(Helpers.convertToJson(messageService.seen(id)));
+    }
 
     // -- Bookings --
     @GetMapping("/bookings")

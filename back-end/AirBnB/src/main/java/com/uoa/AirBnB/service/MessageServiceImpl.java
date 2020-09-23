@@ -66,4 +66,13 @@ public class MessageServiceImpl implements MessageService{
     public void deleteById(Long id) {
         messageRepository.deleteById(id);
     }
+
+    @Override
+    public MessageDto seen(Long id) {
+        Message message = messageRepository.findById(id).get();
+        message.setSeen(true);
+        messageRepository.save(message);
+
+        return MessageConverter.convertToDto(message);
+    }
 }

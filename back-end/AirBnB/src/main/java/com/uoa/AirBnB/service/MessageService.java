@@ -10,6 +10,7 @@ public interface MessageService {
     List<MessageDto> findByListing(Long id);
     List<MessageDto> findByGuest(Long id);
     MessageDto save(MessageDto messageDto);
+    MessageDto seen(Long id);
 
     void deleteById(Long id);
 }
