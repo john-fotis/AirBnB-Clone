@@ -110,7 +110,13 @@ class Home extends Component {
             });
             history.push({
               pathname: '/results',
-              state: {listings: response.data, guests: this.state.guests, loading: this.state.loading}
+              state: {
+                listings: response.data,
+                guests: this.state.guests,
+                startDate: this.state.startDate,
+                endDate: this.state.endDate,
+                loading: this.state.loading
+              }
             });
             window.location.reload();
           }

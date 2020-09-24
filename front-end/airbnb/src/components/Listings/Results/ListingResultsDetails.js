@@ -29,7 +29,7 @@ class ListingResultsDetails extends Component {
         listing: response.data,
         id: listingId,
         startDate: this.props.location.state.startDate,
-        endDate: this.props.location.state.startDate,
+        endDate: this.props.location.state.endDate,
         price: this.props.location.state.price
       });
       if(this.state.listing.images){
@@ -57,7 +57,7 @@ class ListingResultsDetails extends Component {
 
   handleBooking = (e) => {
     e.preventDefault();
-    
+
     UserService.bookListing(
       this.state.id,
       this.state.startDate,
@@ -156,7 +156,7 @@ class ListingResultsDetails extends Component {
                   </button>
                   <button 
                     style = {{marginTop: '5%', marginLeft: 'auto',
-                      marginRight: 'auto', width: '40%', height: '45px'}} 
+                    marginRight: 'auto', width: '40%', height: '45px'}} 
                     type = "submit" 
                     className="submit-button btn btn-primary btn-block"
                     onClick = {this.handleBooking}>

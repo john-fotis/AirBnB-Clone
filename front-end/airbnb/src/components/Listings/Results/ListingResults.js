@@ -13,6 +13,8 @@ class ListingResults extends Component {
   render() {
     const {listings} = this.props.location.state;
     const guests = this.props.location.state.guests;
+    const startDate = this.props.location.state.startDate;
+    const endDate = this.props.location.state.endDate;
     const loading = this.props.location.state.loading;
 
     const indexOfLastListing = this.state.currentPage * this.state.listingsPerPage;
@@ -28,12 +30,13 @@ class ListingResults extends Component {
     if(loading) {
       return <Loading />
     }
-    
+
     return (
       <div className="container" style={{width: '100%', padding: '5%', backgroundColor: '#ccc', boxShadow: '5px 5px #888888'}}>
         <h2 style={{textAlign: 'center', color: 'red'}}>Total {' '} {listings.length} {' '} results</h2>
         <Pagination resultsPerPage = {this.state.listingsPerPage} totalResults = {listings.length} paginate = {paginate} currentPage = {this.state.currentPage} />
-        <ResultsList listings={currentListings} guests={guests} loading={loading} />
+        <ResultsList listings={currentListings} guests={guests}
+          endDate={endDate} startDate={startDate} loading={loading} />
         <Pagination resultsPerPage = {this.state.listingsPerPage} totalResults = {listings.length} paginate = {paginate} currentPage = {this.state.currentPage} />
       </div>
     )

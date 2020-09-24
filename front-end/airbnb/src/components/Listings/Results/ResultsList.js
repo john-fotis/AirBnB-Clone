@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './ListingResults.css';
 import Loading from '../../Loading/Loading';
 
-const ResultsList = ({listings, guests, loading}) => {
+const ResultsList = ({listings, guests, startDate, endDate, loading}) => {
 
   if(loading){
     return <Loading />
@@ -24,8 +24,8 @@ const ResultsList = ({listings, guests, loading}) => {
               pathname: `/listings/${listing.id}`,
               state: {
                 listingId: listing.id,
-                startDate: listing.startDate,
-                endDate: listing.endDate,
+                startDate: startDate,
+                endDate: endDate,
                 price: listing.minCost+(guests-1)*listing.costPerExtraGuest
               }
             }} style={{textDecoration: 'none', color: 'brown'}} query={listing.id}>
