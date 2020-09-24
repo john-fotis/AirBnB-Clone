@@ -6,6 +6,7 @@ import CheckButton from "react-validation/build/button";
 import './Login.css';
 import AuthService from "../../_services/authentication.service";
 import {history} from '../../_helpers/history';
+
 const required = value => {
   if (!value) {
     return (
@@ -47,10 +48,18 @@ class Login extends Component {
         this.form.validateAll();
 
         if (this.checkBtn.context._errors.length === 0) {
-            AuthService.login(this.state.username, this.state.password).then(
-                () => {
-                history.push("/");
-                window.location.reload();
+            AuthService.login(this.state.username, this.state.password)
+            .then(response => {
+                if(response.approved === false){
+                    this.setState({
+                        message: 'Your account is not activated until admin approves your registration'
+                    });
+                    AuthService.logout();
+                }
+                else {
+                    history.push("/");
+                    window.location.reload();
+                }
                 },
             ).catch(error => {
                 const resMessage =
