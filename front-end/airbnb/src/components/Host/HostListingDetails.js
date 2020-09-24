@@ -271,7 +271,7 @@ class HostListingDetails extends Component {
           {this.state.edit && (
             <div className='container' style={{marginTop: '7%'}}>
               <Form
-                autocomplete = 'off'
+                autoComplete = 'off'
                 onSubmit={this.handleSubmit}
                 ref={c => {
                   this.form = c;

@@ -7,12 +7,12 @@ class GuestChat extends Component {
     super();
 
     this.state = { 
-      text: null,
+      text: undefined,
       succesfull: false,
       message: ''
     }
 
-     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
 
   }
 

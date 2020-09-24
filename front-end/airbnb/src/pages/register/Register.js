@@ -198,7 +198,7 @@ class Register extends Component {
     return (
       <div className="sign-up-form">
         <Form 
-          autocomplete = 'off'
+          autoComplete = 'off'
           className = "form-wrapper"
           onSubmit={this.handleRegister}
           ref={c => {

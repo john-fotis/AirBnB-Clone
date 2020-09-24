@@ -35,14 +35,17 @@ import HostMessageReply from '../components/Host/HostMessageReply';
 import GuestBoard from '../components/Guest/Guest';
 import GuestBooking from '../components/Guest/GuestBooking';
 import GuestChat from '../components/Guest/GuestChat';
+import GuestReview from '../components/Guest/GuestReview';
 
 export default function Routes () {
   return (
     <Switch>
       <Route exact path={["/", "/home"]} component={Home} />
-      <Route exact path="/login" component={Login} />
-      <Route exact path="/register" component={Register} />
-      <PrivateRoute exact path="/profile" component={Profile} />
+      <Route exact path="/login" component = {Login} />
+      <Route exact path="/register" component = {Register} />
+      <PrivateRoute exact path="/profile" component = {Profile} />
+      <Route exact path="/results" component = {ListingResults} />
+      <Route exact path="/listings/:listingId" component = {ListingResultsDetails} />
 
       <AdminRoute exact path="/admin/users" component = {AdminUsers} />
       <AdminRoute exact path="/admin/users/:userId" component = {UserProfile} />
@@ -61,9 +64,7 @@ export default function Routes () {
       <GuestRoute exact path="/guest/bookings" component={GuestBoard} />
       <GuestRoute exact path="/guest/bookings/:bookingId" component={GuestBooking} />
       <GuestRoute exact path="/guest/messages" component={GuestChat} />
-
-      <Route exact path="/results" component={ListingResults} />
-      <Route exact path="/listings/:listingId" component={ListingResultsDetails} />
+      <GuestRoute exact path="/guest/reviews" component={GuestReview} />
 
     </Switch>
   )

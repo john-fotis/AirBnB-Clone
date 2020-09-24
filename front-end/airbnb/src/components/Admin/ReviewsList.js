@@ -11,16 +11,16 @@ const ReviewsList = ({reviews, loading}) => {
       <div className="container">
         <ul style={{display: 'flex', flexDirection: 'column', padding: '0%', margin: '0%'}}>
           {reviews.map(review => (
-            <Link to={{
-              pathname: `/admin/reviews/${review.id}`,
-              state: {
-                reviewId: review.id
-              }
-            }} style={{textDecoration: 'none'}} query={review.id}>
-              <li key={review.id} className="listing-list-item">
-                {review.id}
-              </li>
-            </Link>
+            <li key={review.id} className="listing-list-item" style={{textAlign: 'center'}}>
+              <Link to={{
+                pathname: `/admin/reviews/${review.id}`,
+                state: {
+                  reviewId: review.id
+                }
+              }} style={{textDecoration: 'none'}} query={review.id}>
+                  {review.id}
+              </Link>
+            </li>
           ))}
         </ul>
       </div>

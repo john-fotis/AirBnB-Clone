@@ -18,7 +18,6 @@ const ResultsList = ({listings, guests, loading}) => {
       <ul
       style={{display: 'flex', flexDirection: 'column'}}>
       {listings.map(listing => (
-        
         <li key={listing.id}>
           <div className="list-wrapper">
             <Link to={{
