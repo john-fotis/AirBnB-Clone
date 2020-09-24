@@ -7,7 +7,7 @@ const HostMessageList = ({messages, loading, onClick}) => {
   if(loading){
     return <Loading />
   }
-  console.log(messages)
+
   return (
     <ul style={{display: 'flex', flexDirection: 'column', padding: '0%', margin: '0%'}}>
       {messages.reverse().map(message => (

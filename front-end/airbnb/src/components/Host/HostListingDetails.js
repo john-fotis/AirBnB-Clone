@@ -199,7 +199,7 @@ class HostListingDetails extends Component {
 
     return (
       <React.Fragment>
-        <div className="container" style={{width: '100%', padding: '0% 15%', backgroundColor: '#ff9', position: 'relative', marginTop: '4%', marginBottom: '4%', border: 'solid 3px purple', color: 'darkmagenta'}}>
+        <div className="container" style={{width: '100%', padding: '0% 15%', backgroundColor: '#ff9', position: 'relative', marginTop: '4%', marginBottom: '4%', border: 'solid 3px purple'}}>
           {!this.state.edit && (
             <div className="profile-content" style={{width: '100%', padding: '5% 0%', marginTop: '10%', backgroundColor: '#ff9'}}>
               <ul style={{display: 'inline-block'}}>

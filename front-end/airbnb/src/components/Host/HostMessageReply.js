@@ -19,6 +19,7 @@ class HostMessageReply extends Component {
     e.preventDefault();
 
     const message = this.props.location.state;
+
     if(this.state.text){
       UserService.chatFromHost(
         this.state.text,
@@ -28,16 +29,15 @@ class HostMessageReply extends Component {
         if(response.status === 200){
           UserService.hostMessageSeen(message.id).then(
             response=> {
-              console.log(response)
+              if(response.status === 200) {
+                this.setState({
+                  succesfull: true,
+                  message: 'Your message has been sent'
+                });
+                setTimeout(() => window.location.reload(), 3000);
+              }
             }
           )
-          .then( () => {
-            this.setState({
-              succesfull: true,
-              message: 'Your message has been sent'
-            });
-            // setTimeout(() => window.location.reload(), 3000);
-          });
         }
       }).catch(error => {
         const resMessage =

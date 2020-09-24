@@ -7,6 +7,7 @@ import OpenStreetMap from '../../Map/OpenStreetMap';
 import {Link} from 'react-router-dom';
 import {history} from '../../../_helpers/history';
 import MessageIcon from '@material-ui/icons/Message';
+
 class ListingResultsDetails extends Component {
   state = {
     listing: {},
@@ -21,7 +22,6 @@ class ListingResultsDetails extends Component {
 
   componentDidMount(){
     const {listingId} = this.props.location.state;
-    console.log(this.props.location.state)
 
     UserService.getCurrentListing(listingId)
     .then(response=>{

@@ -56,14 +56,14 @@ class HostMessages extends Component {
 
     return (
       <React.Fragment>
-        <main className="container" 
-          style={{width: '100%', padding: '5%', marginTop: '10%',
+        <div className="container" 
+          style={{width: '100%', padding: '5%', marginTop: '10%', marginBottom: '10%',
           backgroundColor: '#ff9', border: 'solid 3px purple', textAlign: 'center'}}>
           <h2>Messages:</h2>
           <h5>(Latest first)</h5>
           <HostMessageList messages={currentMessages} loading={this.state.loading} onClick = {this.onClick} />
           <Pagination resultsPerPage = {this.state.messagesPerPage} totalResults = {messages.length} paginate = {paginate} currentPage = {this.state.currentPage} />
-        </main>
+        </div>
       </React.Fragment>
     );
   }
