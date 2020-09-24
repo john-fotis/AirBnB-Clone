@@ -34,6 +34,7 @@ public class Listing {
     private boolean livingRoom;
     private double squareFootage;
 
+    @Column(length = 2048)
     private String description;
 
     // -- Rules --
@@ -51,6 +52,7 @@ public class Listing {
     private String neighborhood;
     private String address;
     private String postalCode;
+    @Column(length = 2048)
     private String transportation;
 
     // -- Cost --
