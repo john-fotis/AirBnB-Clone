@@ -8,16 +8,25 @@ class UserProfile extends Component {
     message: ''
   }
 
+  handleApprove = () => {
+    UserService.approveHost(this.state.user.id)
+    .then( response => {
+      if(response.status === 200){
+        window.location.reload();
+      }
+    });
+  }
+
   componentDidMount(){
     const {userId} = this.props.location.state;
-    UserService.getUserById(userId)
+    UserService.getAllUserInfo(userId)
     .then(response=>{
       this.setState({
-        user: response
+        user: response.data
       });
-      if(response.image){
+      if(response.data.image){
         this.setState({
-          image: 'data:image/jpg;base64,' + response.image.picByte
+          image: 'data:image/jpg;base64,' + response.data.image.picByte
         })
       }
     })
@@ -58,6 +67,16 @@ class UserProfile extends Component {
           <li>E-mail: {this.state.user.email} </li>
           <li>Phone number: {this.state.user.number}</li>
         </ul>
+        {!this.state.user.approved && (
+          <button 
+            style = {{marginTop: '5%', marginLeft: 'auto',
+            marginRight: 'auto', width: '40%', height: '45px'}} 
+            type = "submit" 
+            className="submit-button btn btn-primary btn-block"
+            onClick = {this.handleApprove}>
+            Approve Host
+        </button>
+        )}
       </div>
     )
   }
