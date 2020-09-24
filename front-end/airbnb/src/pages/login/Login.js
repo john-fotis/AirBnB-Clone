@@ -19,7 +19,7 @@ const required = value => {
 
 class Login extends Component {
     constructor(props) {
-        super(props);
+        super();
         this.handleLogin = this.handleLogin.bind(this);
         this.handleChange = this.handleChange.bind(this);
 
@@ -48,18 +48,10 @@ class Login extends Component {
         this.form.validateAll();
 
         if (this.checkBtn.context._errors.length === 0) {
-            AuthService.login(this.state.username, this.state.password)
-            .then(response => {
-                if(response.approved === false){
-                    this.setState({
-                        message: 'Your account is not activated until admin approves your registration'
-                    });
-                    AuthService.logout();
-                }
-                else {
-                    history.push("/");
-                    window.location.reload();
-                }
+            AuthService.login(this.state.username, this.state.password).then(
+                () => {
+                history.push("/");
+                window.location.reload();
                 },
             ).catch(error => {
                 const resMessage =
@@ -92,65 +84,65 @@ class Login extends Component {
                     this.form = c;
                     }}
                 >
-                <div className="form-field">
-                <label htmlFor="username">Username</label>
-                <Input
-                    type="text"
-                    className="form-control"
-                    name="username"
-                    placeholder = "Enter username"
-                    value={this.state.username}
-                    onChange={this.handleChange}
-                    validations={[required]}
-                />
-                </div>
-
-                <div className="form-field">
-                <label htmlFor="password">Password</label>
-                <Input
-                    type="password"
-                    className="form-control"
-                    name="password"
-                    placeholder = "Enter password"
-                    value={this.state.password}
-                    onChange={this.handleChange}
-                    validations={[required]}
-                />
-                </div>
-
-                <div className="form-field">
-                <button
-                    className="btn btn-primary btn-block"
-                    disabled={this.state.loading}
-                >
-                    {this.state.loading && (
-                    <span className="spinner-border spinner-border-sm"></span>
-                    )}
-                    <span>Login</span>
-                </button>
-                </div>
-
-                {this.state.message && (
-                <div className="form-field">
-                    <div className="alert alert-danger" role="alert">
-                    {this.state.message}
+                    <div className="form-field">
+                    <label htmlFor="username">Username</label>
+                    <Input
+                        type="text"
+                        className="form-control"
+                        name="username"
+                        placeholder = "Enter username"
+                        value={this.state.username}
+                        onChange={this.handleChange}
+                        validations={[required]}
+                    />
                     </div>
-                </div>
-                )}
-                <CheckButton
-                style={{ display: "none" }}
-                ref={c => {
-                    this.checkBtn = c;
-                }}
-                />
-                <p className="forgot-password">
-                    <a href="/register">Forgot password?</a>
-                </p>
-                <p
-                className="no-account">Don't have an account?
-                    <Link className="nav-link" to={"/register"}>Sign up</Link>
-                </p>
-            </Form>
+
+                    <div className="form-field">
+                    <label htmlFor="password">Password</label>
+                    <Input
+                        type="password"
+                        className="form-control"
+                        name="password"
+                        placeholder = "Enter password"
+                        value={this.state.password}
+                        onChange={this.handleChange}
+                        validations={[required]}
+                    />
+                    </div>
+
+                    <div className="form-field">
+                    <button
+                        className="btn btn-primary btn-block"
+                        disabled={this.state.loading}
+                    >
+                        {this.state.loading && (
+                        <span className="spinner-border spinner-border-sm"></span>
+                        )}
+                        <span>Login</span>
+                    </button>
+                    </div>
+
+                    {this.state.message && (
+                    <div className="form-field">
+                        <div className="alert alert-danger" role="alert">
+                        {this.state.message}
+                        </div>
+                    </div>
+                    )}
+                    <CheckButton
+                    style={{ display: "none" }}
+                    ref={c => {
+                        this.checkBtn = c;
+                    }}
+                    />
+                    <p className="forgot-password">
+                        <a href="/register">Forgot password?</a>
+                    </p>
+                    <p
+                    className="no-account">Don't have an account?
+                        <Link className="nav-link" to={"/register"}>Sign up</Link>
+                    </p>
+                </Form>
             </div>
         </div>
         );

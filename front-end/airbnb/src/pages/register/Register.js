@@ -144,15 +144,20 @@ class Register extends Component {
                 successful: true
               });
               userId = response.data.id;
-              UserService.postPhoto(formData).then(
-                response => {
-                  UserService.linkUserPhoto(response.data, userId).then(
-                    (response) => {
-                      history.push("/");
-                      window.location.reload();
-                    }
-                  );
-                }
+              AuthService.login(this.state.username, this.state.password)
+              .then(
+                UserService.postPhoto(formData)
+                .then(
+                  response => {
+                    UserService.linkUserPhoto(response.data, userId)
+                    .then(
+                      () => {
+                        history.push("/");
+                        window.location.reload();
+                      }
+                    );
+                  }
+                )
               );
             }
           ).catch(

@@ -73,6 +73,14 @@ class CreateListing extends Component {
     };
   }
 
+  componentDidMount(){
+    if(AuthService.getCurrentUser().approved === false){
+      alert("You are not able to create listings until admin approves your registration.");
+      history.push('/');
+      window.location.reload();
+    }
+  }
+
   onDateChange (e) {
     this.setState({
       [this.state.startDate]: e.target.value
