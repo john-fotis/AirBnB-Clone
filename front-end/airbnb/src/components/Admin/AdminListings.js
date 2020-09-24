@@ -40,7 +40,7 @@ class AdminListings extends Component {
   render() {
     return (
       <React.Fragment>
-        <div className="container" style={{width: '100%', padding: '5%', marginTop: '5%', backgroundColor: '#ff9', border: 'solid 3px purple'}}>
+        <div className="container" style={{width: '100%', padding: '5%',  marginTop: '5%', marginBottom: '5%',backgroundColor: '#ff9', border: 'solid 3px purple'}}>
           <h2 style={{textAlign: 'center'}}> All listings:</h2>
           <ListingsList listings={this.state.content} loading={this.state.loading}/>
         </div>

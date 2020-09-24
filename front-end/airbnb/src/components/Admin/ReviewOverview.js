@@ -34,7 +34,7 @@ class ReviewOverview extends Component {
 
   render(){
     return (
-      <div className="review-overview-admin" style={{width: '100%', padding: '5%', marginTop: '10%', backgroundColor: '#ff9'}}>
+      <div className="review-overview-admin" style={{width: '100%', padding: '5%', margin: '5% 0%', backgroundColor: '#ff9'}}>
         <ul style = {{display: 'flex', flexDirection: 'column', textAlign: 'center'}}>
           <li><h2>{this.state.review.comment}</h2></li>
           <li><h4><strong>By: {this.state.review.userName}</strong></h4></li>

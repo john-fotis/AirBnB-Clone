@@ -49,7 +49,7 @@ class UserProfile extends Component {
 
   render(){
     return (
-      <div className="user-view-admin" style={{width: '100%', padding: '5% 15%', marginTop: '10%', backgroundColor: '#ff9'}}>
+      <div className="user-view-admin" style={{width: '100%', padding: '5% 15%', margin: '5% 0%', backgroundColor: '#ff9'}}>
         <div style={{position: 'absolute', right: '15%'}}>
           {this.state.image && (
               <img src={this.state.image} alt='img' style={{width: '250px', height: '250px'}}/>
@@ -67,7 +67,7 @@ class UserProfile extends Component {
           <li>E-mail: {this.state.user.email} </li>
           <li>Phone number: {this.state.user.number}</li>
         </ul>
-        {!this.state.user.approved && (
+        {this.state.user.approved === false && (
           <button 
             style = {{marginTop: '5%', marginLeft: 'auto',
             marginRight: 'auto', width: '40%', height: '45px'}} 

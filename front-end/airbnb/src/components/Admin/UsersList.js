@@ -10,7 +10,7 @@ const UsersList = ({users, loading}) => {
   return(
     <div className="container">
       <ul className='user-list'
-        style={{display: 'flex', flexDirection: 'column', padding: '0%', margin: '0%'}}>
+        style={{display: 'flex', flexDirection: 'column', padding: '0%', margin: '5% 0%'}}>
         {users.map(user => (
           <li key={user.id} style={{textAlign: 'center'}} className="user-list-item">
             <Link to={{

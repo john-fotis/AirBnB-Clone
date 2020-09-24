@@ -45,7 +45,7 @@ class ListingDetails extends Component {
     if(!images) return <h2>Failed to load images</h2>
     
     return (
-      <div className="user-view-admin" style={{width: '100%', padding: '5%', marginTop: '10%', marginBottom: '10%', backgroundColor: '#ff9'}}>
+      <div className="user-view-admin" style={{width: '100%', padding: '5%', margin: '5% 0%', backgroundColor: '#ff9'}}>
         {this.state.images && (
           <Carousel autoPlay= 'true' infiniteLoop='true' showArrows='true'>{
             images.map( image => {

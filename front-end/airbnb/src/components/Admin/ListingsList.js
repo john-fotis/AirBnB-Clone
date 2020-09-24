@@ -9,7 +9,7 @@ const ListingsList = ({listings, loading}) => {
   
     return(
       <div className="container">
-        <ul style={{display: 'flex', flexDirection: 'column', padding: '0%', margin: '0%'}}>
+        <ul style={{display: 'flex', flexDirection: 'column', padding: '0%', margin: '5% 0%'}}>
           {listings.map(listing => (
             <li key={listing.id} className="listing-list-item" style={{textAlign: 'center'}}>
               <Link to={{
