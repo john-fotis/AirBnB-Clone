@@ -200,7 +200,7 @@ class CreateListing extends Component {
     return ( 
       <div className = "listing-create-form">
         <Form 
-          autocomplete = 'off'
+          autoComplete = 'off'
           className = "form-wrapper"
           onSubmit={this.handleSubmit}
           ref={c => {
@@ -331,7 +331,11 @@ class CreateListing extends Component {
                     </td>
                   </tr>
                   
-                  <div style={{height: '350px'}} />
+                  <tr>
+                    <td>
+                      <div style={{height: '350px'}} />
+                    </td>
+                  </tr>
 
                   <tr>
                     <td> {/* Category */}
@@ -460,8 +464,8 @@ class CreateListing extends Component {
                     </td>   
                   </tr>
 
-                  <tr>  {/* Available dates */}
-                    <td>
+                  <tr>
+                    <td>{/* Available dates */}
                       <br />
                       <div>
                         <h3 style={{width: '300px', marginLeft: '-15px'}}>Available dates:</h3>
@@ -498,14 +502,13 @@ class CreateListing extends Component {
                     </td>
                     <td> {/* Map */}
                       <div className='map-container' style = {{paddingTop: '10px'}}>
-                        <OpenStreetMap width={'500px'} height={'500px'} />
+                        <OpenStreetMap width={'450px'} height={'450px'} />
                       </div>
-
                     </td>
                   </tr>
 
-                  <tr> {/* Extras */}
-                    <td>
+                  <tr>
+                    <td> {/* Extras */}
                       <br />
                       <div className = "extras" style={{marginLeft: '0px'}}>
                         <label>Extras:</label>

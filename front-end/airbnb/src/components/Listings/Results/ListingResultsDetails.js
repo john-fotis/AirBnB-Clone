@@ -11,6 +11,7 @@ class ListingResultsDetails extends Component {
   state = {
     listing: {},
     images: '',
+    id: null, 
     startDate: null,
     endDate: null,
     price: null,
@@ -20,10 +21,13 @@ class ListingResultsDetails extends Component {
 
   componentDidMount(){
     const {listingId} = this.props.location.state;
+    console.log(this.props.location.state)
+
     UserService.getCurrentListing(listingId)
     .then(response=>{
       this.setState({
         listing: response.data,
+        id: listingId,
         startDate: this.props.location.state.startDate,
         endDate: this.props.location.state.startDate,
         price: this.props.location.state.price
@@ -70,7 +74,7 @@ class ListingResultsDetails extends Component {
       this.setState({
         successful: false,
         message: 'You need to log in as guest to complete the booking'
-      })
+      });
     })
   }
 
@@ -125,9 +129,9 @@ class ListingResultsDetails extends Component {
               {this.state.listing.parties &&(<li><h5>Parties &#10004;</h5></li>)}
               {this.state.listing.animals &&(<li><h5>Animals &#10004;</h5></li>)}
             </ul>
-            <li><h3><br />Description:</h3></li>
+            <li><h3 style={{color: 'black'}}><br />Description:</h3></li>
             <li><h5> {this.state.listing.description}</h5></li>
-            <li><h3><br />Price based on your search:</h3></li>
+            <li><h3 style={{color: 'black'}}><br />Price based on your search:</h3></li>
             <li><h4>{this.state.price}€/day</h4></li>
             <li style={{position: 'absolute', bottom: '50px', width: '80%'}}>
               {!this.state.book && (
@@ -169,7 +173,7 @@ class ListingResultsDetails extends Component {
               <li><h5>{this.state.listing.transportation}</h5></li>  
             </ul>
             <ul className="host-info" style={{float: 'right', display: 'inline-block'}}>
-              <li><h2 style={{color: 'black'}}>Host info</h2></li>
+              <li><h2 style={{color: 'black'}}><br />Host info</h2></li>
               <li>
                 {this.state.listing.host.image &&(
                   <img src={'data:image/jpg;base64,' + this.state.listing.host.image.picByte}

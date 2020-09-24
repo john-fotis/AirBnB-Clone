@@ -7,32 +7,42 @@ const HostMessageList = ({messages, loading, onClick}) => {
   if(loading){
     return <Loading />
   }
-
+  console.log(messages)
   return (
     <ul style={{display: 'flex', flexDirection: 'column', padding: '0%', margin: '0%'}}>
       {messages.reverse().map(message => (
-        <Link to={{
-          pathname: `/host/messages/${message.id}`,
-          state: {
-            guestId: message.guestId,
-            listingId: message.listingId,
-            guestName: message.guestName,
-            text: message.text,
-            date: message.sendDate
-          }
-        }} style={{textDecoration: 'none'}} query={message.id}
-        onClick = {onClick}>
+        <li key={message.id} className="host-message-list-item">
           {message.seen && (
-            <li key={message.id} className="host-message-list-item" style={{color: 'green'}}>
-            {message.guestName}, {message.listingTitle}
-            </li>
+            <Link to={{
+              pathname: `/host/messages/${message.id}`,
+              state: {
+                id: message.id,
+                guestId: message.guestId,
+                listingId: message.listingId,
+                guestName: message.guestName,
+                text: message.text,
+                date: message.sendDate
+              }
+            }} style={{textDecoration: 'none', color: 'green'}}>
+              &#10004; {message.guestName}, {message.listingTitle}
+            </Link>
           )}
           {!message.seen && (
-            <li key={message.id} className="host-message-list-item" style={{color: 'blue'}}>
-            {message.guestName}, {message.listingTitle}
-            </li>
+            <Link to={{
+              pathname: `/host/messages/${message.id}`,
+              state: {
+                id: message.id,
+                guestId: message.guestId,
+                listingId: message.listingId,
+                guestName: message.guestName,
+                text: message.text,
+                date: message.sendDate
+              }
+            }} style={{textDecoration: 'none', color: 'blue'}}>
+              {message.guestName}, {message.listingTitle}
+            </Link>
           )}
-        </Link>
+        </li>
       ))}
     </ul>
   );

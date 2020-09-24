@@ -185,7 +185,7 @@ class Profile extends Component {
           {this.state.edit && (
             <div>
               <Form
-                autocomplete = 'off'
+                autoComplete = 'off'
                 className = "form-wrapper"
                 onSubmit={this.handleSubmit}
                 ref={c => {

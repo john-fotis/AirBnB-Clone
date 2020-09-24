@@ -10,16 +10,16 @@ const HostListingsList = ({listings, loading}) => {
     return (
       <ul style={{display: 'flex', flexDirection: 'column', padding: '0%', margin: '0%'}}>
         {listings.map(listing => (
-          <Link to={{
+          <li key={listing.id} style={{textAlign: 'center'}}>
+            <Link to={{
             pathname: `/host/listings/${listing.id}`,
             state: {
               listingId: listing.id
             }
           }} style={{textDecoration: 'none'}} query={listing.id}>
-            <li key={listing.id} className="host-listing-list-item">
             {listing.title}
-            </li>
-          </Link>
+            </Link>
+          </li>
         ))}
       </ul>
     )

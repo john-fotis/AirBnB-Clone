@@ -6,7 +6,7 @@ class HostMessageReply extends Component {
     super();
 
     this.state = { 
-      text: null,
+      text: undefined,
       succesfull: false,
       message: ''
     }
@@ -19,8 +19,6 @@ class HostMessageReply extends Component {
     e.preventDefault();
 
     const message = this.props.location.state;
-
-    
     if(this.state.text){
       UserService.chatFromHost(
         this.state.text,
@@ -28,18 +26,38 @@ class HostMessageReply extends Component {
         message.guestId
       ).then(response => {
         if(response.status === 200){
-          this.setState({
-            succesfull: true,
-            message: 'Your message has been sent'
+          UserService.hostMessageSeen(message.id).then(
+            response=> {
+              console.log(response)
+            }
+          )
+          .then( () => {
+            this.setState({
+              succesfull: true,
+              message: 'Your message has been sent'
+            });
+            // setTimeout(() => window.location.reload(), 3000);
           });
-          setTimeout(() => window.location.reload(), 3000);
         }
+      }).catch(error => {
+        const resMessage =
+            (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+            error.message ||
+            error.toString();
+  
+          this.setState({
+            message: resMessage
+          });
+      })
+    }
+    else {
+      this.setState({
+        succesfull: false,
+        message: 'Please type first'
       });
     }
-    else {this.setState({
-      succesfull: false,
-      message: 'Please type first'
-    })}
   }
 
   render() { 
@@ -54,7 +72,7 @@ class HostMessageReply extends Component {
           {message.text}
         </p>
         <label>Reply:</label>
-        <input
+        <textarea
           style={{fontSize: '20px', border: 'solid 3px purple', margin: '5% 0%'}}
           type="text"
           className="form-control"

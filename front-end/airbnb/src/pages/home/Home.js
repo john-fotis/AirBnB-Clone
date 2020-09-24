@@ -148,7 +148,7 @@ class Home extends Component {
           <header><h1 style={{fontFamily:'arial'}}><strong>Planning your trip made easy!</strong></h1></header>
           {!this.state.successful && (
             <Form 
-              autocomplete = 'off'
+              autoComplete = 'off'
               className = "form-wrapper"
               style={{marginTop: '-3%'}}
               onSubmit={this.handleSubmit}
@@ -223,7 +223,11 @@ class Home extends Component {
                           </div>
                         </td>
                       </tr>
-                      <div><br /></div>
+                      <tr>
+                        <td>
+                          <div><br /></div>
+                        </td>
+                      </tr>
                       <tr>
                         <td> {/* When */}
                           <label style={{width: '160px'}}>*From:</label>
