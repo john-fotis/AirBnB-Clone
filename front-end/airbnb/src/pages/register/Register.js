@@ -149,9 +149,10 @@ class Register extends Component {
                 UserService.postPhoto(formData)
                 .then(
                   response => {
+                    console.log(response.data)
                     UserService.linkUserPhoto(response.data, userId)
                     .then(
-                      () => {
+                      response => {
                         history.push("/");
                         window.location.reload();
                       }

@@ -348,7 +348,9 @@ class CreateListing extends Component {
                     <td> {/* Category */}
                       <div className="form-field">
                         <label htmlFor="text">*Category</label>
-                        <select onChange={this.handleChange}>
+                        <select onChange={e => {
+                          this.setState({type: e.target.value});
+                        }}>
                           <option
                             name="privateRoom" 
                             value='PRIVATE_ROOM'>
@@ -509,7 +511,7 @@ class CreateListing extends Component {
                     </td>
                     <td> {/* Map */}
                       <div className='map-container' style = {{paddingTop: '10px'}}>
-                        <OpenStreetMap width={'450px'} height={'450px'} />
+                        <OpenStreetMap width={'500px'} height={'500px'} />
                       </div>
                     </td>
                   </tr>

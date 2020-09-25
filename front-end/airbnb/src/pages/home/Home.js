@@ -26,7 +26,7 @@ class Home extends Component {
     super();
 
     this.state = {
-      type: 'PRIVATE_ROOM',
+      type: null,
       smoking: null,
       animals: null,
       parties: null,
@@ -203,7 +203,7 @@ class Home extends Component {
                         <td> {/* Number of people */}
                           <div className="form-field">
                             <label htmlFor="text" style = {{marginRight: '16px'}}>
-                              People
+                              * People
                             </label>
                             <NumericInput min={0} max={10}
                               value={this.state.guests}
@@ -234,7 +234,7 @@ class Home extends Component {
                       </tr>
                       <tr>
                         <td> {/* When */}
-                          <label style={{width: '160px'}}>*From:</label>
+                          <label style={{width: '160px'}}>* From:</label>
                           <DatePicker
                             selected={this.state.startDate}
                             onChange={date => {
@@ -265,19 +265,27 @@ class Home extends Component {
                         <td> {/* Category */}
                           <div className="form-field">
                             <label htmlFor="text">Category</label>
-                            <select onChange={this.handleChange}>
+                            <select onChange={e => {
+                              this.setState({type: e.target.value});
+                            }
+                            }>
                               <option
-                                name="privateRoom" 
+                                name="type" 
+                                value={null}>
+                                  Any
+                              </option>
+                              <option
+                                name="type" 
                                 value='PRIVATE_ROOM'>
                                   Private Room
                               </option>
                               <option
-                                name="sharedRoom"
-                                value={'SHARED_ROOM'}>
+                                name="type"
+                                value='SHARED_ROOM'>
                                 Shared Room
                               </option>
                               <option
-                              name="fullApartment"
+                              name="type"
                               value='FULL_APARTMENT'>
                                 Full Apartment
                               </option>
