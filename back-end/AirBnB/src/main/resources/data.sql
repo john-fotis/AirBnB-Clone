@@ -1669,18 +1669,6 @@ INSERT INTO `airbnb`.`booking`
 `user_id`)
 VALUES
 (
-8,
-"2020-07-26",
-4,
-8);
-INSERT INTO `airbnb`.`booking`
-(
-`booking_id`,
-`date`,
-`listing_id`,
-`user_id`)
-VALUES
-(
 9,
 "2020-07-27",
 4,
@@ -1897,7 +1885,7 @@ INSERT INTO `airbnb`.`booking`
 VALUES
 (
 26,
-"2020-18-17",
+"2020-12-18",
 12,
 14);
 
@@ -2603,24 +2591,6 @@ NOW(),
 1,
 8);
 
-INSERT INTO `airbnb`.`message`
-(
-`message_id`,
-`seen`,
-`way`,
-`send_date`,
-`text`,
-`listing_id`,
-`user_id`)
-VALUES
-(
-17,
-0,
-0,
-NOW(),
-"Xairete",
-1,
-9);
 
 INSERT INTO `airbnb`.`message`
 (

@@ -39,7 +39,7 @@ public class MessageServiceImpl implements MessageService{
 
     @Override
     public List<MessageDto> findByListing(Long id) {
-        return messageRepository.findByListingIdAndWayAndSeen(id,false, false)
+        return messageRepository.findByListingIdAndWay(id,false)
                 .stream()
                 .map(MessageConverter::convertToDto)
                 .collect(Collectors.toList());
