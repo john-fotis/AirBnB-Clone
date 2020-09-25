@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Download npm and node.js [here](https://www.npmjs.com/get-npm)
 
-In the project directory, you can run:
+In the project directory, you must run:
 
 ### `npm install`
 
