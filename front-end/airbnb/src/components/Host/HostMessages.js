@@ -13,6 +13,24 @@ class HostMessages extends Component {
       messagesPerPage: 10,
       loading: false
     };
+    
+    this.handleDelete = this.handleDelete.bind(this);
+
+  }
+
+  handleDelete = e => {
+    this.setState({loading: true});
+    const listingId = this.props.location.state.listingId;
+
+    UserService.getHostMessages(listingId)
+    .then(
+      response => {
+        this.setState({
+          messages: response.data.reverse(),
+          loading: false
+        });
+      }
+    )
   }
 
   componentDidMount() {
@@ -23,7 +41,7 @@ class HostMessages extends Component {
     .then(
       response => {
         this.setState({
-          messages: response.data,
+          messages: response.data.reverse(),
           loading: false
         });
       }
@@ -61,7 +79,8 @@ class HostMessages extends Component {
           backgroundColor: '#ff9', border: 'solid 3px purple', textAlign: 'center'}}>
           <h2>Messages:</h2>
           <h5>(Latest first)</h5>
-          <HostMessageList messages={currentMessages} loading={this.state.loading} onClick = {this.onClick} />
+          <HostMessageList messages={currentMessages} loading={this.state.loading} 
+            handleDelete = {this.handleDelete} />
           <Pagination resultsPerPage = {this.state.messagesPerPage} totalResults = {messages.length} paginate = {paginate} currentPage = {this.state.currentPage} />
         </div>
       </React.Fragment>

@@ -173,6 +173,11 @@ class UserService {
     {headers: authHeader()});
   }
 
+  hostDeleteMessage(messageId){
+    return axios.delete(API + `/host/messages/${messageId}`,
+    {headers: authHeader()});
+  }
+
   guestReview(comment, rating, listingId, userId){
     return axios.post(API + '/guest/reviews',
     {comment, rating, listingId, userId},
