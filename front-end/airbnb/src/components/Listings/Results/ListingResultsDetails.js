@@ -5,7 +5,6 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Loading from '../../Loading/Loading';
 import OpenStreetMap from '../../Map/OpenStreetMap';
 import {Link} from 'react-router-dom';
-import {history} from '../../../_helpers/history';
 import MessageIcon from '@material-ui/icons/Message';
 
 class ListingResultsDetails extends Component {
@@ -65,8 +64,7 @@ class ListingResultsDetails extends Component {
     )
     .then(response => {
       if(response.status === 200){
-        history.push('/guest/bookings');
-        window.location.reload();
+        this.props.history.push('/guest/bookings');
         alert("Your booking was completed successfully!")
       }
     })
@@ -89,7 +87,7 @@ class ListingResultsDetails extends Component {
         {this.state.listing.images[0] && (
           <Carousel autoPlay= 'true' infiniteLoop='true' showArrows='true'>{
           images.map( image => {
-          return <div>
+          return <div key={image.id}>
             <img src={ 'data:image/jpg;base64,' + image.picByte } alt='test' />
             <p className="legend">{ image.name }</p>
           </div>

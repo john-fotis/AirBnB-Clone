@@ -44,7 +44,11 @@ class GuestReview extends Component {
               succesfull: true,
               message: 'Your rating has been submitted!'
             });
-            setTimeout(() => window.location.reload(), 3000);
+            this.setState({comment: ''});
+            setTimeout(() => this.setState({
+              succesfull: false,
+              message: ''
+            }), 3000);
           }
         });
       }

@@ -8,7 +8,6 @@ import { Checkbox } from "@material-ui/core";
 import NumericInput from 'react-numeric-input';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import {history} from '../../_helpers/history';
 import OpenStreetMap from '../../components/Map/OpenStreetMap';
 import Loading from '../../components/Loading/Loading';
 
@@ -108,7 +107,7 @@ class Home extends Component {
               successful: true,
               loading: false
             });
-            history.push({
+            this.props.history.push({
               pathname: '/results',
               state: {
                 listings: response.data,
@@ -118,7 +117,6 @@ class Home extends Component {
                 loading: this.state.loading
               }
             });
-            window.location.reload();
           }
         }
       )

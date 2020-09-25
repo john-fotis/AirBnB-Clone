@@ -9,7 +9,7 @@ import { Checkbox } from "@material-ui/core";
 import Loading from '../Loading/Loading';
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import MessageIcon from '@material-ui/icons/Message';
 
 class HostListingDetails extends Component {
@@ -28,14 +28,7 @@ class HostListingDetails extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.fileSelectedHandler = this.fileSelectedHandler.bind(this);
-    this.seeMessages = this.seeMessages.bind(this);
     
-  }
-
-  seeMessages = e => {
-    return (
-      <Redirect to={'/host/listings/messages'} />
-    )
   }
 
   handleChange = e => {
@@ -105,7 +98,10 @@ class HostListingDetails extends Component {
         this.state.reviews
       ).then(response => {
         if(response.status === 200){
-          window.location.reload();
+          this.setState({
+            listing: response.data,
+            edit: false
+          })
         }
       }).catch(
         error => {
@@ -206,7 +202,7 @@ class HostListingDetails extends Component {
                 {this.state.images && (
                   <Carousel autoPlay= 'true' infiniteLoop='true' showArrows='true'>{
                     images.map( image => {
-                    return <div>
+                    return <div key={image.id}>
                       <img src={ 'data:image/jpg;base64,' + image.picByte } alt='test' />
                       <p className="legend">{ image.name }</p>
                     </div>
@@ -543,8 +539,8 @@ class HostListingDetails extends Component {
                       <li>
                         <table>
                           <tbody>
-                            <tr> {/* Extras */}
-                              <td style={{padding: '0%'}}>
+                            <tr>
+                              <td style={{padding: '0%'}}> {/* Extras */}
                                 <br />
                                 <div>
                                   <label>Extras:</label>

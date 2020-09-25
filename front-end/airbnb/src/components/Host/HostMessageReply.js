@@ -34,7 +34,11 @@ class HostMessageReply extends Component {
                   succesfull: true,
                   message: 'Your message has been sent'
                 });
-                setTimeout(() => window.location.reload(), 3000);
+                this.setState({text: ''});
+                setTimeout(() => this.setState({
+                  succesfull: false,
+                  message: ''
+                }), 3000);
               }
             }
           )

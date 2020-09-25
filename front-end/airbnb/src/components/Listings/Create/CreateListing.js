@@ -167,10 +167,9 @@ class CreateListing extends Component {
                     if(response.status === 200){
                       this.setState({
                         message: response.data.message,
-                        successful: true
+                        successful: true,
                       });
-                      history.push('/host/listings');
-                      window.location.reload();
+                      this.props.history.push('/host/listings');
                     }
                   })
                 }

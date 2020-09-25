@@ -91,7 +91,11 @@ class Profile extends Component {
         this.state.editPassword
       ).then(response => {
         if(response.status === 200){
-          window.location.reload();
+          var user = response.data;
+          this.setState({
+            edit: false,
+            content: user
+          })
         }
       }).catch(
         error => {

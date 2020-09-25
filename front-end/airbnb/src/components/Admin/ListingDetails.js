@@ -49,7 +49,7 @@ class ListingDetails extends Component {
         {this.state.images && (
           <Carousel autoPlay= 'true' infiniteLoop='true' showArrows='true'>{
             images.map( image => {
-            return <div>
+            return <div key={image.id}>
               <img src={ 'data:image/jpg;base64,' + image.picByte } alt='test' />
               <p className="legend">{ image.name }</p>
             </div>

@@ -12,7 +12,11 @@ class UserProfile extends Component {
     UserService.approveHost(this.state.user.id)
     .then( response => {
       if(response.status === 200){
-        window.location.reload();
+        var user = this.state.user;
+        user.approved = true;
+        this.setState({
+          user: user
+        });
       }
     });
   }
