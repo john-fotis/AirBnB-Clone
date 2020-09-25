@@ -147,7 +147,7 @@ a:hover{
 
 /* Image slider */
 .slider{
-  min-height: 400px;
+  min-height: 300px;
   max-height: 700px;
   width: 100%;
 }
