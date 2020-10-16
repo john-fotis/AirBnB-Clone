@@ -65,7 +65,7 @@ class App extends Component {
                     <button onClick={e=>{this.setState({
                       showGuestBoard: false,
                       dualRole: false
-                    })}}                            
+                    })}}                        
                       className="submit-button btn btn-primary btn-block"
                       style={{width:'30%', display: 'table-cell', verticalAlign:'middle', marginTop: '30px'}}
                       >Host
@@ -81,7 +81,7 @@ class App extends Component {
                       >Guest
                     </button>
                   </li>
-                </ul>                
+                </ul>    
               </div>
             </div>
           </div>
