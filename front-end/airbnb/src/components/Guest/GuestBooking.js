@@ -7,7 +7,7 @@ class GuestBooking extends Component {
     const booking = this.props.location.state.booking;
 
     return (
-      <div className="booking-view-guest" style={{width: '100%', padding: '5% 15%', marginTop: '10%', backgroundColor: '#ff9', textAlign: 'center', border: 'solid 3px purple'}}>
+      <div className="booking-view-guest" style={{width: '100%', padding: '5% 15%', margin: '3% 0%', backgroundColor: '#ff9', textAlign: 'center', border: 'solid 3px purple'}}>
         <div className='form-inner'>
           <h1>Booking Details:</h1>
           <h3><br />Listing:</h3>

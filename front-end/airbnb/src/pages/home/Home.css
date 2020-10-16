@@ -8,7 +8,9 @@
 .home-main-container h1 {
   padding-top: 2%;
   text-align: center;
-  color: rgb(219, 122, 150);
+  color: rgb(218, 68, 110);
+  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-color: black;
   font-weight: 900;
 }
 

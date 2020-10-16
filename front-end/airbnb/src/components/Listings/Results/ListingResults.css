@@ -19,7 +19,7 @@
   position: absolute;
   bottom: 10%;
   color: rgb(65, 65, 65);
-  text-align: left;
+  text-align: center;
 }
 
 .listing-cost {
@@ -72,16 +72,27 @@
 
 .listing-overview {
   color: brown;
+  width: 90%;
+  margin: 5% auto;
+  padding: 5% 10%;
+  background-color: #ffa;
+}
+
+.overview-inner{
+  height: fit-content;
+  position: relative;
 }
 
 .listing-overview h1 {
   text-align: center;
-  font-size: 40px;
+  vertical-align: middle;
+  font-size: 45px;
   font-weight: 600;
+  height: 2%;
 }
 
 .listing-results-details {
-  height: 1100px;
+  min-height: 103%;
   font-size: 22px;
   padding: 12px 48px;
   border-top-left-radius: 15px;
@@ -90,22 +101,22 @@
   background-color: lightsteelblue;
 }
 
+.listing-access {
+  height: 60%;
+  background-color: rgb(108, 247, 108);
+  padding: 50px 15%;
+  position: relative;
+  border-top-right-radius: 15px;
+}
+
 .host-info{
-  width: 100%;
-  height: 450px;
+  height: 40%;
+  align-content: center;
   border-bottom-right-radius: 15px;
   text-align: center;
   background-color: tan;
 }
 
-.listing-access {
-  background-color: rgb(108, 247, 108);
-  padding: 50px 15%;
-  position: relative;
-  width: 100%;
-  height: 650px;
-  border-top-right-radius: 15px;
-}
 .booking-dialog{
   display: flex;
 }

@@ -664,20 +664,21 @@ class HostListingDetails extends Component {
                 
               </Form>
               <div style={{width: '30%', marginLeft: '34%', display: 'flex', justifyContent: 'space-between'}}>
-                <button
+              <button
                   style = {{marginBottom: '42px', marginTop: '25px', marginRight: '30px'}} 
-                  type = "submit" 
-                  className="submit-button btn btn-primary btn-block"
-                  onClick = {this.handleSubmit}>
-                  Submit
-                </button>
-                <button
-                  style = {{marginBottom: '42px', marginTop: '25px', marginLeft: '30px'}} 
                   type = "submit" 
                   className="submit-button btn btn-danger btn-block"
                   onClick = {e => {this.setState({edit: false})}}>
                   Cancel
                 </button>
+                <button
+                  style = {{marginBottom: '42px', marginTop: '25px', marginLeft: '30px'}} 
+                  type = "submit" 
+                  className="submit-button btn btn-primary btn-block"
+                  onClick = {this.handleSubmit}>
+                  Submit
+                </button>
+                
               </div>
             </div>
           )}
